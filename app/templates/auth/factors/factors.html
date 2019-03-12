@@ -1,0 +1,86 @@
+<!-- app/templates/auth/factors/factors.html -->
+
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Factors{% endblock %}
+{% block body %}
+<div class="content-section">
+  <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <br/>
+        {{ utils.flashed_messages() }}
+        <br/>
+        <h1 style="text-align:center;">Factors</h1>
+        {% if factors %}
+          <hr class="intro-divider">
+          <div class="center">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th width="25%"> Factor A </th>
+                  <th width="25%"> Factor B </th>
+                  <th width="25%"> Weight of relation </th>
+                  <th width="25%"> Temporal aspect </th>
+                  <th width="25%"> Temporal importance </th>
+                  <th width="25%"> Operation </th>
+                  <th width="25%"> Factor C </th>
+                  <th width="25%"> Factor D </th>
+                  <th width="25%"> Notes on A </th>
+                  <th width="25%"> Notes on B </th>
+                  <th width="25%"> Notes on C </th>
+                  <th width="25%"> Notes on D </th>
+                  <th width="25%"> Notes on relation</th>
+                  <th width="25%"> Edit </th>
+                  <th width="25%"> Delete </th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for factor in factors %}
+                {% if factor.expert_id == current_user.id %}
+                  <tr>
+                    <td> {{ factor.factor_A }} </td>
+                    <td> {{ factor.factor_B }} </td>
+                    <td> {{ factor.relation_weight }} </td>
+                    <td> {{ factor.temp_aspect }} </td>
+                    <td> {{ factor.temp_imp }} </td>
+                    <td> {{ factor.operator }} </td>
+                    <td> {{ factor.factor_C }} </td>
+                    <td> {{ factor.factor_D }} </td>
+                    <td> {{ factor.notes_A }} </td>
+                    <td> {{ factor.notes_B }} </td>
+                    <td> {{ factor.notes_C }} </td>
+                    <td> {{ factor.notes_D }} </td>
+                    <td> {{ factor.notes_relation }} </td>
+                    <td>
+                    <a href="{{ url_for('auth.edit_factor', id=factor.id) }}">
+                      <i class="fa fa-pencil"></i> Edit 
+                    </a>
+                  </td>
+                  <td>
+                    <a href="{{ url_for('auth.delete_factor', id=factor.id) }}">
+                      <i class="fa fa-trash"></i> Delete 
+                    </a>
+                  </td>
+                  </tr>
+                {% endif %}
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: center">
+        {% else %}
+          <div style="text-align: center">
+            <h3> No Factors have been added. </h3>
+            <hr class="intro-divider">
+        {% endif %}
+          <a href="{{ url_for('auth.add_factor') }}" class="btn btn-default btn-lg">
+            <i class="fa fa-plus"></i>
+            Add Factor
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,146 @@
+<!-- app/templates/base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{{ title }} | DepressionResearch</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- Custom fonts for this template -->
+    <link href="{{ url_for('static', filename='vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/clean-blog.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/sidebar.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}">
+    <link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/vis-network.min.css') }}" rel="stylesheet" type="text/css" />    
+
+    <!-- JS -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/vis.js') }}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='js/jquery.js') }}">\x3C/script>')</script>
+
+    <!-- Custom page specific libraries -->
+    {% block head %}
+    {% endblock %}
+
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand" href="{{ url_for('home.homepage') }}">DepressionResearch</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            {% if current_user.is_authenticated %}
+              {% if current_user.is_admin %}
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('home.homepage') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('home.dashboard') }}">Contribute</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('home.testing') }}">CLD</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('home.admin_dashboard') }}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" target="_blank" href="{{ url_for('home.admin_presentation') }}">Presentation</a></li>
+              {% else %}
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('home.homepage') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('home.dashboard') }}">Contribute</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.list_factors') }}">Factors</a></li>
+              {% endif %}
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a></li>
+              <li class="nav-item"><a><i class="fa fa-user"></i>  Hi, {{ current_user.username }}!</a></li>
+            {% else %}
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('home.homepage') }}">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.register') }}">Register</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Login</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/intro-bg.png') }}')">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="page-heading">
+              <h1>{{ bannertitle }}</h1>
+              <h2 class="subheading">{{ subtitle }}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="bigWrapper">
+      {% block body %}
+      {% endblock %}
+      <div class="push"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a target="_blank" href="https://github.com/popoiopo/Complex_systems">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="{{ url_for('home.homepage') }}">Home</a></li>
+                <li class="list-inline-item footer-menu-divider">⋅</li>
+                {% if current_user.is_authenticated %}
+                  <li class="list-inline-item"><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                {% else %}
+                  <li class="list-inline-item"><a href="{{ url_for('auth.register') }}">Register</a></li>
+                  <li class="list-inline-item footer-menu-divider">⋅</li>
+                  <li class="list-inline-item"><a href="{{ url_for('auth.login') }}">Login</a></li>
+                {% endif %}
+            </ul>
+            <p class="copyright text-muted hoverable">Copyright <span class="normal">Bas Ch&acirc;tel</span><span class="hover">^^,</span> © 2019. All Rights ReservedCopyright &copy; </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/clean-blog.min.js') }}"></script>
+
+     <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $(this).toggleClass('active');
+            });
+        });
+    </script>
+</body>
+</html>

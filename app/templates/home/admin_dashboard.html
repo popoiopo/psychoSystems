@@ -1,0 +1,47 @@
+<!-- app/templates/home/admin_dashboard.html -->
+
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block body %}
+
+<center>
+    <div class="container" style="margin-bottom: 40px;">
+      <h2>Do want to change some options?</h2>
+      <div class="list-group">
+        <a href="{{ url_for('admin.list_titles') }}" class="list-group-item">
+          <h4 class="list-group-item-heading">Titles</h4>
+          <p class="list-group-item-text">Change the adressing options of a person (Mr., Ms., Professor. etc.)</p>
+        </a>
+        <a href="{{ url_for('admin.list_temp_aspects') }}" class="list-group-item">
+          <h4 class="list-group-item-heading">Temporal Aspects</h4>
+          <p class="list-group-item-text">Change options for temporal aspects (Seconds, Hours etc)</p>
+        </a>
+        <a <a href="{{ url_for('admin.list_temp_imps') }}" class="list-group-item">
+          <h4 class="list-group-item-heading">Temporal Importance</h4>
+          <p class="list-group-item-text">Change options for temporal importance (Onset, Maintenance, Relapse)</p>
+        </a>
+        <a <a href="{{ url_for('admin.list_affiliations') }}" class="list-group-item">
+          <h4 class="list-group-item-heading">Affiliations</h4>
+          <p class="list-group-item-text">Change options for what kind of affiliation someone could have with depression (Social worker, Researcher, Experience)</p>
+        </a>
+        <a <a href="{{ url_for('admin.list_yes_nos') }}" class="list-group-item">
+          <h4 class="list-group-item-heading">Yes/No options</h4>
+          <p class="list-group-item-text">Change options for Yes/No questions</p>
+        </a>
+        <a <a href="{{ url_for('admin.list_operators') }}" class="list-group-item">
+          <h4 class="list-group-item-heading">Operation options</h4>
+          <p class="list-group-item-text">Change options for operation questions (if, or, xor, and)</p>
+        </a>
+        <a <a href="{{ url_for('admin.list_accepteds') }}" class="list-group-item">
+          <h4 class="list-group-item-heading">Accepting</h4>
+          <p class="list-group-item-text">Change options for excepting an entry for a new expert (Accepted without question, Few questions needed, Refused)</p>
+        </a>
+        <a <a href="{{ url_for('admin.list_experts') }}" class="list-group-item">
+          <h4 class="list-group-item-heading">Experts</h4>
+          <p class="list-group-item-text">Assign experts to being accepted by the options seen above in the accepting variable</p>
+        </a>
+      </div>
+    </div>
+</center>
+
+{% endblock %}

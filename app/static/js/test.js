@@ -1,0 +1,1 @@
+sessionStorage.setItem("variableName","test");

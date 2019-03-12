@@ -1,0 +1,70 @@
+<!-- app/templates/admin/accepteds/accepteds.html -->
+
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Accepteds{% endblock %}
+{% block body %}
+<div class="content-section">
+  <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <br/>
+        {{ utils.flashed_messages() }}
+        <br/>
+        <h1 style="text-align:center;">Accepteds</h1>
+        {% if accepteds %}
+          <hr class="intro-divider">
+          <div class="center">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th width="15%"> Name </th>
+                  <th width="40%"> Description </th>
+                  <th width="15%"> Expert Count </th>
+                  <th width="15%"> Edit </th>
+                  <th width="15%"> Delete </th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for accepted in accepteds %}
+                <tr>
+                  <td> {{ accepted.name }} </td>
+                  <td> {{ accepted.description }} </td>
+                  <td>
+                    {% if accepted.experts %}
+                      {{ accepted.experts.count() }}
+                    {% else %}
+                      0
+                    {% endif %}
+                  </td>
+                  <td>
+                    <a href="{{ url_for('admin.edit_accepted', id=accepted.id) }}">
+                      <i class="fa fa-pencil"></i> Edit 
+                    </a>
+                  </td>
+                  <td>
+                    <a href="{{ url_for('admin.delete_accepted', id=accepted.id) }}">
+                      <i class="fa fa-trash"></i> Delete 
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: center">
+        {% else %}
+          <div style="text-align: center">
+            <h3> No accepteds have been added. </h3>
+            <hr class="intro-divider">
+        {% endif %}
+          <a href="{{ url_for('admin.add_accepted') }}" class="btn btn-default btn-lg">
+            <i class="fa fa-plus"></i>
+            Add Accepted
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

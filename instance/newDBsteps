@@ -1,0 +1,28 @@
+
+remove all databases
+
+rm -r migrations
+flask db init
+flask db migrate
+flask db upgrade
+flask shell
+
+from app.models import Expert
+from app import db
+admin = Expert(email="iasdepressionresearch@gmail.com",username="admin",password="psychoSystems2019?!",is_admin=True)
+db.session.add(admin)
+db.session.commit()
+meta = Expert(email="meta@psychosystems.com",username="metaMan",password="metapsycho2019!@#",is_admin=False)
+db.session.add(meta)
+db.session.commit()
+
+
+IMPORT DBSTANDARDS FIRST
+
+
+kkendler = Expert(first_name="Ken", last_name="Kendler",    email="Kenneth.Kendler@vcuhealth.org", username="KenKendler",    password="MD2019KKendler!", title_id=5, affiliation_id=3,    discipline="Biology / Psychiatry", uni_work="Virginia Institute for Psychiatric and Behavioral Genetics", country="US", accepted_id=1,    specialization="(Molecular) Geneticist", personal_descr= "PI on an NIHM funded project that involves analysis of the CONVERGE study of major depression. We interviewed 12,000 cases with recurrent depression in China and controls and have low-pass sequence on all subjects. Heavily involved in the developments of DSM-III-R and DSM-IV and chaired the Scientific Review Committee for DSM-5. I am vice-chair for the APA steering committee to revise DSM-5.", permission_mention=1, permission_add_question=1, core_exp=1, is_admin=False)
+db.session.add(kkendler)
+db.session.commit()
+mfirst = Expert(first_name="Michael",last_name="First", email="mbf2@cumc.columbia.edu", username="MichaelFirst",   password="MD2019MFirst!", title_id=5, affiliation_id=3,   discipline="Clinical Psychiatry", uni_work="Colombia University",    country="US", accepted_id=1, specialization="Psychopharmacology",    personal_descr= "Psychiatric diagnosis and assessment issues, expert forensic psychiatric evaluations, Editorial and Coding Consultant for the DSM-5, chief technical and editorlal consultant on the World Health Organization's ICD-11 revision project, external consultant to the NIMH Research Domain Criteria project, Editor of the DSM-IV-TR, the Editor of Text and Criteria for DSM-IV and the APA's Handbook on Psychiatric Measures, co-authored and co-edited a number of books, including A Research Agenda for DSM-V, the DSM-IV-TR Guidebook, the DSM-5 Handbook for Differential Diagnosis, and the Structured Clinical Interview for DSM-5 (SCID-5)", permission_mention=1, permission_add_question=1, core_exp=1,    is_admin=False)
+db.session.add(mfirst)
+db.session.commit()
