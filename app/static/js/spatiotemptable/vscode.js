@@ -6,16 +6,32 @@ function gridData() {
 		
 		// iterate for cells/columns inside rows
 		for (var column = 0; column < numCols; column++) {
-			data[row].push({
-				x: xpos + margin.left,
-				y: ypos +  margin.top,
-				width: cell_width,
-				height: cell_height,
-                click: click,
-                xvars: x_y_vars["x_vars"][column],
-                yvars: temp_y_vars[row],
-                factors: ["Rianne1", "Rianne6", "Rianne5", "Rianne4", "Rianne3", "Rianne2"]
-			})
+            if (Object.keys(factorDict).includes(temp_y_vars[row]) &&
+                Object.keys(factorDict[temp_y_vars[row]]).includes(x_y_vars["x_vars"][column])) {
+
+    			data[row].push({
+    				x: xpos + margin.left,
+    				y: ypos +  margin.top,
+    				width: cell_width,
+    				height: cell_height,
+                    click: click,
+                    xvars: x_y_vars["x_vars"][column],
+                    yvars: temp_y_vars[row],
+                    factors: factorDict[temp_y_vars[row]][x_y_vars["x_vars"][column]]
+    			})
+            } else {
+                data[row].push({
+                    x: xpos + margin.left,
+                    y: ypos +  margin.top,
+                    width: cell_width,
+                    height: cell_height,
+                    click: click,
+                    xvars: x_y_vars["x_vars"][column],
+                    yvars: temp_y_vars[row],
+                    factors: []
+                })
+            }
+
 			// increment the x position. I.e. move it over by 50 (width variable)
 			xpos += cell_width;
 		}
@@ -27,9 +43,9 @@ function gridData() {
 	return data;
 }
 
-var x_y_vars = {"x_vars" : ["Miliseconds", "Seconds", "Minutes", "Hours", "Days", "Months", "Years", "Lifetime"], 
-            "y_vars" : ["Biology", "Interpersonal", "Community", "Societal", "Economic", "Global"]};
-var cur_var = {"x_vars" : "Miliseconds", "y_vars" : "Biology"};
+var x_y_vars = {"x_vars" : temp_aspects, 
+            "y_vars" : spat_aspects};
+var cur_var = {"x_vars" : temp_aspects[0], "y_vars" : spat_aspects[0]};
 var cur_filter = "x_vars";
 // gridData[gridData.length - 1][gridData[gridData.length - 1].length - 1].y + height
 
@@ -156,10 +172,11 @@ function dots(d) {
     d4.select(this).append("text")  
     .attr("class", "axisText")           
     .attr("transform",
-            "translate(" + margin.left + "," + (margin.top - 60) + ")")
+            "translate(" + margin.left + "," + (margin.top - 55) + ")")
     .style("text-anchor", "left")
     .text("Amount of factors within Spatio Temporal gridcell")
     .style("stroke", "#c4c4c4")
+    .style("font-size", "14px")
     .style("stroke-opacity", 0.75);
 }
 
@@ -196,7 +213,7 @@ var column = row.selectAll(".square")
         .style("opacity", .85);	
     hoverdiv	.html(
       '<div id="hoverbox">' +
-          '<p id="hoverP">' + d.xvars + ' - ' + d.yvars + '</p>' + 
+          '<p id="hoverP" style="color:white; margin-bottom:15px;">' + d.xvars + ' - ' + d.yvars + '</p>' + 
       '</div>'
       )	 
       .style("left", (d4.event.pageX) + "px")			 
@@ -232,12 +249,14 @@ var column = row.selectAll(".square")
 
         target = d.xvars + "_" + d.yvars
 
-        div	.html(
-            '<div id="box>' +
-                '<div id="icon" onclick="closeTTip(\'.tooltip\')"><i style="color:white; margin-bottom:5px; margin-top:10px;" class="far fa-2x fa-times-circle"></i> </div>' +
-                '<p style="color: white;"><b>' + d.xvars + ' - ' + d.yvars + '</b></p>' + 
-                '<input id="hoverInput" style="margin-bottom:15px" type="text" name="factorName" id="factorInput" placeholder="Enter Factor-name"/>' +
-            '</div>'
+        div.html(
+            '<div id="box" onclick="checking()"><center>' +
+                '<span class="fa-stack fa-lg closingTip" onclick="closeTTip(\'.tooltip\')">'+
+                    '<i class="fa fa-times-circle fa-stack-2x fa-inverse"></i>'+
+                '</span>' +
+                '<p style="color: white; font-weight: bold; margin:5px;">' + d.xvars + ' - ' + d.yvars + '</p>' + 
+                '<input id="hoverInput" style="margin-bottom:70px" type="text" name="factorName" id="factorInput" placeholder="Enter Factor-name"/>' +
+            '</center></div>'
             )	 
             .style("left", function() { return (d4.event.pageX) + "px"; })
             .style("top", (d4.event.pageY - 28) + "px");
@@ -251,15 +270,16 @@ var column = row.selectAll(".square")
         d4.selectAll("." + prev_rc).attr("rx", 0).attr("ry", 0);
         d4.selectAll("." + cur_rc).attr("rx", 10).attr("ry", 10);
         prev_rc = cur_rc;
-        // d4.selectAll("." + prev_rc).style("stroke", "#c4c4c4").style("stroke-width", 1);
-        // d4.selectAll("." + cur_rc).style("stroke", "#636262").style("stroke-width", 2);
-        // d4.selectAll("." + prev_rc).style("opacity", 0.5);
-        // d4.selectAll("." + cur_rc).style("opacity", 1);
-
         d4.select("#tableFactor").html(" (" + cur_var[variable] + ")")
     });
 
+function checking() {
+    console.log("doet wel iets");
+}
+
 function closeTTip(tool) {
+    console.log(tool);
+    console.log("HAllooo?!?");
     var ttip = d4.select(tool)
         .transition()
         .duration(500)

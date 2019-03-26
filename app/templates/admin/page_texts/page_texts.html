@@ -1,0 +1,54 @@
+<!-- app/templates/admin/page_texts/page_texts.html -->
+
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block page_text %}page_texts{% endblock %}
+{% block body %}
+<div class="content-section">
+  <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <br/>
+        {{ utils.flashed_messages() }}
+        <br/>
+        <h1 style="text-align:center;">Page texts</h1>
+        {% if page_texts %}
+          <hr class="intro-divider">
+          <div class="center" style="height: 700px; overflow:auto;">
+            <table class="table table-striped table-bordered table-fixed">
+              <thead>
+                <tr>
+                  <th width="25%"> htmlName </th>
+                  <th width="25%"> pageID </th>
+                  <th width="25%"> text </th>
+                  <th width="25%"> Edit </th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for page_text in page_texts %}
+                <tr>
+                  <td> {{ page_text.htmlName }} </td>
+                  <td> {{ page_text.pageID }} </td>
+                  <td> {{ page_text.name }} </td>
+                  <td>
+                    <a href="{{ url_for('admin.edit_page_texts', id=page_text.id) }}">
+                      <i class="fa fa-pencil"></i> Edit 
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: center">
+        {% else %}
+          <div style="text-align: center">
+            <h3> No page_texts have been added. </h3>
+            <hr class="intro-divider">
+        {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

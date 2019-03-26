@@ -1,0 +1,30 @@
+<!-- app/templates/admin/sensitivities/sensitivity.html -->
+
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block title %}
+    {% if add_sensitivity %}
+        Add Sensitivity
+    {% else %}
+        Edit Sensitivity
+    {% endif %}
+{% endblock %}
+{% block body %}
+<div class="content-section">
+ <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <div class="center">
+            {% if add_sensitivity %}
+                <h1>Add Sensitivity</h1>
+            {% else %}
+                <h1>Edit Sensitivity</h1>
+            {% endif %}
+            <br/>
+            {{ wtf.quick_form(form) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

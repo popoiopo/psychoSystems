@@ -1,10 +1,18 @@
 # app/admin/forms.py
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from ..models import Accepted, Yes_no
+
+
+class page_textForm(FlaskForm):
+    """
+    Form for admin to add or edit a title
+    """
+    name = TextAreaField('Name', render_kw={"rows": 70, "cols": 11})
+    submit = SubmitField('Submit')
 
 
 class TitleForm(FlaskForm):
@@ -13,6 +21,22 @@ class TitleForm(FlaskForm):
     """
     name = StringField('Name', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+
+class SensitivityForm(FlaskForm):
+    """
+    Form for admin to add or edit a node Sensitivity
+    """
+    name = StringField('Name', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+
+class Con_strengthForm(FlaskForm):
+    """
+    Form for admin to add or edit a connection strength
+    """
+    name = StringField('Name', validators=[DataRequired()])
+    submit = SubmitField('Submit')    
 
 
 class Yes_noForm(FlaskForm):
@@ -24,6 +48,14 @@ class Yes_noForm(FlaskForm):
 
 
 class Temp_aspectForm(FlaskForm):
+    """
+    Form for admin to add or edit a temporal aspect
+    """
+    name = StringField('Name', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+
+class Spat_aspectForm(FlaskForm):
     """
     Form for admin to add or edit a temporal aspect
     """

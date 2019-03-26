@@ -80,6 +80,22 @@ class Title(db.Model):
         return self.name
 
 
+class pageTexts(db.Model):
+    """
+    Create a title table
+    """
+
+    __tablename__ = 'pageTexts'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text())
+    pageID = db.Column(db.String(60))
+    htmlName = db.Column(db.String(60))
+
+    def __repr__(self):
+        return self.name
+
+
 class Yes_no(db.Model):
     """
     Create a title table
@@ -128,23 +144,6 @@ class Affiliation(db.Model):
         return self.name
 
 
-# class Uni_work(db.Model):
-#     """
-#     Create a university/work affiliation table
-#     """
-
-#     __tablename__ = 'uni_works'
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(60), unique=True)
-#     country = db.Column(db.String(75))
-#     experts = db.relationship('Expert', backref='uni_work',
-#                                 lazy='dynamic')
-
-#     def __repr__(self):
-#         return self.name
-
-
 class Factor(db.Model):
     """
     Create a factor table
@@ -181,7 +180,8 @@ class Node(db.Model):
     expert_id = db.Column(db.Integer, db.ForeignKey('experts.id'))
     created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     factor = db.Column(db.String(60))
-    threshold = db.Column(db.Integer, default=1)
+    sensitivity_id = db.Column(db.Integer, db.ForeignKey('sensitivities.id'), default=1)
+    spat_aspect_id = db.Column(db.Integer, db.ForeignKey('spat_aspects.id'))
     temp_aspect_id = db.Column(db.Integer, db.ForeignKey('temp_aspects.id'))
     temp_imp_id = db.Column(db.Integer, db.ForeignKey('temp_imps.id'))
     notes = db.Column(db.String(500))
@@ -201,12 +201,13 @@ class Edge(db.Model):
     created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     factor_A = db.Column(db.Integer, db.ForeignKey('nodes.id'))
     factor_B = db.Column(db.Integer, db.ForeignKey('nodes.id'))
-    value = db.Column(db.Integer, default=1)
+    con_strength_id = db.Column(db.Integer, db.ForeignKey('con_strengths.id'), default=3)
+    spat_aspect_id = db.Column(db.Integer, db.ForeignKey('spat_aspects.id'))
     temp_aspect_id = db.Column(db.Integer, db.ForeignKey('temp_aspects.id'))
     temp_imp_id = db.Column(db.Integer, db.ForeignKey('temp_imps.id'))
     operator_id = db.Column(db.Integer, db.ForeignKey('operators.id'))
     notes_relation = db.Column(db.String(500))
-    # edge_type = db.Column(db.String(10))
+    edge_type = db.Column(db.String(10))
     sup_lit = db.Column(db.String(500))
 
 
@@ -224,6 +225,40 @@ class Node_type(db.Model):
     size = db.Column(db.Integer, default=40)
     color = db.Column(db.String(60), default="#aa00ff")    
     nodes = db.relationship('Node', backref='node_type',
+                                lazy='dynamic')
+
+    def __repr__(self):
+        return self.name
+
+
+class Sensitivity(db.Model):
+    """
+    Create a sensitivity table
+    [Very Negative, Negative, Neutral, Positive, Very Positive]
+    """
+
+    __tablename__ = 'sensitivities'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(60))
+    factors_Sens = db.relationship('Node', backref='sensitivity',
+                                lazy='dynamic')
+
+    def __repr__(self):
+        return self.name
+
+
+class Con_strength(db.Model):
+    """
+    Create a connection-strength table
+    [Seconds, Minutes, Hours, Days, Months, Years, Lifetime]
+    """
+
+    __tablename__ = 'con_strengths'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(60))
+    factors_Constr = db.relationship('Edge', backref='con_strength',
                                 lazy='dynamic')
 
     def __repr__(self):
@@ -265,6 +300,24 @@ class Temp_imp(db.Model):
         return self.name
 
 
+class Spat_aspect(db.Model):
+    """
+    Create a temporal aspect table
+    [Seconds, Minutes, Hours, Days, Months, Years, Lifetime]
+    """
+
+    __tablename__ = 'spat_aspects'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(60))
+    factors_SA = db.relationship('Node', backref='spat_aspect',
+                                lazy='dynamic')
+
+    def __repr__(self):
+        return self.name
+
+
+
 class Operator(db.Model):
     """
     Create a operators table
@@ -282,47 +335,47 @@ class Operator(db.Model):
         return self.name
 
 
-class Literature_factor(db.Model):
-    """
-    Create a literature table for the factors
-    """
+# class Literature_factor(db.Model):
+#     """
+#     Create a literature table for the factors
+#     """
 
-    __tablename__ = 'literature_factors'
+#     __tablename__ = 'literature_factors'
 
-    id = db.Column(db.Integer, primary_key=True)
-    factor_id = db.Column(db.Integer, db.ForeignKey('factors.id'))
-    name = db.Column(db.String(60))
-    description = db.Column(db.String(500))
-
-
-class Treatment_factor(db.Model):
-    """
-    Create a factor table
-    """
-
-    __tablename__ = 'treatment_factors'
-
-    id = db.Column(db.Integer, primary_key=True)
-    expert_id = db.Column(db.Integer, db.ForeignKey('experts.id'))
-    created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    treat_factor = db.Column(db.String(60))
-    effect_on_factor = db.Column(db.String(60))
-    treatment_weight = db.Column(db.Integer)
-    relation_temp = db.Column(db.Integer, db.ForeignKey('temp_aspects.id'))
-    notes = db.Column(db.String(500))
-    temp_imp_data = db.Column(db.Integer, db.ForeignKey('temp_imps.id'))
+#     id = db.Column(db.Integer, primary_key=True)
+#     factor_id = db.Column(db.Integer, db.ForeignKey('factors.id'))
+#     name = db.Column(db.String(60))
+#     description = db.Column(db.String(500))
 
 
-class Literature_treat_factor(db.Model):
-    """
-    Create a literature table for the factors
-    """
+# class Treatment_factor(db.Model):
+#     """
+#     Create a factor table
+#     """
 
-    __tablename__ = 'literature_treat_factors'
+#     __tablename__ = 'treatment_factors'
 
-    id = db.Column(db.Integer, primary_key=True)
+#     id = db.Column(db.Integer, primary_key=True)
+#     expert_id = db.Column(db.Integer, db.ForeignKey('experts.id'))
+#     created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+#     treat_factor = db.Column(db.String(60))
+#     effect_on_factor = db.Column(db.String(60))
+#     treatment_weight = db.Column(db.Integer)
+#     relation_temp = db.Column(db.Integer, db.ForeignKey('temp_aspects.id'))
+#     notes = db.Column(db.String(500))
+#     temp_imp_data = db.Column(db.Integer, db.ForeignKey('temp_imps.id'))
+
+
+# class Literature_treat_factor(db.Model):
+#     """
+#     Create a literature table for the factors
+#     """
+
+#     __tablename__ = 'literature_treat_factors'
+
+#     id = db.Column(db.Integer, primary_key=True)
     
-    factor_id = db.Column(db.Integer, db.ForeignKey('treatment_factors.id'))
-    name = db.Column(db.String(60))
-    description = db.Column(db.String(500))
-    
+#     factor_id = db.Column(db.Integer, db.ForeignKey('treatment_factors.id'))
+#     name = db.Column(db.String(60))
+#     description = db.Column(db.String(500))
+#     

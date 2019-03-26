@@ -1,0 +1,42 @@
+<!-- app/templates/admin/page_texts/page_text.html -->
+
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block page_text %}
+    {% if add_page_text %}
+        Add page_text
+    {% else %}
+        Edit page_text
+    {% endif %}
+{% endblock %}
+{% block body %}
+
+<div class="content-section">
+ <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <div class="center">
+            {% if add_page_text %}
+                <h1>Add page_text</h1>
+            {% else %}
+                <h1>Edit page_text</h1>
+            {% endif %}
+            <br/>
+
+            <form action="" method=post>
+           {{form.hidden_tag()}}
+           <dl>
+              <dt>Page text:
+              <dd>{{ form.name }}
+           </dl>
+           <p>
+              <input type=submit value="Publish">
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

@@ -1,17 +1,24 @@
-,created_date,font,id,label,notes,notes_factor,sup_lit,temp_aspect_id,temp_imp_id,threshold,value,x,y
-0,None,"{'color': 'white', 'multi': 'html', 'bold': True, 'size': 20}",11,<b>Baseline_depression_symptoms</b>,None,None,,None,None,1,18.18125918389721,,
-1,None,"{'color': 'white', 'multi': 'html', 'bold': True, 'size': 20}",10,<b>Sex</b>,None,None,,None,None,1,15.724580044834742,,
-2,None,"{'color': 'white', 'multi': 'html', 'bold': True, 'size': 20}",13,<b>Immunology_markers</b>,None,None,,None,None,1,10.256364694586363,,
-3,None,"{'color': 'white', 'multi': 'html', 'bold': True, 'size': 20}",12,<b>Latent_dysfunctional_cognition</b>,None,None,,None,None,1,19.2928734399623,,
-4,None,"{'color': 'white', 'multi': 'html', 'bold': True, 'size': 20}",15,<b>C_reactive_protein</b>,None,None,,None,None,1,10.316427752269895,,
-5,None,"{'color': 'white', 'multi': 'html', 'bold': True, 'size': 20}",14,<b>Cortisol</b>,None,None,,None,None,1,15.299854025260313,,
-6,None,"{'color': 'white', 'multi': 'html', 'bold': True, 'size': 20}",16,<b>Genetic_disposition</b>,None,None,,None,None,1,19.289972466427734,,
-7,None,"{'color': 'white', 'multi': 'html', 'bold': True, 'size': 20}",1,<b>Stress</b>,None,None,,None,None,1,19.940010670302833,,
-8,None,"{'color': 'white', 'multi': 'html', 'bold': True, 'size': 20}",3,<b>Neuroticism</b>,None,None,,None,None,1,17.857519607553016,,
-9,None,"{'color': 'white', 'multi': 'html', 'bold': True, 'size': 20}",2,<b>Negative_attributional_style</b>,None,None,,None,None,1,10.418768021098492,,
-10,None,"{'color': 'white', 'multi': 'html', 'bold': True, 'size': 20}",5,<b>Dysfunctional_believes</b>,None,None,,None,None,1,15.359044011183471,,
-11,None,"{'color': 'white', 'multi': 'html', 'bold': True, 'size': 20}",4,<b>Dysfunctional_attitudes</b>,None,None,,None,None,1,16.84993602127112,,
-12,None,"{'color': 'white', 'multi': 'html', 'bold': True, 'size': 20}",7,<b>Negative_emotionality</b>,None,None,,None,None,1,8.077277007548483,,
-13,None,"{'color': 'white', 'multi': 'html', 'bold': True, 'size': 20}",6,<b>Residual_depressive_symptoms</b>,None,None,,None,None,1,12.859793477849697,,
-14,None,"{'color': 'white', 'multi': 'html', 'bold': True, 'size': 20}",9,<b>Age</b>,None,None,,None,None,1,15.244350636710767,,
-15,None,"{'color': 'white', 'multi': 'html', 'bold': True, 'size': 20}",8,<b>Response_style</b>,None,None,,None,None,1,10.960737842803105,,
+,created_date,fixed,font,group,id,label,notes,notes_factor,physics,sensitivity,sup_lit,temp_aspect_id,temp_imp_id,value,x,y
+0,None,False,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 20}",2,1,Stress,None,None,True,1.0,,2,None,16.975324625118123,,
+1,None,False,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 20}",7,3,Neuroticism,None,None,True,1.0,,7,None,18.45567280854339,,
+2,None,False,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 20}",8,2,Negative_attributional_style,None,None,True,1.0,,8,None,16.34624771927422,,
+3,None,False,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 20}",8,5,Dysfunctional_believes,None,None,True,1.0,,8,None,15.402949419418547,,
+4,None,False,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 20}",8,4,Dysfunctional_attitudes,None,None,True,1.0,,8,None,17.150009784324908,,
+5,None,False,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 20}",9,7,Negative_emotionality,None,None,True,1.0,,9,None,16.840001974391647,,
+6,None,False,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 20}",7,6,Residual_depressive_symptoms,None,None,True,1.0,,7,None,16.250323092586704,,
+7,None,False,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 20}",9,9,Age,None,None,True,1.0,,9,None,8.015563715840702,,
+8,None,False,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 20}",8,8,Response_style,None,None,True,1.0,,8,None,12.244172258639171,,
+9,None,False,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 20}",9,11,Baseline_depression_symptoms,None,None,True,1.0,,9,None,16.312141926862523,,
+10,None,False,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 20}",9,10,Sex,None,None,True,1.0,,9,None,12.840129604624982,,
+11,None,False,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 20}",4,13,Immunology_markers,None,None,True,1.0,,4,None,11.477729704256404,,
+12,None,False,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 20}",8,12,Latent_dysfunctional_cognition,None,None,True,1.0,,8,None,12.21395538626519,,
+13,None,False,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 20}",2,15,C_reactive_protein,None,None,True,1.0,,2,None,16.51285024826741,,
+14,None,False,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 20}",3,14,Cortisol,None,None,True,1.0,,3,None,9.768663924323072,,
+15,None,False,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 20}",9,16,Genetic_disposition,None,None,True,1.0,,9,None,9.834998045829192,,
+16,,True,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 24}",6,1006,All,This is just a Legend Node,LegendNode,False,,,,,7.0,-1000.0,420.0
+17,,True,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 24}",5,1005,Maintenance & Relapse,This is just a Legend Node,LegendNode,False,,,,,7.0,-1000.0,350.0
+18,,True,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 24}",4,1004,Onset & Relapse,This is just a Legend Node,LegendNode,False,,,,,7.0,-1000.0,280.0
+19,,True,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 24}",3,1003,Onset & Maintenance,This is just a Legend Node,LegendNode,False,,,,,7.0,-1000.0,210.0
+20,,True,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 24}",2,1002,Relapse,This is just a Legend Node,LegendNode,False,,,,,7.0,-1000.0,140.0
+21,,True,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 24}",1,1001,Maintenance,This is just a Legend Node,LegendNode,False,,,,,7.0,-1000.0,70.0
+22,,True,"{'color': 'black', 'multi': 'html', 'bold': True, 'size': 24}",0,1000,Onset,This is just a Legend Node,LegendNode,False,,,,,7.0,-1000.0,0.0

@@ -8,6 +8,9 @@ import numpy as np
 
 def createJSON(data):
 
+    with open('circleData.pkl', 'wb') as fwrite:
+        pickle.dump(data, fwrite)
+
     jsonData = {"Name" : "flare", "children" : []}
 
     check = set([])
@@ -21,27 +24,28 @@ def createJSON(data):
         if row.modules not in check and pd.notna(row.modules):
             jsonData["children"].append({"name":row.modules, "children": []})
             check.add(row.modules)
-        
+
         for mod in jsonData["children"]:
-            if row.discipline not in check and mod["name"] == row.modules and pd.notna(row.discipline):
-                mod["children"].append({"name":row.discipline, "children": []})
-                check.add(row.discipline)
-            elif not pd.notna(row.discipline) and mod["name"] == row.modules:
-                try:
-                    mod["children"].append({"name":row.subdivision, "children":[], "size":size, "people":[people.split(',')]})
+            for discipline in row.discipline.split(','):
+                for subdiv in row.subdivision.split(','):
+                    if discipline not in check and mod["name"] == row.modules and pd.notna(discipline):
+                        mod["children"].append({"name":discipline, "children": []})
+                        check.add(discipline)
+                    elif not pd.notna(discipline) and mod["name"] == row.modules:
+                        try:
+                            mod["children"].append({"name":subdiv, "children":[], "size":size, "people":[people.split(',')]})
 
-                except AttributeError:
-                    mod["children"].append({"name":row.subdivision, "children":[], "size":row.publications, "people":[people]})
-            elif row.discipline == "Undefined" and mod["name"] == row.modules:
-                mod["children"].append({"name":row.subdivision, "children":[], "size":size, "people":[people]})        
-            
-            for disc in mod["children"]:
-                if row.subdivision not in check and disc["name"] == row.discipline and pd.notna(row.subdivision):
-                    try:
-                        disc["children"].append({"name":row.subdivision, "children":[], "size":size, "people":[people.split(',')]})
-                    except AttributeError:
-                        disc["children"].append({"name":row.subdivision, "children":[], "size":size, "people":[people]})
+                        except AttributeError:
+                            mod["children"].append({"name":subdiv, "children":[], "size":row.publications, "people":[people]})
+                    elif discipline == "Undefined" and mod["name"] == row.modules:
+                        mod["children"].append({"name":subdiv, "children":[], "size":size, "people":[people]})        
 
+                    for disc in mod["children"]:
+                        if subdiv not in check and disc["name"] == discipline and pd.notna(subdiv):
+                            try:
+                                disc["children"].append({"name":subdiv, "children":[], "size":size, "people":[people.split(',')]})
+                            except AttributeError:
+                                disc["children"].append({"name":subdiv, "children":[], "size":size, "people":[people]})
 
     for listItems in jsonData["children"]:
         for module in listItems["children"]:
@@ -61,6 +65,7 @@ def createJSON(data):
                             subdomain["children"].append({"name": subdomain["people"][0], "size":20})
                     except KeyError:
                         pass
+                    
     return jsonData
 
 
@@ -81,7 +86,7 @@ class adjacencyData:
         self.thresholdIndex = []
         for node in G.nodes:
             try:
-                temp = {node : G.nodes[node]["threshold"]}
+                temp = {node : G.nodes[node]["sensitivity"]}
                 self.thresholdIndex.append(temp)
             except KeyError:
                 pass
@@ -102,10 +107,14 @@ class adjacencyData:
         plt.show()
 
 def get_G(data):
+    print("&&&&&&&&&&&&&&&&&&&&WHOLEOEOEO&&&&&&&&&&&&&&&&&")
+    for ding in data["edges"]["_data"].keys():
+        print(ding)
+        print(data["edges"]["_data"][ding].keys())
     G = nx.DiGraph()
     data = convert(data)
-    G.add_nodes_from([(data["nodes"]["_data"][node]["id"], {"threshold": data["nodes"]["_data"][node]["threshold"]}) for node in data["nodes"]["_data"]])
-    edges = [(int(data["edges"]["_data"][node]["from"]), int(data["edges"]["_data"][node]["to"]), {"weight":data["edges"]["_data"][node]["value"]}) if data["edges"]["_data"][node]["value"] != "None" else (int(data["edges"]["_data"][node]["from"]), int(data["edges"]["_data"][node]["to"]), {"weight":1}) for node in data["edges"]["_data"]]
+    G.add_nodes_from([(data["nodes"]["_data"][node]["id"], {"sensitivity": data["nodes"]["_data"][node]["sensitivity"]}) for node in data["nodes"]["_data"]])
+    edges = [(int(data["edges"]["_data"][node]["from"]), int(data["edges"]["_data"][node]["to"]), {"weight":data["edges"]["_data"][node]["con_strength"]}) if data["edges"]["_data"][node]["con_strength"] != "None" else (int(data["edges"]["_data"][node]["from"]), int(data["edges"]["_data"][node]["to"]), {"weight":1}) for node in data["edges"]["_data"]]
     G.add_edges_from(edges)
     adjaData = adjacencyData(G)
 
@@ -116,7 +125,7 @@ def pkl_exp(data):
     filenames = ["app/static/data/weightParameters.txt", "app/static/data/thresholdParameters.txt"]
     G = nx.DiGraph()
     data = convert(data)
-    G.add_nodes_from([(data["nodes"][node]["id"], {"threshold": data["nodes"][node]["threshold"]}) for node in data["nodes"]])
+    G.add_nodes_from([(data["nodes"][node]["id"], {"threshold": data["nodes"][node]["sensitivity"]}) for node in data["nodes"]])
     edges = [(int(data["edges"][node]["from"]), int(data["edges"][node]["to"]), {"weight":data["edges"][node]["relation_weight"]}) if data["edges"][node]["relation_weight"] != "None" else (int(data["edges"][node]["from"]), int(data["edges"][node]["to"]), {"weight":1}) for node in data["edges"]]
     G.add_edges_from(edges)
     graphData = adjacencyData(G)
@@ -168,6 +177,7 @@ def csv_exp(data):
         for entry in data[sheet]:
             for key in data[sheet][entry]:
                 reformat.setdefault(key, []).append(data[sheet][entry][key])
+        print(reformat)
         pd.DataFrame.from_dict(reformat).to_csv(filename, sep=',')
         filenames.append(filename)
     return filenames, "text/csv"

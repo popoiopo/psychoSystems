@@ -1,5 +1,20 @@
 /* app/static/css/style.css */
 
+/*TEXTAREA*/
+
+textarea {
+  width: 100%;
+  height: 500px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+}
+
+/*BODY*/
+
 body, html {
     width: 100%;
     height: 100%;
@@ -251,20 +266,6 @@ path.domain {
   stroke: black;
 }
 
-div.tooltip {
-  position: absolute;
-  text-align: center;
-  width: 60px;
-  height: 35px;
-  padding: 2px;
-  font: 14px Times;
-  background: #6F257F;
-  color:white;
-  border: 0px;
-  border-radius: 8px;
-  pointer-events: none;
-}
-
 .grid {
     stroke: #6F257F;
   stroke-width: 1px; fill: #6F257F;
@@ -401,7 +402,7 @@ circle.target {
   pointer-events: none;
 }
 
-div.tooltip {
+div.circletip {
   position: absolute;
   text-align: center;
   width: auto;
@@ -415,14 +416,14 @@ div.tooltip {
   pointer-events: none;
 }
 
- #circle {
-      width: 50px;
-      height: 50px;
-      -webkit-border-radius: 25px;
-      -moz-border-radius: 25px;
-      border-radius: 20px;
-      background: red;
-    }
+#circle {
+  width: 50px;
+  height: 50px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 20px;
+  background: red;
+}
 
 
 /* CAUSAL MAP*/

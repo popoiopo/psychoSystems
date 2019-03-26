@@ -23,6 +23,7 @@ div.tooltip {
   background: steelblue;	
   border: 0px;					
   border-radius: 8px;	
+  pointer-events: auto;
 }
 
 div.tableTip {

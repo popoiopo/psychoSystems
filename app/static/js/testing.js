@@ -42,64 +42,31 @@ function draw() {
   // create a network
   var container = document.getElementById('mynetwork');
   var options = {
-  groups: {
-      variable: {
-        shape: 'text'
+    nodes: {
+      shape: 'dot',
+      scaling: {
+        min: 10,
+        max: 30
       },
-      stock: {
-        shape: 'icon',
-        icon: {
-          face: 'FontAwesome',
-          code: '\uf187',
-          size: 50,
-          color: 'steelblue'
-        }
-      },
-      cloud: {
-        shape: 'icon',
-        icon: {
-          face: 'FontAwesome',
-          code: '\uf0c2',
-          size: 50,
-          color: 'grey'
-        }
-      },
-      unknown: {
-        shape: 'icon',
-        icon: {
-          face: 'FontAwesome',
-          code: '\uf128',
-          size: 50,
-          color: 'black'
-        }
-      },
-      onset: {
-        shape: 'icon',
-        icon: {
-          face: 'FontAwesome',
-          code: '\uf061',
-          size: 50,
-          color: '#57169a'
-        }
-      },
-      maintenance: {
-        shape: 'icon',
-        icon: {
-          face: 'FontAwesome',
-          code: '\uf062',
-          size: 50,
-          color: '#aa00ff'
-        }
-      },
-      relapse: {
-        shape: 'icon',
-        icon: {
-          face: 'FontAwesome',
-          code: '\uf060',
-          size: 50,
-          color: 'pink'
-        }
-      },
+      font: {
+        size: 12,
+        face: 'Tahoma'
+      }
+    },
+    edges: {
+      color:{inherit:true},
+      width: 0.15,
+      smooth: {
+        type: 'continuous'
+      }
+    },
+    interaction: {
+      hideEdgesOnDrag: true,
+      tooltipDelay: 200
+    },
+    physics:{
+      barnesHut:{gravitationalConstant:-10000},
+      stabilization: {iterations:2500}
     },
     layout: {randomSeed:seed}, // just to make sure the layout is the same when the locale is changed
     locale: document.getElementById('locale').value,
@@ -125,22 +92,22 @@ function draw() {
         callback(data);
         return true
       },
-      addEdge: function (data, callback) {
-        if (data.from == data.to) {
+      addEdge: function (addData, callback) {
+        if (addData.from == addData.to) {
           var r = confirm("Do you want to connect the node to itself?");
           if (r != true) {
             callback(null);
             return;
           }
         }
-
-        document.getElementById('edge-operation').innerHTML = "Add Edge";
-        editEdgeWithoutDrag(data, callback);
+        
+        document.getElementById('edge-operation').innerHTML = "Add Edge: " + data["nodes"]["_data"][addData.from]["label"] + " &rarr; " + data["nodes"]["_data"][addData.to]["label"];
+        editEdgeWithoutDrag(addData, callback);
       },
       editEdge: {
-        editWithoutDrag: function(data, callback) {
-          document.getElementById('edge-operation').innerHTML = "Edit Edge";
-          editEdgeWithoutDrag(data,callback);
+        editWithoutDrag: function(editData, callback) {
+          document.getElementById('edge-operation').innerHTML = "Edit Edge: " + data["nodes"]["_data"][editData.from]["label"] + " &rarr; " + data["nodes"]["_data"][editData.to]["label"];
+          editEdgeWithoutDrag(editData,callback);
         }
       },
       deleteEdge: function(data, callback) {
@@ -161,8 +128,9 @@ function draw() {
 
 function checkForm(temp, infType) {
     keys = Object.keys(temp);
-    check = {"type":Object.keys(op_dict), "temp_imp" : ["Onset", "Maintenance", "Relapse", "Onset-Maintenance", "Onset-Relapse", "Maintenance-Relapse"], "temp_aspect": ["Miliseconds", "Seconds", "Minutes", "Hours", "Days", "Weeks", "Months", "Years", "Lifetime"]}
-    noCheck = ["id", "to", "from", "created_date", "arrows", "x", "y"]
+    console.log(temp);
+    check = dropDowns
+    noCheck = ["id", "to", "from", "created_date", "arrows", "x", "y", "notes_factor", "sup_lit", "notes", "group"]
     pass = true
     for (var i = keys.length - 1; i >= 0; i--) {
         if (!noCheck.includes(keys[i])) {
@@ -172,16 +140,9 @@ function checkForm(temp, infType) {
             }
             else { document.getElementById(infType + '-' + keys[i]).style.backgroundColor = "#f9f9f9" }
             if (Object.keys(check).includes(keys[i])){
-                if (!(check[keys[i]].includes(temp[keys[i]])) && temp[keys[i]] != "") {
+                if (temp[keys[i]] == "") {
                     document.getElementById(infType + "-" + keys[i]).style.backgroundColor = "#FF0000"
-                    alert("Unauthorized dropdown value")
                     pass = false;
-                }
-            }
-            if (keys[i] == "value" || keys[i] == "threshold") {
-                if (isNaN(temp[keys[i]]) || (parseInt(temp[keys[i]]) < -10 ||  parseInt(temp[keys[i]]) > 10)) {
-                    document.getElementById(infType + "-" + keys[i]).style.backgroundColor = "#FF0000"
-                    pass = false
                 }
             }
         }
@@ -192,11 +153,12 @@ function checkForm(temp, infType) {
 function editNode(data, cancelAction, callback) {
   document.getElementById('node-label').value = data.label;
   document.getElementById('node-notes').value = data.notes;
-  document.getElementById('node-threshold').value = data.threshold;
+  document.getElementById('node-sensitivity_id').value = data.sensitivity_id;
   document.getElementById('node-sup_lit').value = data.sup_lit;
   document.getElementById('node-temp_imp_id').value = data.temp_imp_id;
   document.getElementById('node-notes_factor').value = data.notes_factor;
   document.getElementById('node-temp_aspect_id').value = data.temp_aspect_id;
+  document.getElementById('node-spat_aspect_id').value = data.spat_aspect_id;
 
   document.getElementById('node-saveButton').onclick = saveNodeData.bind(this, data, callback);
   document.getElementById('node-cancelButton').onclick = cancelAction.bind(this, callback);
@@ -222,16 +184,18 @@ function saveNodeData(data, callback) {
 
   data.label = document.getElementById('node-label').value;
   data.id = nodeID
+  data.group = parseInt(document.getElementById('node-temp_imp_id').value)-1;
   data.notes = document.getElementById('node-notes').value;
-  data.threshold = document.getElementById('node-threshold').value;
+  data.sensitivity_id = document.getElementById('node-sensitivity_id').value;
   data.sup_lit = document.getElementById('node-sup_lit').value;
   data.temp_imp_id = document.getElementById('node-temp_imp_id').value;
   data.notes_factor = document.getElementById('node-notes_factor').value;
   data.temp_aspect_id = document.getElementById('node-temp_aspect_id').value;
+  data.spat_aspect_id = document.getElementById('node-spat_aspect_id').value;
   data.created_date = new Date().toLocaleString("en-GB", {timeZone: "Europe/Amsterdam",
                                     timeZoneName: "short"})
 
-  if (!checkForm(data, "node")) { console.log("NOPE!"); return }
+  if (!checkForm(data, "node")) { return }
 
   newData.nodes.push(data);
 
@@ -245,7 +209,7 @@ function editEdgeWithoutDrag(data, callback) {
       if (newData.edges[i].id == data.id) {
           document.getElementById('edge-label').value = newData.edges[i].label;
           document.getElementById('edge-operator_id').value = newData.edges[i].type;
-          document.getElementById('edge-value').value = newData.edges[i].value;
+          document.getElementById('edge-con_strength').value = newData.edges[i].con_strength;
           document.getElementById('edge-temp_imp_id').value = newData.edges[i].temp_imp;
           document.getElementById('edge-temp_aspect_id').value = newData.edges[i].temp_aspect;
           document.getElementById('edge-notes_relation').value = newData.edges[i].notes;
@@ -276,18 +240,17 @@ function saveEdgeData(data, callback, edit, type) {
       data.to = data.to.id
     if (typeof data.from === 'object')
       data.from = data.from.id
-    console.log(data);
 
-    data.label = document.getElementById('edge-label').value;
-    if (edit) { data.id = edit }
-    else {
-      var edgeID = data.label + String(Math.random());
-      data.id = edgeID
-    }
+    // data.label = document.getElementById('edge-label').value;
+    // if (edit) { data.id = edit }
+    // else {
+    //   var edgeID = data.label + String(Math.random());
+    //   data.id = edgeID
+    // }
     data.created_date = new Date().toLocaleString("en-GB", {timeZone: "Europe/Amsterdam",
                                     timeZoneName: "short"})
     data.operator_id = document.getElementById('edge-operator_id').value;
-    data.value = document.getElementById('edge-value').value;
+    data.con_strength = document.getElementById('edge-con_strength').value;
     data.temp_imp_id = document.getElementById('edge-temp_imp_id').value;
     data.temp_aspect_id = document.getElementById('edge-temp_aspect_id').value;
     data.notes_relation = document.getElementById('edge-notes_relation').value;
@@ -342,14 +305,23 @@ function init() {
 }
 
 function saveData() {
-    posting = JSON.stringify(newData);
-    $.getJSON($SCRIPT_ROOT + '/submitcausalmap', {
-        post: posting
-        }, function(d) {
-            console.log("SUBMITTING DATA");
-            console.log(d);
-            }
-        );
+  console.log(newData);
+  var posting = JSON.stringify(newData);
+  $.ajax({
+    url: '/submitcausalmap',
+    contentType: "application/json; charset=utf-8",
+    data: posting,
+    type: 'POST',
+    success: function(response ,jqxhr, settings) {
+      console.log(response, jqxhr, settings);
+    },
+    error: function(error, jqxhr, settings) {
+      console.log(error);
+      console.log(jqxhr);
+      console.log(settings);
+      alert("Something has gone wrong with submitting your data to the database. Please contact the server administrator.")
+    }
+  });
 }
 
 function downloadFile(filename, text) {

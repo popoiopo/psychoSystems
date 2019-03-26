@@ -1,0 +1,487 @@
+{
+  "Name": "flare",
+  "children": [
+    {
+      "name": "Academia",
+      "children": [
+        {
+          "name": "Biology",
+          "children": [
+            {
+              "name": "Clinical Neurology",
+              "children": [
+                {
+                  "name": "Pim Cuijpers(P)",
+                  "size": 20
+                }
+              ],
+              "size": 6185.0,
+              "people": [
+                [
+                  "Pim Cuijpers(P)"
+                ]
+              ]
+            },
+            {
+              "name": "Epidemiology",
+              "children": [
+                {
+                  "name": "Tineke Oldehinkel(N)",
+                  "size": 20
+                },
+                {
+                  "name": "Simon Gilbody(N)",
+                  "size": 20
+                }
+              ],
+              "size": 8731.0,
+              "people": [
+                [
+                  "Tineke Oldehinkel(N)",
+                  "Simon Gilbody(N)"
+                ]
+              ]
+            },
+            {
+              "name": "Neuroscience",
+              "children": [
+                {
+                  "name": "Greg Siegle(T)",
+                  "size": 20
+                },
+                {
+                  "name": "Joke Mijer(T)",
+                  "size": 20
+                }
+              ],
+              "size": 6898.0,
+              "people": [
+                [
+                  "Greg Siegle(T)",
+                  "Joke Mijer(T)"
+                ]
+              ]
+            },
+            {
+              "name": "Evolution",
+              "children": [
+                {
+                  "name": "Paul Andrews(N)",
+                  "size": 20
+                }
+              ],
+              "size": 5648.0,
+              "people": [
+                [
+                  "Paul Andrews(N)"
+                ]
+              ]
+            },
+            {
+              "name": "Psychiatry",
+              "children": [
+                {
+                  "name": "Aartjan Beckman(T)",
+                  "size": 20
+                },
+                {
+                  "name": "Micheal First(T)",
+                  "size": 20
+                },
+                {
+                  "name": "Ken Kendler(T)",
+                  "size": 20
+                },
+                {
+                  "name": "Michael Thase(P)",
+                  "size": 20
+                },
+                {
+                  "name": "Vikram Patel(N)",
+                  "size": 20
+                }
+              ],
+              "size": 72200.0,
+              "people": [
+                [
+                  "Aartjan Beckman(T)",
+                  "Micheal First(T)",
+                  "Ken Kendler(T)",
+                  "Michael Thase(P)",
+                  "Vikram Patel(N)"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Economics",
+          "children": [
+            {
+              "name": "Health",
+              "children": [
+                {
+                  "name": "Erik Buskens(N)",
+                  "size": 20
+                }
+              ],
+              "size": 6306.0,
+              "people": [
+                [
+                  "Erik Buskens(N)"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "General medicine",
+          "children": [
+            {
+              "name": "Anaesthesiology",
+              "children": [
+                {
+                  "name": "Empty",
+                  "size": 20
+                }
+              ],
+              "size": 7820.0,
+              "people": [
+                [
+                  "Empty"
+                ]
+              ]
+            },
+            {
+              "name": "Obstetrics-gynecology",
+              "children": [
+                {
+                  "name": "Empty",
+                  "size": 20
+                }
+              ],
+              "size": 6965.0,
+              "people": [
+                [
+                  "Empty"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Philosophy",
+          "children": [
+            {
+              "name": "History",
+              "children": [
+                {
+                  "name": "Peter Zachar(T)",
+                  "size": 20
+                }
+              ],
+              "size": 215.0,
+              "people": [
+                [
+                  "Peter Zachar(T)"
+                ]
+              ]
+            },
+            {
+              "name": "Neuroscience",
+              "children": [
+                {
+                  "name": "Carl Craver(T)",
+                  "size": 20
+                }
+              ],
+              "size": 57.0,
+              "people": [
+                [
+                  "Carl Craver(T)"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Psychology",
+          "children": [
+            {
+              "name": "Clinical",
+              "children": [
+                {
+                  "name": "Stefan Hoffman(T)",
+                  "size": 20
+                },
+                {
+                  "name": "Rob de Rubeis(P)",
+                  "size": 20
+                }
+              ],
+              "size": 5170.0,
+              "people": [
+                [
+                  "Stefan Hoffman(T)",
+                  "Rob de Rubeis(P)"
+                ]
+              ]
+            },
+            {
+              "name": "Developmental",
+              "children": [
+                {
+                  "name": "Empty",
+                  "size": 20
+                }
+              ],
+              "size": 2471.0,
+              "people": [
+                [
+                  "Empty"
+                ]
+              ]
+            },
+            {
+              "name": "Intervention",
+              "children": [
+                {
+                  "name": "Steve Hollon(P)",
+                  "size": 20
+                }
+              ],
+              "size": 6846.0,
+              "people": [
+                [
+                  "Steve Hollon(P)"
+                ]
+              ]
+            },
+            {
+              "name": "Experimental",
+              "children": [
+                {
+                  "name": "Emily Holmes(T)",
+                  "size": 20
+                },
+                {
+                  "name": "Cath Harmer(P)",
+                  "size": 20
+                }
+              ],
+              "size": 4553.0,
+              "people": [
+                [
+                  "Emily Holmes(T)",
+                  "Cath Harmer(P)"
+                ]
+              ]
+            },
+            {
+              "name": "Multidisciplinary",
+              "children": [
+                {
+                  "name": "Empty",
+                  "size": 20
+                }
+              ],
+              "size": 7173.0,
+              "people": [
+                [
+                  "Empty"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Sociology",
+          "children": [
+            {
+              "name": "Epidemiology",
+              "children": [
+                {
+                  "name": "Hans Ormel(N)",
+                  "size": 20
+                }
+              ],
+              "size": 45.0,
+              "people": [
+                [
+                  "Hans Ormel(N)"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Computer Science",
+          "children": [
+            {
+              "name": "Big Data",
+              "children": [
+                {
+                  "name": "Adam Chekroud(P)",
+                  "size": 20
+                }
+              ],
+              "size": 545.0,
+              "people": [
+                [
+                  "Adam Chekroud(P)"
+                ]
+              ]
+            },
+            {
+              "name": "Psychodynamic models",
+              "children": [
+                {
+                  "name": "Jacques Barber(P)",
+                  "size": 20
+                }
+              ],
+              "size": 684.0,
+              "people": [
+                [
+                  "Jacques Barber(P)"
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Industry",
+      "children": [
+        {
+          "name": "Pharmacology",
+          "children": [
+            {
+              "name": "Experimental",
+              "children": [
+                {
+                  "name": "Peter Moleman(P)",
+                  "size": 20
+                }
+              ],
+              "size": 2399.0,
+              "people": [
+                [
+                  "Peter Moleman(P)"
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Patients and Providers",
+      "children": [
+        {
+          "name": "Sociaal werker",
+          "children": [
+            {
+              "name": "Empty",
+              "size": 20
+            }
+          ],
+          "size": 2,
+          "people": [
+            [
+              "Empty"
+            ]
+          ]
+        },
+        {
+          "name": "Mental Health Foundation",
+          "children": [
+            {
+              "name": "Antonio(P)",
+              "size": 20
+            }
+          ],
+          "size": 10,
+          "people": [
+            [
+              "Antonio(P)"
+            ]
+          ]
+        },
+        {
+          "name": "Mental Health Nurse",
+          "children": [
+            {
+              "name": "Isabella Goldi(P)",
+              "size": 20
+            }
+          ],
+          "size": 10,
+          "people": [
+            [
+              "Isabella Goldi(P)"
+            ]
+          ]
+        },
+        {
+          "name": "Therapeut",
+          "children": [
+            {
+              "name": "David Berg(P)",
+              "size": 20
+            }
+          ],
+          "size": 10,
+          "people": [
+            [
+              "David Berg(P)"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Government",
+      "children": [
+        {
+          "name": "CPB",
+          "children": [
+            {
+              "name": "Paul Schnabel(N)",
+              "size": 20
+            }
+          ],
+          "size": 10,
+          "people": [
+            [
+              "Paul Schnabel(N)"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Undefined",
+      "children": [
+        {
+          "name": "Undefined",
+          "children": [
+            {
+              "name": "Karien Stronk(N)",
+              "size": 20
+            },
+            {
+              "name": "Paul Emmelkamp(P)",
+              "size": 20
+            }
+          ],
+          "size": 20,
+          "people": [
+            "Karien Stronk(N),Paul Emmelkamp(P)"
+          ]
+        }
+      ]
+    }
+  ]
+}

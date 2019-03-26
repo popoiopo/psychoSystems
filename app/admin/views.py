@@ -1,12 +1,12 @@
 # app/admin/views.py
 
-from flask import abort, flash, redirect, render_template, url_for
+from flask import abort, flash, redirect, render_template, url_for, request
 from flask_login import current_user, login_required
 
 from .. import db
 from . import admin
-from ..models import Title, Temp_aspect, Temp_imp, Affiliation, Accepted, Expert, Yes_no, Operator
-from forms import TitleForm, Temp_aspectForm, Temp_impForm, AffiliationForm, AcceptedForm, ExpertAssignForm, Yes_noForm, OperatorForm
+from ..models import Title, Spat_aspect, Temp_aspect, Temp_imp, Affiliation, Accepted, Expert, Yes_no, Operator, pageTexts, Con_strength, Sensitivity
+from forms import TitleForm, Spat_aspectForm, Temp_aspectForm, Temp_impForm, AffiliationForm, AcceptedForm, ExpertAssignForm, Yes_noForm, OperatorForm, page_textForm, Con_strengthForm, SensitivityForm
 
 
 def check_admin():
@@ -15,6 +15,55 @@ def check_admin():
     """
     if not current_user.is_admin:
         abort(403)
+
+
+############################################################################
+# Page text Views
+############################################################################
+
+
+@admin.route('/page_texts', methods=['GET', 'POST'])
+@login_required
+def list_page_texts():
+    """
+    List all page_texts
+    """
+    check_admin()
+
+    page_texts = pageTexts.query.all()
+
+    return render_template('admin/page_texts/page_texts.html',
+                           page_texts=page_texts, title="page_texts")
+
+@admin.route('/page_texts/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_page_texts(id):
+    """
+    Edit a page_text
+    """
+    check_admin()
+
+    add_page_text = False
+
+    page_text = pageTexts.query.get_or_404(id)
+    form = page_textForm(obj=page_text)
+    if form.validate_on_submit():
+        page_text.name = form.name.data
+        db.session.commit()
+        flash('You have successfully edited the page_text.')
+
+        # redirect to the page_texts page
+        return redirect(url_for('admin.list_page_texts'))
+
+    form.name.data = page_text.name
+    return render_template('admin/page_texts/page_text.html', action="Edit",
+                           add_page_text=add_page_text, form=form,
+                           page_text_edit=page_text, title="Edit Page Text")
+
+
+@admin.route('/submit', methods=['POST'])
+def submit():
+    return 'You entered: {}'.format(request.form['text'])
 
 
 ############################################################################
@@ -144,7 +193,7 @@ def add_operator():
         operator = Operator(name=form.name.data)
 
         try:
-            # add temp_aspect to the database
+            # add operator to the database
             db.session.add(operator)
             db.session.commit()
             flash('You have successfully added a new operator.')
@@ -155,7 +204,7 @@ def add_operator():
         # redirect to the operator page
         return redirect(url_for('admin.list_operators'))
 
-    # load temp_aspect template
+    # load operator template
     return render_template('admin/operators/operator.html', add_operator=add_operator,
                            form=form, title='Add Operator')
 
@@ -171,9 +220,9 @@ def edit_operator(id):
     add_operator = False
 
     operator = Operator.query.get_or_404(id)
-    form = OperatorForm(obj=temp_aspect)
+    form = OperatorForm(obj=operator)
     if form.validate_on_submit():
-        temp_aspect.name = form.name.data
+        operator.name = form.name.data
         db.session.add(operator)
         db.session.commit()
         flash('You have successfully edited the operator.')
@@ -203,6 +252,100 @@ def delete_operator(id):
     return redirect(url_for('admin.list_operators'))
 
     return render_template(title="Delete Operator")
+
+
+############################################################################
+# Spat_aspect Views
+############################################################################
+
+
+@admin.route('/spat_aspects')
+@login_required
+def list_spat_aspects():
+    check_admin()
+    """
+    List all spat_aspects
+    """
+    spat_aspects = Spat_aspect.query.all()
+    return render_template('admin/spat_aspects/spat_aspects.html',
+                           spat_aspects=spat_aspects, title='Spat_aspects')
+
+
+@admin.route('/spat_aspects/add', methods=['GET', 'POST'])
+@login_required
+def add_spat_aspect():
+    """
+    Add a spat_aspect to the database
+    """
+    check_admin()
+
+    add_spat_aspect = True
+
+    form = Spat_aspectForm()
+    if form.validate_on_submit():
+        spat_aspect = Spat_aspect(name=form.name.data)
+
+        try:
+            # add spat_aspect to the database
+            db.session.add(spat_aspect)
+            db.session.commit()
+            flash('You have successfully added a new spatial aspect.')
+        except:
+            # in case spat_aspect name already exists
+            flash('Error: spat_aspect name already exists.')
+
+        # redirect to the spat_aspects page
+        return redirect(url_for('admin.list_spat_aspects'))
+
+    # load spat_aspect template
+    return render_template('admin/spat_aspects/spat_aspect.html', add_spat_aspect=add_spat_aspect,
+                           form=form, title='Add Spatoral aspect')
+
+
+@admin.route('/spat_aspects/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_spat_aspect(id):
+    """
+    Edit a Spatoral aspect
+    """
+    check_admin()
+
+    add_spat_aspect = False
+
+    spat_aspect = Spat_aspect.query.get_or_404(id)
+    form = Spat_aspectForm(obj=spat_aspect)
+    if form.validate_on_submit():
+        spat_aspect.name = form.name.data
+        db.session.add(spat_aspect)
+        db.session.commit()
+        flash('You have successfully edited the spatial aspect.')
+
+        # redirect to the spat_aspects page
+        return redirect(url_for('admin.list_spat_aspects'))
+
+    form.name.data = spat_aspect.name
+    return render_template('admin/spat_aspects/spat_aspect.html', add_spat_aspect=add_spat_aspect,
+                           form=form, title="Edit Spatoral aspect")
+
+
+@admin.route('/spat_aspects/delete/<int:id>', methods=['GET', 'POST'])
+@login_required
+def delete_spat_aspect(id):
+    """
+    Delete a spat_aspect from the database
+    """
+    check_admin()
+
+    spat_aspect = Spat_aspect.query.get_or_404(id)
+    db.session.delete(spat_aspect)
+    db.session.commit()
+    flash('You have successfully deleted the spat_aspect.')
+
+    # redirect to the spat_aspects page
+    return redirect(url_for('admin.list_spat_aspects'))
+
+    return render_template(title="Delete Spatoral aspect")
+
 
 
 ############################################################################
@@ -725,3 +868,193 @@ def delete_yes_no(id):
     return redirect(url_for('admin.list_yes_nos'))
 
     return render_template(title="Delete Yes_no")
+
+
+############################################################################
+# Sensitivity Views
+############################################################################
+
+
+@admin.route('/sensitivities', methods=['GET', 'POST'])
+@login_required
+def list_sensitivities():
+    """
+    List all sensitivities
+    """
+    check_admin()
+
+    sensitivities = Sensitivity.query.all()
+
+    return render_template('admin/sensitivities/sensitivities.html',
+                           sensitivities=sensitivities, sensitivity="sensitivities")
+
+
+@admin.route('/sensitivities/add', methods=['GET', 'POST'])
+@login_required
+def add_sensitivity():
+    """
+    Add a sensitivity to the database
+    """
+    check_admin()
+
+    add_sensitivity = True
+
+    form = SensitivityForm()
+    if form.validate_on_submit():
+        sensitivity = Sensitivity(name=form.name.data)
+        try:
+            # add sensitivity to the database
+            db.session.add(sensitivity)
+            db.session.commit()
+            flash('You have successfully added a new sensitivity.')
+        except:
+            # in case sensitivity name already exists
+            flash('Error: sensitivity name already exists.')
+
+        # redirect to sensitivities page
+        return redirect(url_for('admin.list_sensitivities'))
+
+    # load sensitivity template
+    return render_template('admin/sensitivities/sensitivity.html', action="Add",
+                           add_sensitivity=add_sensitivity, form=form,
+                           sensitivity="Add sensitivity")
+
+
+@admin.route('/sensitivities/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_sensitivity(id):
+    """
+    Edit a sensitivity
+    """
+    check_admin()
+
+    add_sensitivity = False
+
+    sensitivity = Sensitivity.query.get_or_404(id)
+    form = SensitivityForm(obj=sensitivity)
+    if form.validate_on_submit():
+        sensitivity.name = form.name.data
+        db.session.commit()
+        flash('You have successfully edited the sensitivity.')
+
+        # redirect to the sensitivities page
+        return redirect(url_for('admin.list_sensitivities'))
+
+    form.name.data = sensitivity.name
+    return render_template('admin/sensitivities/sensitivity.html', action="Edit",
+                           add_sensitivity=add_sensitivity, form=form,
+                           sensitivity_edit=sensitivity, sensitivity="Edit sensitivity")
+
+
+@admin.route('/sensitivities/delete/<int:id>', methods=['GET', 'POST'])
+@login_required
+def delete_sensitivity(id):
+    """
+    Delete a sensitivity from the database
+    """
+    check_admin()
+
+    sensitivity = Sensitivity.query.get_or_404(id)
+    db.session.delete(sensitivity)
+    db.session.commit()
+    flash('You have successfully deleted the sensitivity.')
+
+    # redirect to the sensitivities page
+    return redirect(url_for('admin.list_sensitivities'))
+
+    return render_template(sensitivity="Delete sensitivity")
+
+
+############################################################################
+# Con_strength Views
+############################################################################
+
+
+@admin.route('/con_strengths', methods=['GET', 'POST'])
+@login_required
+def list_con_strengths():
+    """
+    List all con_strengths
+    """
+    check_admin()
+
+    con_strengths = Con_strength.query.all()
+
+    return render_template('admin/con_strengths/con_strengths.html',
+                           con_strengths=con_strengths, con_strength="con_strengths")
+
+
+@admin.route('/con_strengths/add', methods=['GET', 'POST'])
+@login_required
+def add_con_strength():
+    """
+    Add a con_strength to the database
+    """
+    check_admin()
+
+    add_con_strength = True
+
+    form = Con_strengthForm()
+    if form.validate_on_submit():
+        con_strength = Con_strength(name=form.name.data)
+        try:
+            # add con_strength to the database
+            db.session.add(con_strength)
+            db.session.commit()
+            flash('You have successfully added a new con_strength.')
+        except:
+            # in case con_strength name already exists
+            flash('Error: con_strength name already exists.')
+
+        # redirect to con_strengths page
+        return redirect(url_for('admin.list_con_strengths'))
+
+    # load con_strength template
+    return render_template('admin/con_strengths/con_strength.html', action="Add",
+                           add_con_strength=add_con_strength, form=form,
+                           con_strength="Add con_strength")
+
+
+@admin.route('/con_strengths/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_con_strength(id):
+    """
+    Edit a con_strength
+    """
+    check_admin()
+
+    add_con_strength = False
+
+    con_strength = Con_strength.query.get_or_404(id)
+    form = Con_strengthForm(obj=con_strength)
+    if form.validate_on_submit():
+        con_strength.name = form.name.data
+        db.session.commit()
+        flash('You have successfully edited the con_strength.')
+
+        # redirect to the con_strengths page
+        return redirect(url_for('admin.list_con_strengths'))
+
+    form.name.data = con_strength.name
+    return render_template('admin/con_strengths/con_strength.html', action="Edit",
+                           add_con_strength=add_con_strength, form=form,
+                           con_strength_edit=con_strength, con_strength="Edit con_strength")
+
+
+@admin.route('/con_strengths/delete/<int:id>', methods=['GET', 'POST'])
+@login_required
+def delete_con_strength(id):
+    """
+    Delete a con_strength from the database
+    """
+    check_admin()
+
+    con_strength = Con_strength.query.get_or_404(id)
+    db.session.delete(con_strength)
+    db.session.commit()
+    flash('You have successfully deleted the con_strength.')
+
+    # redirect to the con_strengths page
+    return redirect(url_for('admin.list_con_strengths'))
+
+    return render_template(con_strength="Delete con_strength")
