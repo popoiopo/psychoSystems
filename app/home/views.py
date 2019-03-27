@@ -205,10 +205,7 @@ def fase2():
     data["nodes"] = [{
         "id": int(node.id),
         "sensitivity": int(node.sensitivity_id),
-<<<<<<< HEAD
         "spat_aspect_id": str(node.spat_aspect_id),
-=======
->>>>>>> fd305919d27b64cdef0b41cb2aac0075e2ff6b3f
         "temp_aspect_id": str(node.temp_aspect_id),
         "temp_imp_id": str(node.temp_imp_id),
         "notes": str(node.notes),
@@ -227,7 +224,6 @@ def fase2():
         "value": np.random.uniform(8, 20),
         "sup_lit": None,
         "fixed": False,
-<<<<<<< HEAD
         "physics": True,
         "level": node.temp_aspect_id
     } for node in nodes]
@@ -270,24 +266,6 @@ def fase2():
                 "roundness": 0.4
             }
         })
-=======
-        "physics": True
-    } for node in nodes]
-    data["edges"] = [{
-        "arrows": give_arrows(edge.con_strength_id),
-        "dashes": bool(1),
-        "from": str(edge.factor_A),
-        "to": str(edge.factor_B),
-        "id": int(edge.id),
-        "created_date": str(edge.created_date),
-        "value": int(edge.con_strength_id),
-        "temp_imp_id": str(edge.temp_imp_id),
-        "temp_aspect_id": str(edge.temp_aspect_id),
-        "operator_id": str(edge.operator_id),
-        "notes_relation": str(edge.notes_relation),
-        "sup_lit": str(edge.sup_lit)
-    } for edge in edges]
->>>>>>> fd305919d27b64cdef0b41cb2aac0075e2ff6b3f
 
     for index, group in enumerate(dropDowns["temp_aspects"]):
         data["nodes"].append({"id": 1000 + index, 
@@ -308,10 +286,7 @@ def fase2():
                               "temp_imp_id": None,
                               "value": 7, 
                               "fixed": True, 
-<<<<<<< HEAD
                               "level": 0,
-=======
->>>>>>> fd305919d27b64cdef0b41cb2aac0075e2ff6b3f
                               "physics":False})
 
     return render_template(
@@ -495,13 +470,8 @@ def submitcausalmap():
             db.session.commit()
             post = "It worked!"
         except Exception as e:
-<<<<<<< HEAD
             errors += " (" + str(i) + " " + str(e) + ")"
             post += "Something went wrong with adding edges: "
-=======
-            errors += " (" + str(i) + " " + e + ")"
-            post += "Something went wrong with adding edges"
->>>>>>> fd305919d27b64cdef0b41cb2aac0075e2ff6b3f
 
     if errors == "":
         return jsonify(post)

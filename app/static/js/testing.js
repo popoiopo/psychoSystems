@@ -56,24 +56,20 @@ function draw() {
     edges: {
       color:{inherit:true},
       width: 0.15,
-<<<<<<< HEAD
       // smooth: {
       //   // type: 'continuous'
       //   type: 'curvedCW',
       //   forceDirection: 'vertical',
       //   roundness: 0.4
       // }
-=======
       smooth: {
         type: 'continuous'
       }
->>>>>>> fd305919d27b64cdef0b41cb2aac0075e2ff6b3f
     },
     interaction: {
       hideEdgesOnDrag: true,
       tooltipDelay: 200
     },
-<<<<<<< HEAD
     physics:false,
     // {
     //   barnesHut:{gravitationalConstant:-10000},
@@ -83,13 +79,12 @@ function draw() {
       hierarchical: {
       direction: "UD"
     }}, // just to make sure the layout is the same when the locale is changed
-=======
-    physics:{
-      barnesHut:{gravitationalConstant:-10000},
-      stabilization: {iterations:2500}
-    },
-    layout: {randomSeed:seed}, // just to make sure the layout is the same when the locale is changed
->>>>>>> fd305919d27b64cdef0b41cb2aac0075e2ff6b3f
+    // physics:{
+    //   barnesHut:{gravitationalConstant:-10000},
+    //   stabilization: {iterations:2500}
+    // },
+    // layout: {randomSeed:seed}, // just to make sure the layout is the same when the locale is changed
+
     locale: document.getElementById('locale').value,
     manipulation: {
       addNode: function (data, callback) {
@@ -151,11 +146,8 @@ function checkForm(temp, infType) {
     keys = Object.keys(temp);
     console.log(temp);
     check = dropDowns
-<<<<<<< HEAD
     noCheck = ["id", "to", "from", "created_date", "level", "arrows", "x", "y", "notes_factor", "sup_lit", "notes", "group"]
-=======
-    noCheck = ["id", "to", "from", "created_date", "arrows", "x", "y", "notes_factor", "sup_lit", "notes", "group"]
->>>>>>> fd305919d27b64cdef0b41cb2aac0075e2ff6b3f
+
     pass = true
     for (var i = keys.length - 1; i >= 0; i--) {
         if (!noCheck.includes(keys[i])) {
@@ -216,10 +208,7 @@ function saveNodeData(data, callback) {
   data.temp_imp_id = document.getElementById('node-temp_imp_id').value;
   data.notes_factor = document.getElementById('node-notes_factor').value;
   data.temp_aspect_id = document.getElementById('node-temp_aspect_id').value;
-<<<<<<< HEAD
   data.level = document.getElementById('node-temp_aspect_id').value;
-=======
->>>>>>> fd305919d27b64cdef0b41cb2aac0075e2ff6b3f
   data.spat_aspect_id = document.getElementById('node-spat_aspect_id').value;
   data.created_date = new Date().toLocaleString("en-GB", {timeZone: "Europe/Amsterdam",
                                     timeZoneName: "short"})
