@@ -1,0 +1,6 @@
+# .gitignore
+
+*.pyc
+instance/
+FlaskApp/
+internshipDepression/
