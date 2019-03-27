@@ -1,0 +1,57 @@
+<!-- app/templates/home/index.html -->
+
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block head %}
+
+<meta charset="utf-8"/>
+
+<!-- Load libraries -->
+<script src="//d3js.org/d3.v4.min.js"></script>  
+<script>var d4 = d3;</script>
+<script type="{{ url_for('static', filename='js/exampleUtil.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-csv.js') }}"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+<script src="{{ url_for('static', filename='js/functions.js') }}"></script>
+<script src="https://unpkg.com/d3-simple-slider@0.2.1/build/d3-simple-slider.js"></script>
+<script src="{{ url_for('static', filename='js/lineGraph.js') }}"></script>
+<script src="http://d3js.org/queue.v1.min.js" type="text/javascript"></script>
+<script src="https://d3js.org/d3-selection-multi.v0.4.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script src="{{ url_for('static', filename='js/test.js') }}"></script>
+
+<!-- Load python data -->
+<script type="text/javascript"> 
+  var root = {{ circleData|tojson }};
+  var pageTexts = {{ pageDicts|tojson }}
+  var placings;
+</script>
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+{% endblock %}
+
+<!-- Title -->
+{% block title %}Testing{% endblock %}
+
+<!-- Body -->
+<!-- Introductory talk -->
+{% block body %}
+
+<center><div id="firstText" class="text-justify col-md-8"></div></center>
+
+<center><svg width="850" height="850" id="circlePacking"></svg></center>
+
+<script src="{{ url_for('static', filename='js/circlePacking.js') }}">></script>
+
+<center><div id="secondText"></div></center>
+
+<script type="text/javascript">
+  pageKeys = Object.keys(pageTexts.index)
+
+  for (var i = pageKeys.length - 1; i >= 0; i--) {
+      d3.select("#" + pageKeys[i]).html(pageTexts.index[pageKeys[i]])
+  }
+</script>
+
+{% endblock %}

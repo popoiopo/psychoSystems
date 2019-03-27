@@ -1,0 +1,30 @@
+<!-- app/templates/admin/temp_aspects/temp_aspect.html -->
+
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block title %}
+    {% if add_temp_aspect %}
+        Add Temporal aspect
+    {% else %}
+        Edit Temporal aspect
+    {% endif %}
+{% endblock %}
+{% block body %}
+<div class="content-section">
+ <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <div class="center">
+            {% if add_temp_aspect %}
+                <h1>Add Temporal aspect</h1>
+            {% else %}
+                <h1>Edit Temporal aspect</h1>
+            {% endif %}
+            <br/>
+            {{ wtf.quick_form(form) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

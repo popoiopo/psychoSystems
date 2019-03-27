@@ -1,0 +1,7 @@
+,arrows,created_date,dashes,from,id,notes_relation,operator_id,sup_lit,temp_aspect_id,temp_imp_id,to,value
+0,to,None,True,1,1,None,1,None,None,None,2,3
+1,to,None,True,1,3,None,1,None,None,None,4,3
+2,to,None,True,1,2,None,1,None,None,None,3,3
+3,to,None,True,7,5,None,1,None,None,None,3,3
+4,to,None,True,1,4,None,1,None,None,None,5,3
+5,to,None,True,10,6,None,1,None,None,None,11,3

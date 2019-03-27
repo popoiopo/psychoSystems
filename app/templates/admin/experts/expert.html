@@ -1,0 +1,27 @@
+<!-- app/templates/admin/experts/expert.html -->
+
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block title %}Assign Expert{% endblock %}
+{% block body %}
+<div class="content-section">
+ <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <div class="center">
+            <h1> Assign Experts </h1>
+            <br/>
+            <p>
+                Select if entry is accepted to be an expert and a core expert to assign to
+                <span style="color: #aec251;">
+                    {{ expert.first_name }} {{ expert.last_name }}
+                </span>
+            </p>
+            <br/>
+            {{ wtf.quick_form(form) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

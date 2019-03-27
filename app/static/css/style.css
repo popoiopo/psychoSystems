@@ -1,0 +1,577 @@
+/* app/static/css/style.css */
+
+/*TEXTAREA*/
+
+textarea {
+  width: 100%;
+  height: 500px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+}
+
+/*BODY*/
+
+body, html {
+    width: 100%;
+    height: 100%;
+}
+
+body, h1, h2, h3 {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+}
+
+footer {
+    padding: 50px 0;
+    background-color: #f8f8f8;
+}
+
+p.copyright {
+    margin: 15px 0 0;
+}
+
+.alert-info {
+    width: 50%;
+    margin: auto;
+    color: #687430;
+    background-color: #e6ecca;
+    border-color: #aec251;
+}
+
+.btn-default {
+    border-color: #aec251;
+    color: #aec251;
+}
+
+.btn-default:hover {
+    background-color: #aec251;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+.content-section {
+    padding: 50px 0;
+    border-top: 1px solid #e7e7e7;
+}
+
+.footer, .push {
+  clear: both;
+  height: 4em;
+}
+
+.intro-divider {
+    width: 400px;
+    border-top: 1px solid #f8f8f8;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.intro-message {
+    position: relative;
+    padding-top: 20%;
+    padding-bottom: 20%;
+}
+
+.intro-message > h1 {
+    margin: 0;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    font-size: 5em;
+}
+
+.intro-message > h3 {
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+
+.lead {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.topnav {
+    font-size: 14px;
+}
+
+.bigWrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -4em;
+}
+
+.outer {
+    display: table;
+    position: absolute;
+    height: 70%;
+    width: 100%;
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.inner {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* DRAW CAUSAL MAP */
+
+
+#contents {
+  height: 700px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+#left {
+  position: absolute;
+  width: 30%;
+}
+
+#right {
+  position: absolute;
+  width: 60%;
+  height: 700px;
+  margin: 0;
+  padding: 10px;
+  display: inline-block;
+}
+
+#left {
+  top: 0;
+  left: 5%;
+}
+
+#right {
+  top: 0;
+  right: 5%;
+}
+
+#error {
+  color: red;
+}
+
+#data {
+  width: 100%;
+  height: 100%;
+  resize: none;
+}
+
+#draw {
+  margin-top: 15px;
+}
+
+#mynetwork {
+  width: 100%;
+  height: 100%;
+}
+
+#network {
+  width: 100%;
+  height: 75%;
+}
+
+a:hover {
+  color: red;
+}
+
+
+.link {
+  fill: none;
+  stroke: #ddd;
+  stroke-width: 1px;
+}
+
+.node {
+  stroke: #000;
+  stroke-width: 1px;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #D4D8DA;
+  stroke-width: 2px;
+  shape-rendering: crispEdges;
+}
+
+.line {
+  fill: none;
+  stroke: #6F257F;
+  stroke-width: 5px;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.focus circle {
+  fill: #F1F3F3;
+  stroke: #8b8d8f;
+  stroke-width: 3px;
+}
+
+.hover-line {
+  stroke: #8b8d8f;
+  stroke-width: 4px;
+  stroke-dasharray: 3,3;
+}
+
+.line {
+  fill: none;
+  stroke: #6F257F;
+  stroke-width: 2px;
+}
+
+.grid line {
+  stroke: lightgrey;
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges;
+}
+
+.grid path {
+  stroke-width: 0;
+}
+
+.valueSlider {
+    display:none;
+}
+
+.tick line {
+  shape-rendering: crispEdges;
+  stroke: #000;
+}
+
+line.minor  {
+  stroke: #777;
+  stroke-dasharray: 2,2;
+}
+
+path.domain {
+  fill: none;
+  stroke: black;
+}
+
+.grid {
+    stroke: #6F257F;
+  stroke-width: 1px; fill: #6F257F;
+}
+.arc {
+    stroke: #6F257F;
+  fill: none;
+}
+.node {
+  fill: #EBD8C1;
+  stroke: #6F257F;
+  stroke-width: 1px;
+}
+circle.active {
+  fill: #FE9922;
+}
+path.active {
+  stroke: #FE9922;
+}
+circle.source {
+  fill: #93C464;
+}
+circle.target {
+  fill: #41A368;
+}
+
+.links line {
+  stroke: #000;
+  stroke-opacity: 0.2;
+}
+
+.nodes circle {
+  stroke: grey;
+  stroke-width: 2px;
+}
+
+.slidecontainer {
+    width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 25px; /* Specified height */
+    background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #4CAF50; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #4CAF50; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+}
+
+.centerIt {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.svg-container {
+    display: block;
+    position: relative;
+    width: 100%;
+    vertical-align: top;
+    overflow: hidden;
+}
+.svg-content {
+    display: inline-block;
+    top: 0;
+    left: 0;
+    bottom:0;
+}
+
+.hoverable {
+  cursor:default;
+  color:#000;
+  text-decoration:none;
+}
+.hoverable .hover {
+  display:none;
+}
+.hoverable:hover .normal {
+  display:none;
+}
+.hoverable:hover .hover {
+  display:inline;  /* CHANGE IF FOR BLOCK ELEMENTS */
+}
+
+.node {
+  cursor: pointer;
+}
+
+.node:hover {
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.node--leaf {
+  fill: white;
+}
+
+.label {
+  font: 25px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-anchor: middle;
+  font-weight: bold;
+  /*text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;*/
+}
+
+.label,
+.node--root,
+.node--leaf {
+  pointer-events: none;
+}
+
+div.circletip {
+  position: absolute;
+  text-align: center;
+  width: auto;
+  height: auto;
+  padding: 2px;
+  font: 22px sans-serif;
+  color:white;
+  background: steelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+#circle {
+  width: 50px;
+  height: 50px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 20px;
+  background: red;
+}
+
+
+/* CAUSAL MAP*/
+
+#mynetwork {
+  position:relative;
+  width: 800px;
+  height: 600px;
+}
+table.legend_table {
+  font-size: 11px;
+  border-width:1px;
+  border-style:solid;
+}
+table.legend_table,td {
+  border-width:1px;
+  border-style:solid;
+  padding: 2px;
+}
+div.table_content {
+  width:80px;
+  text-align:center;
+}
+div.table_description {
+  width:100px;
+}
+
+#operation {
+  font-size:28px;
+}
+
+#vizTable {
+  width:600px;
+  height:100px;
+  background-color: white;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 70px;
+}
+
+.borderless td, .borderless th {
+    border: none;
+}
+
+#node-popUp {
+  display:none;
+  z-index:299;
+  width:100%;
+  height:500px;
+  background-color: #f9f9f9;
+  padding:10px;
+  text-align: center;
+  margin-bottom: 50px;
+  margin-top: 20px;
+}
+
+#edge-popUp {
+  display:none;
+  z-index:299;
+  width:100%;
+  height:525px;
+  background-color: #f9f9f9;
+  padding:10px;
+  text-align: center;
+  margin-bottom: 50px;
+  margin-top: 20px;
+}
+
+.selections {
+  width:100%;
+}
+
+.tableLeft {
+  width: 30%
+}
+
+.tableRight {
+  width: 70%
+}
+
+
+/* SIDE BAR */
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #ffffff;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: steelblue;
+  background-color: white;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 100px;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #ffffff;
+  color: steelblue;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: steelblue;
+  color:white;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+
+#mySidebar {
+  text-align: center;
+  
+}
+
+.toggleButton {
+  width:70%;
+}
