@@ -3,11 +3,11 @@
 
 #### A high level python based website meant for conducting qualitative expert interview fascilitating a complexity approach
 
-This project is meant for making it easier to construct qualitative models from qualitative knowledge through structured interviews and collaboratative work. The website guides a researcher in a coherent and incremental process of defining a complex problem by providing a multi-phase structure. This structure first lets the researcher define the problem in a concise way and work out several variable values concerning the problem statement. These steps can be found in section [Step- by- step conceptualization of your project](#Step-_by-_step_conceptualization_of_your_project). The website will require the researcher to answer most of these questions in the dashboard page to configure the rest of the application. 
+This project is meant for making it easier to construct qualitative models from qualitative knowledge through structured interviews and collaboratative work. The website guides a researcher in a coherent and incremental process of defining a complex problem by providing a multi-phase structure. This structure first lets the researcher define the problem in a concise way and work out several variable values concerning the problem statement. These steps can be found in section [Step- by- step conceptualization of your project](#Step-by-step-conceptualization-of-your-project). The website will require the researcher to answer most of these questions in the dashboard page to configure the rest of the application. 
 
 This README will explain how to configure a VPS (Virtual Private Server) to act as a webserver, serve the website and configure its settings. This way, a researcher with a complex systems problem can worry over the hard questions regarding the problem statement instead of dealing with issues of visualization and ways of data gathering. For more information, please read [my report](bas_chatel_internship2019.pdf).
 
-# Step- by- step conceptualization of your project
+# Step by step conceptualization of your project
 
 1. Define the Problem
     * Meta-analysis 
