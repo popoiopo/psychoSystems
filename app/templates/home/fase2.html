@@ -8,6 +8,8 @@
 
 <!-- Load libraries -->
 <script src="//d3js.org/d3.v4.min.js"></script>  
+<script>var d4 = d3;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
 <script type="{{ url_for('static', filename='js/exampleUtil.js') }}"></script>
 <script src="{{ url_for('static', filename='js/jquery-csv.js') }}"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
@@ -18,6 +20,9 @@
 <script src="https://d3js.org/d3-selection-multi.v0.4.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script src="{{ url_for('static', filename='js/test.js') }}"></script>
+<script src="{{ url_for('static', filename='js/spatiotemptable/d3_code_toggle_yn.js') }}"></script>
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/fase2.css') }}">
 
 <!-- Load python data -->
 <script type="text/javascript"> 
@@ -128,6 +133,16 @@
               </li>
             </ul>
           </li>
+          <li>
+            <a href="#networkToggle" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Network Type</a>
+              <ul class="collapse list-unstyled" id="networkToggle">
+                <center>
+                <li>
+                  <section id="netTog"></section>
+                </li>
+                </center>
+              </ul>
+          </li>
           {% if current_user.is_authenticated %}
           <li>
             <a href="#saveProgress" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Save progress</a>
@@ -160,15 +175,6 @@
               <td class="tableLeft">label</td><td><input class="selections tableRight" id="node-label" name="textfield" type="text" placeholder="New value" /></td>
             </tr>
             <tr>
-              <td class="tableLeft">Notes on factor</td><td><input class="selections tableRight" id="node-notes_factor" name="textfield" type="text" placeholder="What kind of factor is it?"/></td>
-            </tr>
-            <tr>
-              <td class="tableLeft">General notes</td><td><input class="selections tableRight" id="node-notes" name="textfield" type="text" placeholder="How does the factor function in general?"/></td>
-            </tr>
-            <tr>
-              <td class="tableLeft">Supporting literature</td><td><input class="selections tableRight" id="node-sup_lit" name="textfield" type="text" placeholder="seperate by /" /></td>
-            </tr>
-            <tr>
               <td class="tableLeft">How sensitive is this node to change?</td><td><select class="selections tableRight" id="node-sensitivity_id">
               {% for sensitivity in dropDowns.sensitivity_id %}
                   <option value={{ loop.index }}>{{ sensitivity }}</option>
@@ -195,6 +201,15 @@
                   <option value={{ loop.index }}>{{ spat_aspect }}</option>
                 {% endfor %}
               </select></td>
+            </tr>
+            <tr>
+              <td class="tableLeft">Notes on factor</td><td><input class="selections tableRight" id="node-notes_factor" name="textfield" type="text" placeholder="What kind of factor is it?"/></td>
+            </tr>
+            <tr>
+              <td class="tableLeft">General notes</td><td><input class="selections tableRight" id="node-notes" name="textfield" type="text" placeholder="How does the factor function in general?"/></td>
+            </tr>
+            <tr>
+              <td class="tableLeft">Supporting literature</td><td><input class="selections tableRight" id="node-sup_lit" name="textfield" type="text" placeholder="seperate by /" /></td>
             </tr>
           </table>
           <input type="button" value="save" id="node-saveButton" />
@@ -250,6 +265,10 @@
 </div>
 
 <center><div id="secondText" class="col-md-8"></div></center>
+
+
+<div id="mynetwork2"></div>
+
 
 <script src="{{ url_for('static', filename='js/testing.js') }}"></script>
 

@@ -36,21 +36,46 @@ function destroy() {
   }
 }
 
-function draw() {
+function draw(networkType) {
   destroy();
 
+  if (networkType == "hierarchical") {
+    var networkPhysics = false;
+    var networkLayout = {
+      hierarchical: {
+        parentCentralization:false,
+        nodeSpacing: 200,
+        treeSpacing: 50,
+        sortMethod: "directed"
+      }
+    };
+  } else {
+    var networkPhysics = {
+        barnesHut:{gravitationalConstant:-10000},
+        stabilization: {iterations:2500}
+      }
+    var networkLayout = {randomSeed:seed}
+  }
+
   // create a network
-  var container = document.getElementById('mynetwork');
+  var container = document.getElementById("mynetwork");
   var options = {
     nodes: {
-      shape: 'dot',
+      shape: 'circle',
+      // widthConstraint: 100,
       scaling: {
-        min: 10,
-        max: 30
+        label: {
+          enabled: true,
+          min: 14,
+          max: 18,
+          maxVisible: 20,
+          drawThreshold:8,
+
+        }
       },
       font: {
-        size: 12,
-        face: 'Tahoma'
+        // required: enables displaying <b>text</b> in the label as bold text
+        multi: 'html',
       }
     },
     edges: {
@@ -70,21 +95,8 @@ function draw() {
       hideEdgesOnDrag: true,
       tooltipDelay: 200
     },
-    physics:false,
-    // {
-    //   barnesHut:{gravitationalConstant:-10000},
-    //   stabilization: {iterations:2500}
-    // },
-    layout: {
-      hierarchical: {
-      direction: "UD"
-    }}, // just to make sure the layout is the same when the locale is changed
-    // physics:{
-    //   barnesHut:{gravitationalConstant:-10000},
-    //   stabilization: {iterations:2500}
-    // },
-    // layout: {randomSeed:seed}, // just to make sure the layout is the same when the locale is changed
-
+    physics: networkPhysics,
+    layout: networkLayout,
     locale: document.getElementById('locale').value,
     manipulation: {
       addNode: function (data, callback) {
@@ -144,13 +156,12 @@ function draw() {
 
 function checkForm(temp, infType) {
     keys = Object.keys(temp);
-    console.log(temp);
     check = dropDowns
-    noCheck = ["id", "to", "from", "created_date", "level", "arrows", "x", "y", "notes_factor", "sup_lit", "notes", "group"]
 
     pass = true
     for (var i = keys.length - 1; i >= 0; i--) {
-        if (!noCheck.includes(keys[i])) {
+        if (Object.keys(dropDowns).includes(keys[i]) || keys[i] == "label") {
+            console.log(infType, keys[i])
             if (temp[keys[i]] == "undefined" || temp[keys[i]] =="") {
                 document.getElementById(infType + "-" + keys[i]).style.backgroundColor = "#FF0000"
                 pass = false;
@@ -167,15 +178,30 @@ function checkForm(temp, infType) {
     return pass
 }
 
+String.prototype.replaceAll = function(search, replacement) {
+  var target = this;
+  return target.split(search).join(replacement);
+};
+
 function editNode(data, cancelAction, callback) {
-  document.getElementById('node-label').value = data.label;
-  document.getElementById('node-notes').value = data.notes;
+  if (data.label != undefined && data.label != "new") {
+    var labelInsert = data.label.replace(/(\r\n|\n|\r)/gm,"").replaceAll("</b><b>", " ").replace("<b>", "").replace("</b>", "");
+    document.getElementById('node-label').value = labelInsert;
+  }
   document.getElementById('node-sensitivity_id').value = data.sensitivity_id;
-  document.getElementById('node-sup_lit').value = data.sup_lit;
   document.getElementById('node-temp_imp_id').value = data.temp_imp_id;
-  document.getElementById('node-notes_factor').value = data.notes_factor;
   document.getElementById('node-temp_aspect_id').value = data.temp_aspect_id;
   document.getElementById('node-spat_aspect_id').value = data.spat_aspect_id;
+
+  if (data.notes_factor != undefined && data.notes_factor != "new") {
+    document.getElementById('node-notes_factor').value = data.notes_factor;
+  }
+  if (data.notes != undefined && data.notes != "new") {
+    document.getElementById('node-notes').value = data.notes;
+  }
+  if (data.sup_lit != undefined && data.sup_lit != "new") {
+    document.getElementById('node-sup_lit').value = data.sup_lit;
+  }
 
   document.getElementById('node-saveButton').onclick = saveNodeData.bind(this, data, callback);
   document.getElementById('node-cancelButton').onclick = cancelAction.bind(this, callback);
@@ -195,20 +221,20 @@ function cancelNodeEdit(callback) {
 }
 
 function saveNodeData(data, callback) {
-  data.label = document.getElementById('node-label').value;
+  console.log(data);
+  data.label = "<b>" + document.getElementById('node-label').value.replaceAll(" ", "</b>\n<b>") + "</b>";
 
   var nodeID = data.label + String(Math.random());
 
-  data.label = document.getElementById('node-label').value;
   data.id = nodeID
-  data.group = parseInt(document.getElementById('node-temp_imp_id').value)-1;
+  data.group = parseInt(document.getElementById('node-temp_aspect_id').value);
   data.notes = document.getElementById('node-notes').value;
   data.sensitivity_id = document.getElementById('node-sensitivity_id').value;
   data.sup_lit = document.getElementById('node-sup_lit').value;
   data.temp_imp_id = document.getElementById('node-temp_imp_id').value;
   data.notes_factor = document.getElementById('node-notes_factor').value;
   data.temp_aspect_id = document.getElementById('node-temp_aspect_id').value;
-  data.level = document.getElementById('node-temp_aspect_id').value;
+  data.level = parseInt(document.getElementById('node-temp_aspect_id').value);
   data.spat_aspect_id = document.getElementById('node-spat_aspect_id').value;
   data.created_date = new Date().toLocaleString("en-GB", {timeZone: "Europe/Amsterdam",
                                     timeZoneName: "short"})
@@ -317,9 +343,9 @@ function saveEdgeData(data, callback, edit, type) {
   }
 }
 
-function init() {
+function init(networkType) {
   setDefaultLocale();
-  draw();
+  draw(networkType);
 }
 
 function saveData() {
@@ -555,4 +581,19 @@ function closeNav() {
   document.getElementById("main").style.marginLeft= "0";
 }
 
-init();
+init("hierarchical");
+
+
+var netTog = noYesBtns('#netTog')
+    .nTxt('Hierarchy')
+    .yTxt('Force')
+    .on('_click', function () {
+        d3.select(this).style('background', '#FDBB30');
+        if (this.firstChild.data == "Hierarchy") {
+            init("hierarchical");
+        }
+        else if (this.firstChild.data == "Force") {
+            init("Force");
+        }
+    })
+    .render();

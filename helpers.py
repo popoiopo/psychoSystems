@@ -264,13 +264,23 @@ def sim_div(message):
             "DOWN": {"X": DOWN_X, "P": DOWN_P, "D": DOWN_D}})
         return data
 
+
 def give_arrows(value):
-    if value < 0:
+    if value < 3:
         return { "to": { "enabled": True, "type": 'bar' }}
-    elif value > 0:
+    elif value > 3:
         return "to"
-    elif value == 0:
+    elif value == 3:
         return { "to": { "enabled": True, "type": 'circle' }}
+
+
+def give_strength(value):
+    if value == 1 or value == 5:
+        return 3
+    elif value == 2 or value == 4:
+        return 2
+    elif value == 3:
+        return 0.5
 
 
 def give_dashes():

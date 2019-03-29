@@ -3,7 +3,7 @@
 from flask import abort, render_template, request, jsonify, send_from_directory, make_response, send_file, Response
 from ..models import Expert, Factor, Operator, Node, Edge, Temp_imp, Spat_aspect, Temp_aspect, pageTexts, Sensitivity, Con_strength
 from flask_login import current_user, login_required
-from helpers import createJSON, export_network_data, convert, simulation_1, simulation_2, sim_div, give_arrows, give_dashes
+from helpers import createJSON, export_network_data, convert, simulation_1, simulation_2, sim_div, give_arrows, give_dashes, give_strength
 from requests_toolbelt import MultipartEncoder
 from forms import NodeForm
 from . import home
@@ -168,7 +168,6 @@ def fase2():
         '#d53e4f', '#f46d43', '#fdae61', '#fee08b', '#e6f598', '#abdda4',
         '#66c2a5', '#3288bd', '#ffffbf'
     ]
-    string = "digraph {&#13;&#10;&Tab; node [width=.25,height=.375,fontsize=15]&#13;&#10;&Tab; node [shape=filled color=steelblue]&#13;&#10;&Tab; edge [length=100, fontcolor=black]&#13;&#10;&NewLine;"
 
     nodes = Node.query.all()
     edges = Edge.query.all()
@@ -204,7 +203,7 @@ def fase2():
     data = {"nodes": [], "edges": []}
     data["nodes"] = [{
         "id": int(node.id),
-        "sensitivity": int(node.sensitivity_id),
+        "sensitivity_id": int(node.sensitivity_id),
         "spat_aspect_id": str(node.spat_aspect_id),
         "temp_aspect_id": str(node.temp_aspect_id),
         "temp_imp_id": str(node.temp_imp_id),
@@ -217,11 +216,11 @@ def fase2():
             "color": 'black',
             "bold": True
         },
-        "label": str(node.factor),
+        "label": '<b>'+str(node.factor).replace("_", "</b>\n<b>")+'</b>',
         "group": str(node.temp_aspect_id),
         "x": None,
         "y": None,
-        "value": np.random.uniform(8, 20),
+        "value": int(node.sensitivity_id),
         "sup_lit": None,
         "fixed": False,
         "physics": True,
@@ -254,7 +253,7 @@ def fase2():
             "to": str(edge.factor_B),
             "id": int(edge.id),
             "created_date": str(edge.created_date),
-            "value": int(edge.con_strength_id),
+            "value": give_strength(edge.con_strength_id),
             "temp_imp_id": str(edge.temp_imp_id),
             "temp_aspect_id": str(edge.temp_aspect_id),
             "operator_id": str(edge.operator_id),
@@ -270,7 +269,7 @@ def fase2():
     for index, group in enumerate(dropDowns["temp_aspects"]):
         data["nodes"].append({"id": 1000 + index, 
                               "x": -1000, 
-                              "y": 70 * index, 
+                              "y": index * 100, 
                               "font":{"multi": 'html',
                                       "size": 24,
                                       "color": 'black',
@@ -280,13 +279,13 @@ def fase2():
                               "sup_lit":None,
                               "created_date":None,
                               "label": group, 
-                              "group": str(index), 
+                              "group": str(index+1), 
                               "sensitivity": None,
                               "temp_aspect_id": None,
                               "temp_imp_id": None,
                               "value": 7, 
                               "fixed": True, 
-                              "level": 0,
+                              "level": str(index+1),
                               "physics":False})
 
     return render_template(
@@ -336,7 +335,6 @@ def admin_presentation():
         '#d53e4f', '#f46d43', '#fdae61', '#fee08b', '#e6f598', '#abdda4',
         '#66c2a5', '#3288bd', '#ffffbf'
     ]
-    string = "digraph {&#13;&#10;&Tab; node [width=.25,height=.375,fontsize=15]&#13;&#10;&Tab; node [shape=filled color=steelblue]&#13;&#10;&Tab; edge [length=100, fontcolor=black]&#13;&#10;&NewLine;"
 
     nodes = Node.query.all()
     edges = Edge.query.all()

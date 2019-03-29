@@ -1,0 +1,29 @@
+section {
+  margin: 20px 0;
+  padding-bottom: 20px;
+  border-bottom: 1px dotted #ccc; 
+}
+
+#q3 button.ny-btn {
+  font-size: 72px;
+}
+
+button.ny-btn {
+  font-family: Consolas, monaco, monospace;
+  font-size: 12px; 
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  color:  #130C0E; /* black */
+  background-color: #4CAF50; /* green */
+  width: 115px;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  display: inline-block;
+  margin: 4px;
+}
+button.ny-btn:focus {
+  outline:0;
+}
