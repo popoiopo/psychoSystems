@@ -129,7 +129,7 @@ systemctl enable mysql
 ```
 13. Now that MySQL has been installed, we can go ahead with installing PHP by typing the following command:
 ```
-apt-get install php7.0 libapache2-mod-php7.0 php7.0-mysql php7.0-curl php7.0-mbstring php7.0-gd php7.0-xml php7.0-xmlrpc php7.0-intl php7.0-soap php7.0-zip
+apt-get install php7.0 libapache2-mod-php7.0 php7.0-mysql php7.0-curl php7.0-mbstring php7.0-gd php7.0-xml php7.0-xmlrpc php7.0-intl php7.0-soap php7.0-zip -y
 ```
 To test if PHP has been installed successfully we can create a file with the nano text editor:
 
@@ -157,7 +157,7 @@ If you now revisit **http://your_ip_address/info.php**, you'll see that it will 
 
 14. Now that we've installed the LAMP software, we would like to have some user interface to eventually work with regarding the database. This will make loading some defaults and debugging if a problem occurs easier. For this we will use phpMyAdmin by entering the following command:
 ```
-apt-get install phpmyadmin
+apt-get install phpmyadmin -y
 ```
 By doing this you will be prompted to select a web server to configure, hit the **space bar** to select Apache2 and Enter to confirm and continue (don't forget the space bar to actually select the apache2 option or else it won’t work). On the next screen, select YES to configure a database for phpMyAdmin with dbconfig-common. And finally set your password for phpMyAdmin.
 
@@ -177,49 +177,123 @@ If you now type in "ls" than you should see an "index.html" and the psychoSystem
 
 17. Next we will download Python onto the server as the backbone of the website is written with the Python Flask library. For this we first need to install all required dependencies:
 ```
-sudo apt-get install build-essential checkinstall
-sudo apt-get install libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
+sudo apt-get install build-essential checkinstall -y
+sudo apt-get install libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev -y
 ```
 
 Then we will download Python itself:
 ```
 cd /usr/src
-sudo wget https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tgz
+sudo wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz
 ```
 
 And extract and compile the downloaded package,:
 
 ```
-sudo tar xzf Python-2.7.15.tgz
-cd Python-2.7.15
+sudo tar xzf Python-2.7.12.tgz
+cd Python-2.7.12
 sudo ./configure --enable-optimizations
 sudo make altinstall
 ```
 Now that we have Python up and running, we'll want the pip package installation software by typing:
 ```
-apt install python-pip
+apt install python-pip -y
 ```
-So far so good! Now that we can install python stuff, lets make a virtual environment in which our website will function (virtual environments are used so we can kind of have all our code run neatly within a single box instead of it being installed globally). 
+So far so good! Now that we can install python stuff, lets make a virtual environment in which our website will function (virtual environments are used, so we can kind of have all our code run neatly within a single box instead of it being installed globally). 
 ```
 pip install setuptools
 pip install virtualenv
 pip install virtualenvwrapper
+```
+Now that we have the necessary libraries to make a virtual environment paste these to lines at the bottom of the basrc file. We can open this file with:
+```
+sudo nano ~/.bashrc
+```
+And then scroll down using your down arrow to the bottom of the file and paste in the next two commands:
+```
 export WORKON_HOME=~/Envs
 source /usr/local/bin/virtualenvwrapper.sh
+```
+Then press "ctrl-x", type "y" and enter to safe this file. After the next two commands, every time you open a terminal you can return to the CHATEL project by typing "workon CHATEL".
+```
 mkvirtualenv CHATEL
-workon CHATEL
+deactivate
 ```
 You should now see that (CHATEL) is displayed on the left side of your terminal as we are now working in the virtual environment called CHATEL. Now any dependencies within the website we will install inside this virtual environment. Whenever you want to work on the project from within the VPS, you can type **workon CHATEL** and you can access the environment again. So now that we have our virtual environment going we will perform a small magic trick and download all website requirements at once!
 
 ```
 cd /var/www/html/psychoSystems
+sudo apt-get install libmysqlclient-dev -y
+sudo apt-get install python-dev -y
 pip install -r requirements.txt
 ```
 
+And we have all our dependencies up and running! Now we can start configuring the flask backbone of the website:
+```
+export FLASK_CONFIG=production
+export FLASK_APP=run.py
+```
+And set up the database by opening MySQL via the terminal by typing:
+```
+mysql -u root -p
+```
+After entering your MySQL password (given during step 10), you now type "show databases;" which gives a list showing all databases that is inside your MySQL database. You can also check this by logging into **http://your_ip_address/phpmyadmin**. 
 
+Now we will move on and link our python environment with the database by creating a database: **MOET NOG EVEN VERANDEREN MOET NOG EVEN STUKJE TUSSEN OVER WACHTWOORD VERANDEREN ETC**
 
+```
+CREATE DATABASE psychoSystems;
+CREATE USER 'psychoSystems_admin:Psycho2019?!'@'localhost' IDENTIFIED BY  'Psycho2019?!';
+GRANT ALL PRIVILEGES ON psychoSystems . * TO 'psychoSystems_admin:Psycho2019?!'@'localhost';
+quit
+```
 
+```
+export SQLALCHEMY_DATABASE_URI='mysql://psychoSystems_admin:Psycho2019?!@localhost/psychoSystems'
+```
+Then setup the website database by:
+```
+rm -r migrations
+flask db init
+flask db migrate
+flask db upgrade
+```
 
+```
+cd /etc/apache2/sites-available
+sudo nano CHATEL.conf
+```
+
+```
+<VirtualHost *:80>
+		ServerName 116.203.137.34
+		ServerAdmin root@116.203.137.34
+
+		WSGIDaemonProcess CHATEL python-home=/root/Envs/CHATEL
+		WSGIProcessGroup CHATEL
+	
+		WSGIScriptAlias / /var/www/html/psychoSystems/CHATEL.wsgi
+
+		<Directory /var/www/html/psychoSystems/app/>
+			Order allow,deny
+			Allow from all
+		</Directory>
+		Alias /static /var/www/html/psychoSystems/app/static
+		<Directory /var/www/html/psychoSystems/app/static/>
+			Order allow,deny
+			Allow from all
+		</Directory>
+		ErrorLog ${APACHE_LOG_DIR}/error.log
+		LogLevel warn
+		CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+```
+
+```
+apt-get install libapache2-mod-wsgi
+systemctl restart apache2
+```
 
 
 
