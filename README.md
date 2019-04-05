@@ -49,7 +49,7 @@ This README will explain how to configure a VPS (Virtual Private Server) to act 
 Though this might seem daunting, and perhaps for some technologically challenging, we provide a step by step tutorial of how to configure and publish the website within the hour and for a cost of about 3 euros per month hosting costs (if Hetzner is chosen as VPS host). A VPS was chosen in order to cut budget costs and retain a lot of freedom to personalize, play around and alter anything you want. This tutorial consists of several parts guiding you from start (reading this README!) to finish (a fully functional website).
 
 ### Choosing and configuring VPS service
-As our web application will attract only few users (mostly being your expert pool) we don't need a lot of RAM, Disk space, CPU etc. For our purposes a 2 GB RAM with 20 GB Disk space, 1 CPU and 20 TB traffic is more than enough. [Greenhost](https://greenhost.net/), [DigitalOcean](https://www.digitalocean.com/) or [Hetzner](https://www.hetzner.com/cloud) for example provide fine VPS services that let you do whatever you want with them for a small price. Out of these three, [Hetzner](https://www.hetzner.com/cloud) is the cheapest with good reviews, so throughout this tutorial we will use this VPS provider. Throughout this tutorial three different notation styles will be used in order to clarify what needs to be typed in where.  Upon talking about buttons that need to be clicked and text outside the Linux terminal it will be presented between "quotations marks" . Within the Linux terminal we will continuously use the following box:
+As our web application will attract only few users (mostly being your expert pool) we don't need a lot of RAM, Disk space, CPU etc. For our purposes a 2 GB RAM with 20 GB Disk space, 1 CPU and 20 TB traffic is more than enough. [Greenhost](https://greenhost.net/), [DigitalOcean](https://www.digitalocean.com/) or [Hetzner](https://www.hetzner.com/cloud) for example provide fine VPS services that let you do whatever you want with them for a small price. Out of these three, [Hetzner](https://www.hetzner.com/cloud) is the cheapest with good reviews, so throughout this tutorial we will use this VPS provider. Throughout this tutorial three different notation styles will be used in order to clarify what needs to be typed in where.  Upon talking about buttons that need to be clicked and text outside the Linux terminal it will be presented between "quotations marks". Within the Linux terminal we will continuously use the following box:
 ```
 Code that is in here is meant as a terminal command!
 ```
@@ -59,9 +59,11 @@ Code that is in here is meant as a terminal command!
 2. Now that we have an account we first need to create an SSH key in order to be able to safely log in to the server we're about to create.
 	1. Upon using a Windows' computer I would recommend using [PUTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html). After installing this press the windows button on your keyboard, type **"puttygen"** and press enter. 
 	2. When the PUTTY key generator has been opened, press the **"generate"** button and move your mouse around within the PUTTY window. The program uses your mouse movements to generate a random key (as it is very hard to figure out what movements someone made during the creation of this key it is very safe). 
-	**PICTURE**
+
+  ![Putty Example](readmeIMG/putty.PNG)
+
 	3. Press the **"Safe private key"** button and safe this somewhere on your computer where you can find it (you'll need this later to log into your VPS!).
-	4. Copy the text within the box underneath "Public key for pasting into OpenSSH authorized_keys file:", the text should look a bit like this: *PICTURE*
+	4. Copy the text within the box underneath "Public key for pasting into OpenSSH authorized_keys file:", the text should look a bit like this: 
 	
     ```
       ssh-rsa
@@ -84,10 +86,12 @@ Code that is in here is meant as a terminal command!
 
 7. Once winSCP is installed, we can access the new VPS.
 	1. Go to your Hetzner server and copy the IP address (if you look at the overview page, you should be able to see your IP address next to IPv4 on top of the page). The IP address looks like 116.203.137.34 but with some different numbers. From now on if I talk about IP address or your_ip_address, this is what I'm talking about.
-	**PICTURE**
+  ![Hetzner Website example](readmeIMG/Hetzner.PNG)
 	2. Press the Windows button and type **"winSCP"** and press enter.
 	3. Now that winSCP is opened you should see something like: 
-	**PICTURE**
+	
+  ![WinSCP example](readmeIMG/winSCP.png)
+
 	4. Keep "File protocol" (1) on SFTP, paste your IP address in "Address targetcomputer" (2) , as "Username" (3) type root.
 	5. Click on **"Advanced"** (4).
 	6. To the left under the SSH tab, you can see **"Authentication"** (5), press here and then you'll be able to browse (click on the button with three dots (6)) to your private key that we saved in step 2.3.
@@ -95,7 +99,7 @@ Code that is in here is meant as a terminal command!
 	8. Finally, press **"Log in"** (9)  and we can access our VPS! 
 	8. As you can see, there are lots of buttons visible and a file structure as you are used to seeing using windows. We will first just use the terminal to do some configurations. Press the **"Open Session in PUTTY"** (10), it's that small button looking like two computers with a lightning strike in between, just to the right of "synchronize".
 	10. If all went well, you should be able to see a terminal opening looking like this:
- **PICTURE** 
+  ![teminal](readmeIMG/CHATELterminal.PNG)
 	11. As of this moment, we will work a lot in the terminal which might seem a bit intimidating if you're not used to working with this, but I'll guide you every step of the way so it'll be fine!
 
 #### Configuring your VPS as a webserver
@@ -160,7 +164,7 @@ systemctl restart apache2
 ```
 If all went well, you can again go to your IP address in the browser as in step 9, but this time followed by "/info.php". Like so, **http://your_ip_address/info.php** which will show you the following page: 
 
-**PICTURE**
+![Successfull PHP](readmeIMG/php.png)
 
 As this file is of no further use to our website, we can safely remove it by typing the following:
 ```
@@ -172,10 +176,13 @@ If you now revisit **http://your_ip_address/info.php**, you'll see that it will 
 ```
 apt-get install phpmyadmin -y
 ```
-By doing this you will be prompted to select a web server to configure, hit the **"space bar"** to select Apache2 and Enter to confirm and continue (don't forget the space bar to actually select the apache2 option or else it won’t work). On the next screen, select YES to configure a database for phpMyAdmin with dbconfig-common. And finally set your password for phpMyAdmin.
+By doing this you will be prompted to select a web server to configure (like in the figure underneath), hit the **"space bar"** to select Apache2 and Enter to confirm and continue (don't forget the space bar to actually select the apache2 option or else it won’t work). On the next screen, select YES to configure a database for phpMyAdmin with dbconfig-common. And finally set your password for phpMyAdmin.
+
+![phpMyAdmin Prompt](readmeIMG/phpMyAdmin.PNG)
 
 15. To check whether installing phpMyAdmin has worked, go to **http://your_ip_address/phpmyadmin** and you should see the following page: 
-**FIGURE**
+
+![Example PHPMyAdmin](readmeIMG/phpMyAdminLogin.PNG)
 
 Your Username is "root", and the password is the password you've set in the previous step.
 
@@ -314,7 +321,8 @@ apt-get install libapache2-mod-wsgi
 systemctl restart apache2
 ```
 And we are open for business! Please open the website at **"http://your_ip_address"** and enjoy the website! If you'd like a more professional look and have the URL be like a normal website instead of an IP address, you could go to [godaddy.com](https://sso.godaddy.com/login?realm=idp&app=dcc&path=%2fdefault.aspx%3fisc%3dgdbb2228f%26utm_source%3dgdocp%26utm_medium%3demail%26utm_campaign%3dnl-NL_other_email-nonrevenue_base_gd&ISC=gdbb2228f) and buy a domain name. If you have one and are logged in, you can click on your domain name followed by "Manage DNS" and configure it as follows:
-**FIGURE**
+
+![Domain Settings](domain_name.PNG)
 
 
 
