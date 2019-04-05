@@ -1,6 +1,5 @@
 # CHATEL
 ## Complexity HTTP Automated Teammate Experimentation Lab
-<sub><sup>Colaborators: <b>Julia Anten, Ria Hoekstra, Sacha Epskamp, Rick Quax, Denny Borsboom, Claudi Bockting</b></sup></sub>
 
 #### A high level python based website to facilitate conducting qualitative expert interviews regarding a Complex  System problem
 
