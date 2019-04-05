@@ -236,16 +236,9 @@ def fase2():
         if data["nodes"][fromIndex]["temp_aspect_id"] != data["nodes"][
                 toIndex]["temp_aspect_id"]:
             smoothType = "continous"
-            print("**************** CONTINOUS " + data["nodes"][fromIndex]["temp_aspect_id"] + data["nodes"][
-                fromIndex]["temp_aspect_id"])
         else:
-            print("**************** CurvedCW " + str(data["nodes"][fromIndex]["id"]) + data["nodes"][fromIndex]["label"])
-            print(edge.factor_A)
-            print(data["nodes"][fromIndex])
-
             smoothType = "curvedCW"
 
-        print(str(edge.factor_A), str(edge.factor_B), smoothType)
         data["edges"].append({
             "arrows": give_arrows(edge.con_strength_id),
             "dashes": bool(1),
@@ -433,15 +426,17 @@ def admin_presentation():
 @home.route('/submitcausalmap', methods=['GET', 'POST'])
 def submitcausalmap():
     data = request.json
-    print(data["edges"][0].keys())
     errors = ""
     post = ""
+    print(" $$$$$$$$$$$$$$$$$$$$$$$$$$$$ DATA $$$$$$$$$$$$$$$$$$$$$$$$")
+    print(data)
     for i, node in enumerate(data["nodes"]):
         try:
             nodePost = Node(
-                factor=node["label"],
+                factor=node["label"].replace("<b>", "").replace("</b>", ""),
                 expert_id=current_user.get_id(),
-                sensitivity=node["sensitivity"],
+                sensitivity_id=node["sensitivity_id"],
+                spat_aspect_id=node["spat_aspect_id"],
                 temp_aspect_id=node["temp_aspect_id"],
                 temp_imp_id=node["temp_imp_id"],
                 notes=node["notes"],
@@ -450,26 +445,33 @@ def submitcausalmap():
             db.session.commit()
             post = "It worked!"
         except Exception as e:
-            errors += " (" + str(i) + " " + e + ")"
-            post = "Something went wrong with adding nodes"
+            errors += " (" + str(i) + " " + str(e) + ")"
+            post = "Something went wrong with adding nodes: "
     for i, edge in enumerate(data["edges"]):
+
+        print(" **************************** ")
+        print("DEBUGGINNGGGGGG")
+        print(edge)
+        print(convert(edge))
         try:
+            edge = convert(edge)
+
             edgePost = Edge(
-                expert_id=int(current_user.get_id()),
+                expert_id=current_user.get_id(),
                 factor_A=edge["from"],
                 factor_B=edge["to"],
-                con_strength=int(edge["con_strength"]),
-                operator_id=int(edge["operator_id"]),
-                temp_aspect_id=int(edge["temp_aspect_id"]),
-                temp_imp_id=int(edge["temp_imp_id"]),
+                con_strength=edge["con_strength"],
+                operator_id=edge["operator_id"],
+                temp_aspect_id=edge["temp_aspect_id"],
                 notes_relation=edge["notes_relation"],
                 sup_lit=edge["sup_lit"])
             db.session.add(edgePost)
             db.session.commit()
             post = "It worked!"
         except Exception as e:
+            print(e)
             errors += " (" + str(i) + " " + str(e) + ")"
-            post += "Something went wrong with adding edges: "
+            post = "Something went wrong with adding edges: "
 
     if errors == "":
         return jsonify(post)

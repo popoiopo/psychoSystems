@@ -359,7 +359,9 @@ function saveData() {
     data: posting,
     type: 'POST',
     success: function(response ,jqxhr, settings) {
-      console.log(response, jqxhr, settings);
+      console.log(response);
+      console.log(jqxhr);
+      console.log(settings);
     },
     error: function(error, jqxhr, settings) {
       console.log(error);
