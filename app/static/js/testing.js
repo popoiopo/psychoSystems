@@ -51,8 +51,8 @@ function draw(networkType) {
     };
   } else {
     var networkPhysics = {
-        barnesHut:{gravitationalConstant:-10000},
-        stabilization: {iterations:2500}
+        barnesHut:{gravitationalConstant:-5000},
+        stabilization: {iterations:100}
       }
     var networkLayout = {randomSeed:seed}
   }
@@ -60,6 +60,8 @@ function draw(networkType) {
   // create a network
   var container = document.getElementById("mynetwork");
   var options = {
+    height:'100%',
+    width:'100%',
     nodes: {
       shape: 'circle',
       // widthConstraint: 100,
