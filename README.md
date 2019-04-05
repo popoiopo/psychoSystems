@@ -59,9 +59,7 @@ Code that is in here is meant as a terminal command!
 2. Now that we have an account we first need to create an SSH key in order to be able to safely log in to the server we're about to create.
 	1. Upon using a Windows' computer I would recommend using [PUTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html). After installing this press the windows button on your keyboard, type **"puttygen"** and press enter. 
 	2. When the PUTTY key generator has been opened, press the **"generate"** button and move your mouse around within the PUTTY window. The program uses your mouse movements to generate a random key (as it is very hard to figure out what movements someone made during the creation of this key it is very safe). 
-
   ![Putty Example](readmeIMG/putty.PNG)
-
 	3. Press the **"Safe private key"** button and safe this somewhere on your computer where you can find it (you'll need this later to log into your VPS!).
 	4. Copy the text within the box underneath "Public key for pasting into OpenSSH authorized_keys file:", the text should look a bit like this: 
 	
@@ -89,9 +87,7 @@ Code that is in here is meant as a terminal command!
   ![Hetzner Website example](readmeIMG/Hetzner.PNG)
 	2. Press the Windows button and type **"winSCP"** and press enter.
 	3. Now that winSCP is opened you should see something like: 
-	
-  ![WinSCP example](readmeIMG/winSCP.png)
-
+  ![WinSCP example](readmeIMG/winSCP.PNG)
 	4. Keep "File protocol" (1) on SFTP, paste your IP address in "Address targetcomputer" (2) , as "Username" (3) type root.
 	5. Click on **"Advanced"** (4).
 	6. To the left under the SSH tab, you can see **"Authentication"** (5), press here and then you'll be able to browse (click on the button with three dots (6)) to your private key that we saved in step 2.3.
@@ -164,7 +160,7 @@ systemctl restart apache2
 ```
 If all went well, you can again go to your IP address in the browser as in step 9, but this time followed by "/info.php". Like so, **http://your_ip_address/info.php** which will show you the following page: 
 
-![Successfull PHP](readmeIMG/php.png)
+![Successfull PHP](readmeIMG/php.PNG)
 
 As this file is of no further use to our website, we can safely remove it by typing the following:
 ```
@@ -322,7 +318,7 @@ systemctl restart apache2
 ```
 And we are open for business! Please open the website at **"http://your_ip_address"** and enjoy the website! If you'd like a more professional look and have the URL be like a normal website instead of an IP address, you could go to [godaddy.com](https://sso.godaddy.com/login?realm=idp&app=dcc&path=%2fdefault.aspx%3fisc%3dgdbb2228f%26utm_source%3dgdocp%26utm_medium%3demail%26utm_campaign%3dnl-NL_other_email-nonrevenue_base_gd&ISC=gdbb2228f) and buy a domain name. If you have one and are logged in, you can click on your domain name followed by "Manage DNS" and configure it as follows:
 
-![Domain Settings](domain_name.PNG)
+![Domain Settings](readmeIMG/domain_name.PNG)
 
 
 
