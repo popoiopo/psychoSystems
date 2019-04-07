@@ -297,6 +297,12 @@ function setData_color(d, newFactor) {
     
     gridData[yIndex][xIndex].factors.push(newFactor);
     d4.select("#"+d).style("fill",function(e) { if (gridData[yIndex][xIndex].factors.length == 0) { return "white" } else { return color(gridData[yIndex][xIndex].factors.length) }});        
+
+    newData[newFactor] = {}
+    newData[newFactor]["temp_aspect"] = x_y_vars["x_vars"].indexOf(xyVars[0]);
+    newData[newFactor]["spat_aspect"] = x_y_vars["y_vars"].slice().reverse().indexOf(xyVars[1]);
+
+    console.log(newData);
     updateTable();
 }
 gridData.forEach(function(d, i) {
@@ -304,3 +310,25 @@ gridData.forEach(function(d, i) {
         d4.select("#" + cell.xvars + "_" + cell.yvars).style("fill",function(e) { if (gridData[i][k].factors.length == 0) { return "white" } else { return color(gridData[i][k].factors.length) }});
     });
 });
+
+function saveData() {
+  console.log(newData);
+  var posting = JSON.stringify(newData);
+  $.ajax({
+    url: '/submitNewNodes',
+    contentType: "application/json; charset=utf-8",
+    data: posting,
+    type: 'POST',
+    success: function(response ,jqxhr, settings) {
+      console.log(response);
+      console.log(jqxhr);
+      console.log(settings);
+    },
+    error: function(error, jqxhr, settings) {
+      console.log(error);
+      console.log(jqxhr);
+      console.log(settings);
+      alert("Something has gone wrong with submitting your data to the database. Please contact the server administrator.")
+    }
+  });
+}

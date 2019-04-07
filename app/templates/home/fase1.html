@@ -23,6 +23,7 @@
       factorDict = {{ factorDict|tojson }},
       spat_aspects = {{ spat_aspects|tojson }},
       temp_aspects = {{ temp_aspects|tojson }};
+      newData = {};
 </script>
 {% endblock %}
 
@@ -38,6 +39,9 @@
   <center>
     <div class="row">
         <h3 class="col-md-12"><span id="tableTitle">Filter Records on the Temporal or Spatial axis</span><span id="tableFactor"></span></h3>
+    </div>
+    <div class="row">
+      <button class="ny-btn" onclick="saveData()">Save Changes to Database</button>
     </div>
     <div class="row">
       <section class="col-md-12" id="q1"></section>

@@ -9,6 +9,7 @@ from forms import NodeForm
 from . import home
 from .. import db
 from ..models import Node, Edge
+from sqlalchemy import text
 
 import pandas as pd
 import numpy as np
@@ -428,8 +429,13 @@ def submitcausalmap():
     data = request.json
     errors = ""
     post = ""
-    print(" $$$$$$$$$$$$$$$$$$$$$$$$$$$$ DATA $$$$$$$$$$$$$$$$$$$$$$$$")
-    print(data)
+
+    # print("******************* DB EXECUTE ***************")
+    # result = db.engine.execute(text("SELECT * FROM nodes WHERE factor LIKE '%Ne%'"))
+    # nodes = [factor for factor in result]
+    # print(nodes)
+    # print("---------------------------")
+
     for i, node in enumerate(data["nodes"]):
         try:
             nodePost = Node(
@@ -448,19 +454,12 @@ def submitcausalmap():
             errors += " (" + str(i) + " " + str(e) + ")"
             post = "Something went wrong with adding nodes: "
     for i, edge in enumerate(data["edges"]):
-
-        print(" **************************** ")
-        print("DEBUGGINNGGGGGG")
-        print(edge)
-        print(convert(edge))
         try:
-            edge = convert(edge)
-
             edgePost = Edge(
                 expert_id=current_user.get_id(),
                 factor_A=edge["from"],
                 factor_B=edge["to"],
-                con_strength=edge["con_strength"],
+                con_strength_id=edge["con_strength"],
                 operator_id=edge["operator_id"],
                 temp_aspect_id=edge["temp_aspect_id"],
                 notes_relation=edge["notes_relation"],
@@ -469,7 +468,6 @@ def submitcausalmap():
             db.session.commit()
             post = "It worked!"
         except Exception as e:
-            print(e)
             errors += " (" + str(i) + " " + str(e) + ")"
             post = "Something went wrong with adding edges: "
 
@@ -477,6 +475,34 @@ def submitcausalmap():
         return jsonify(post)
     else:
         return jsonify(post + errors)
+
+
+@home.route('/submitNewNodes', methods=['GET', 'POST'])
+def submitNewNodesp():
+    data = request.json
+    errors = ""
+    post = ""
+    print("&&&&&&&&&&&&&&&&& DEBUGGING ^^^^^^^^^^^^^^^")
+    print(data)
+    for i, key in enumerate(data):
+        try:
+            nodePost = Node(
+                factor=key,
+                expert_id=current_user.get_id(),
+                spat_aspect_id=data[key]["spat_aspect"],
+                temp_aspect_id=data[key]["temp_aspect"])
+            db.session.add(nodePost)
+            db.session.commit()
+            post = "It worked!"
+        except Exception as e:
+            errors += " (" + str(i) + " " + str(e) + ")"
+            post = "Something went wrong with adding nodes: "
+
+    if errors == "":
+        return jsonify(post)
+    else:
+        return jsonify(post + errors)
+
 
 
 @home.route('/export_data', methods=['GET', 'POST'])
