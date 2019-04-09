@@ -47,7 +47,6 @@ var x_y_vars = {"x_vars" : temp_aspects,
             "y_vars" : spat_aspects};
 var cur_var = {"x_vars" : temp_aspects[0], "y_vars" : spat_aspects[0]};
 var cur_filter = "x_vars";
-// gridData[gridData.length - 1][gridData[gridData.length - 1].length - 1].y + height
 
 var margin = {
         top:70,
@@ -251,7 +250,7 @@ var column = row.selectAll(".square")
 
         div.html(
             '<div id="box" onclick="checking()"><center>' +
-                '<span class="fa-stack fa-lg closingTip" onclick="closeTTip(\'.tooltip\')">'+
+                '<span class="fa-stack fa-lg closingTip" style="cursor:pointer;" onclick="closeTTip(\'.tooltip\')">'+
                     '<i class="fa fa-times-circle fa-stack-2x fa-inverse"></i>'+
                 '</span>' +
                 '<p style="color: white; font-weight: bold; margin:5px;">' + d.xvars + ' - ' + d.yvars + '</p>' + 
@@ -299,10 +298,11 @@ function setData_color(d, newFactor) {
     d4.select("#"+d).style("fill",function(e) { if (gridData[yIndex][xIndex].factors.length == 0) { return "white" } else { return color(gridData[yIndex][xIndex].factors.length) }});        
 
     newData[newFactor] = {}
-    newData[newFactor]["temp_aspect"] = x_y_vars["x_vars"].indexOf(xyVars[0]);
-    newData[newFactor]["spat_aspect"] = x_y_vars["y_vars"].slice().reverse().indexOf(xyVars[1]);
+    newData[newFactor]["temp_aspect"] = x_y_vars["x_vars"].indexOf(xyVars[0]) + 1;
+    newData[newFactor]["spat_aspect"] = x_y_vars["y_vars"].indexOf(xyVars[1]) + 1;
 
-    console.log(newData);
+    console.log(x_y_vars["x_vars"].indexOf(xyVars[0]) + 1);
+    console.log(x_y_vars["y_vars"].indexOf(xyVars[1]) + 1);
     updateTable();
 }
 gridData.forEach(function(d, i) {
@@ -320,6 +320,7 @@ function saveData() {
     data: posting,
     type: 'POST',
     success: function(response ,jqxhr, settings) {
+      newData = {}
       console.log(response);
       console.log(jqxhr);
       console.log(settings);

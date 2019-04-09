@@ -137,6 +137,9 @@ var tableData = gotD[0],
     data_table = gotD[1];
 init += 1;
 
+console.log(tableData);
+console.log(data_table);
+
 var table = newTable();
 
 function newTable() {

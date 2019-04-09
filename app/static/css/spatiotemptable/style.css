@@ -91,11 +91,8 @@ section {
   border-bottom: 1px dotted #ccc; 
 }
 
-#q3 button.ny-btn {
-  font-size: 72px;
-}
-
 button.ny-btn {
+  cursor: pointer;
   font-family: Consolas, monaco, monospace;
   font-size: 14px; 
   letter-spacing: 3px;
@@ -103,7 +100,6 @@ button.ny-btn {
   text-align: center;
   text-decoration: none;
   color:  #130C0E; /* black */
-  background-color: #4CAF50; /* green */
   width: 115px;
   border: none;
   border-radius: 8px;

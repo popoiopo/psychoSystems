@@ -130,6 +130,12 @@ VALUES
         <p>Welcome to the first fase of our information gathering</p>", "firstText", "fase1"),
     ("<h1>Thank you for your cooperation</h1>", "secondText", "fase1"),
 
+    ("Relations between factors", "bannertitle", "sankey"),
+    ("Making connections in symptoms", "subtitle", "sankey"),
+    ("<h1>Thinking about relations</h1>
+        <p>Now is the time to think about how the factors interact among one another. Underneath we see a table on the left side and a circular Sankey graph depicting the flow of interactions.</p>", "firstText", "sankey"),
+    ("<h1>Thank you!</h1>", "secondText", "sankey"),
+
     ("Creating the Network", "bannertitle", "fase2"),
     ("Collaborating to create a CLD", "subtitle", "fase2"),
     ("<h1>Introduction to the CLD software</h1>

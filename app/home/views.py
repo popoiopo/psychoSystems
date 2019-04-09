@@ -130,6 +130,9 @@ def fase1():
         factorDict[spat_aspectsList[spat_asp]][
             temp_aspectsList[temp_asp]].append(node["factor"])
 
+    print(nodesList)
+    print(factorDict)
+
     return render_template(
         'home/fase1.html',
         factorDict=factorDict,
@@ -138,6 +141,55 @@ def fase1():
         temp_aspects=temp_aspectsList,
         pageDicts=pagesClassIDs,
         title="fase1")
+
+
+@home.route('/sankey')
+@login_required
+def sankey():
+    """
+    Render the fase1 template on the /fase1 route
+    """
+    pagesClassIDs = {
+        "sankey": {
+            "bannertitle": [],
+            "subtitle": [],
+            "firstText": [],
+            "secondText": []
+        }
+    }
+    for key in pagesClassIDs["sankey"].keys():
+        pagesClassIDs["sankey"][key].append(
+            str(
+                pageTexts.query.filter_by(pageID=key,
+                                          htmlName="sankey").first()))
+
+    nodes = Node.query.all()
+    nodesList = [node.__dict__ for node in nodes]
+    for nd in nodesList:
+        del nd['_sa_instance_state']
+
+
+    edges = Edge.query.all()
+    edgesList = [edge.__dict__ for edge in edges]
+    for ed in edgesList:
+        del ed['_sa_instance_state']
+
+    sankeyData = {}
+    sankeyData["links"] = [{"source":nodesList[edge["factor_A"]]["factor"], "target":nodesList[edge["factor_B"]]["factor"], "value":edge["con_strength_id"]*10,"optimal":"yes"} for edge in edgesList]
+
+    nodeSet = set()
+    for link in sankeyData["links"]:
+        nodeSet.add(link["source"])
+        nodeSet.add(link["target"])
+    sankeyData["nodes"] = [{"name":node} for node in nodeSet]
+
+    return render_template(
+        'home/sankey.html',
+        pageDicts=pagesClassIDs,
+        nodes=nodesList,
+        edges=edgesList,
+        sankeyData=sankeyData,
+        title="sankey")
 
 
 @home.route('/fase2')

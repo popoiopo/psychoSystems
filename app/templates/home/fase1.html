@@ -24,6 +24,7 @@
       spat_aspects = {{ spat_aspects|tojson }},
       temp_aspects = {{ temp_aspects|tojson }};
       newData = {};
+      console.log(factorDict);
 </script>
 {% endblock %}
 
@@ -33,15 +34,12 @@
 <!-- Body -->
 {% block body %}
 
-<center><div id="firstText"></div></center>
+<center><div id="firstText" class="text-justify col-md-8"></div></center>
 
 <div class="container">
   <center>
     <div class="row">
         <h3 class="col-md-12"><span id="tableTitle">Filter Records on the Temporal or Spatial axis</span><span id="tableFactor"></span></h3>
-    </div>
-    <div class="row">
-      <button class="ny-btn" onclick="saveData()">Save Changes to Database</button>
     </div>
     <div class="row">
       <section class="col-md-12" id="q1"></section>
@@ -53,11 +51,14 @@
       <div id="example-table" class="col-md-6" style="height:300; width:400;"></div>
   </div>
   <div id="vertical-whitespace" style="padding: 10px"></div>
+  <div class="row">
+    <button class="ny-btn databaseButton" onclick="saveData()">Commit to Database</button>
+  </div>
 </div>
 <script src="{{ url_for('static', filename='js/spatiotemptable/vscode.js') }}"></script>
 <script src="{{ url_for('static', filename='js/spatiotemptable/table2.js') }}"></script>
 
-<center><div id="secondText"></div></center>
+<center><div id="secondText" class="text-justify col-md-8"></div></center>
 
 <script type="text/javascript">
   pageKeys = Object.keys(pageTexts.fase1)
