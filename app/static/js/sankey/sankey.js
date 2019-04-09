@@ -19,6 +19,7 @@ var sankey = d4.sankey()
     .iterations(32);
 
 var svg = d4.select("#chart").append("svg")
+    .attr("class", "sankeyChart")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom);
 

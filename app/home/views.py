@@ -183,9 +183,18 @@ def sankey():
         nodeSet.add(link["target"])
     sankeyData["nodes"] = [{"name":node} for node in nodeSet]
 
+    con_strengths = Con_strength.query.all()
+    temp_aspects = Temp_aspect.query.all()
+
+    dropDowns = {
+        "temp_aspects": [str(x) for x in temp_aspects],
+        "con_strengths": [str(x) for x in con_strengths]
+    }
+
     return render_template(
         'home/sankey.html',
         pageDicts=pagesClassIDs,
+        dropDowns=dropDowns,
         nodes=nodesList,
         edges=edgesList,
         sankeyData=sankeyData,
@@ -213,14 +222,14 @@ def fase2():
                 pageTexts.query.filter_by(pageID=key,
                                           htmlName="fase2").first()))
 
-    shapes = [
-        "triangle", "square", "diamond", "triangle", "square", "diamond",
-        "triangle", "square", "diamond"
-    ]
-    colors = [
-        '#d53e4f', '#f46d43', '#fdae61', '#fee08b', '#e6f598', '#abdda4',
-        '#66c2a5', '#3288bd', '#ffffbf'
-    ]
+    # shapes = [
+    #     "triangle", "square", "diamond", "triangle", "square", "diamond",
+    #     "triangle", "square", "diamond"
+    # ]
+    # colors = [
+    #     '#d53e4f', '#f46d43', '#fdae61', '#fee08b', '#e6f598', '#abdda4',
+    #     '#66c2a5', '#3288bd', '#ffffbf'
+    # ]
 
     nodes = Node.query.all()
     edges = Edge.query.all()
@@ -236,11 +245,11 @@ def fase2():
         expert.id for expert in experts if str(expert.accepted) == "Yes"
     ]
     dist_ops = Operator.query.distinct(Operator.name)
-    op_dict = {str(x): shapes[i] for i, x in enumerate(dist_ops)}
-    cl_dict = {str(x): colors[i] for i, x in enumerate(dist_ops)}
+    # op_dict = {str(x): shapes[i] for i, x in enumerate(dist_ops)}
+    # cl_dict = {str(x): colors[i] for i, x in enumerate(dist_ops)}
 
     dropDowns = {
-        "type": op_dict.keys(),
+        # "type": op_dict.keys(),
         "temp_imps": [str(x) for x in temp_imps],
         "spat_aspects": [str(x) for x in spat_aspects],
         "temp_aspects": [str(x) for x in temp_aspects],
@@ -339,8 +348,8 @@ def fase2():
         pageDicts=pagesClassIDs,
         dropDowns=dropDowns,
         causalData=data,
-        op_dict=op_dict,
-        cl_dict=cl_dict,
+        # op_dict=op_dict,
+        # cl_dict=cl_dict,
         title="fase2")
 
 

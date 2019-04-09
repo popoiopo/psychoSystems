@@ -1,5 +1,18 @@
 function clickFunction(e, cell) {
-    console.log(e, cell)
+    if (cell._cell.column.field == "To") { 
+        if (prevTo) {
+            prevTo.originalTarget.style.backgroundColor = "white";
+        }
+        newTo = cell._cell.value; 
+        prevTo = e; }
+    else if (cell._cell.column.field =="From") { 
+        if (prevFrom) {
+            prevFrom.originalTarget.style.backgroundColor = "white";
+        }
+        newFrom = cell._cell.value; 
+        prevFrom = e;};
+    e.originalTarget.style.backgroundColor = "steelblue";
+    console.log(newFrom, newTo);
 }
 
 function getData(fieldTitle) {
@@ -17,9 +30,16 @@ function getData(fieldTitle) {
     return [tableData, data_table]
 }
 
+function createRel() {
+    var con_strength = document.getElementById("edge-con_strength").value;
+    var temp_aspect = document.getElementById("edge-temp_aspect_id").value;
+    console.log(data);
+    data.push({ "source":newFrom, "target":newTo, "value":con_strength, "temp_aspect":temp_aspect});
+    newData.push({ "source":newFrom, "target":newTo, "value":con_strength, "temp_aspect":temp_aspect});
+}
+
 var init = 0; 
 var fromData = getData("From");
-console.log(fromData);
 var toData = getData("To");
 var tableData = {"From":{"data":fromData[0], "columns":fromData[1]}, "To":{"data":toData[0], "columns":toData[1]}}
 init += 1;
@@ -34,7 +54,7 @@ for (var key in tableData) {
             pagination:"local",
             paginationSize:8,
             movableColumns:true,
-            layout:"fitData", //fit columns to width of table (optional)
+            layout:"fitColumns", //fit columns to width of table (optional)
             columns: tableData[key]["columns"],
             clipboard:true,
             tooltips:function(cell){

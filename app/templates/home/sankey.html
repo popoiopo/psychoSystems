@@ -43,7 +43,13 @@
     var pageTexts = {{ pageDicts|tojson }},
         nodes = {{ nodes|tojson }},
         edges = {{ edges|tojson}},
-        data = {{ sankeyData|tojson }};
+        data = {{ sankeyData|tojson }},
+        prevFrom,
+        newFrom,
+        prevTo,
+        newTo,
+        newData = [];
+
   </script>
   
 
@@ -62,7 +68,28 @@
       <div class="row">
           <div id="From-table" class="col-md-3" style="height:300; width:400;"></div>
           <div id="To-table" class="col-md-3" style="height:300; width:400;"></div>
-          <div class="col-md-6" id="chart"></div>
+          <table  class="col-md-6" style="margin:auto; width:100%">
+            <tr>
+              <td class="tableLeft">Relationship Strength</td><td><select class="selections tableRight" id="edge-con_strength">
+              {% for con_strength in dropDowns.con_strengths %}
+                  <option value={{ loop.index }}>{{ con_strength }}</option>
+              {% endfor %}
+              </select></td>
+            </tr>
+            <tr>
+              <td class="tableLeft">Relationship speed</td><td><select class="selections tableRight" id="edge-temp_aspect_id">
+                {% for temp_aspect in dropDowns.temp_aspects %}
+                  <option value={{ loop.index }}>{{ temp_aspect }}</option>
+                {% endfor %}
+              </select></td>
+            </tr>
+            <tr>
+              <input onclick="createRel()" type="button" value="Create Relation" id="edge-saveButton" />
+            </tr>
+          </table>
+      </div>
+      <div class="row">
+          <div class="col-md-12" id="chart"></div>
       </div>
       <div id="vertical-whitespace" style="padding: 10px"></div>
       <div class="row">
