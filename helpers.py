@@ -8,9 +8,6 @@ import numpy as np
 
 def createJSON(data):
 
-    with open('circleData.pkl', 'wb') as fwrite:
-        pickle.dump(data, fwrite)
-
     jsonData = {"Name" : "flare", "children" : []}
 
     check = set([])
