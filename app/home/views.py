@@ -143,25 +143,25 @@ def fase1():
         title="fase1")
 
 
-@home.route('/sankey')
+@home.route('/fase2')
 @login_required
-def sankey():
+def fase2():
     """
-    Render the fase1 template on the /fase1 route
+    Render the fase2 template on the /fase2 route
     """
     pagesClassIDs = {
-        "sankey": {
+        "fase2": {
             "bannertitle": [],
             "subtitle": [],
             "firstText": [],
             "secondText": []
         }
     }
-    for key in pagesClassIDs["sankey"].keys():
-        pagesClassIDs["sankey"][key].append(
+    for key in pagesClassIDs["fase2"].keys():
+        pagesClassIDs["fase2"][key].append(
             str(
                 pageTexts.query.filter_by(pageID=key,
-                                          htmlName="sankey").first()))
+                                          htmlName="fase2").first()))
 
     nodes = Node.query.all()
     nodesList2 = {node.__dict__["id"] : node.__dict__ for node in nodes}
@@ -193,23 +193,23 @@ def sankey():
     }
 
     return render_template(
-        'home/sankey.html',
+        'home/fase2.html',
         pageDicts=pagesClassIDs,
         dropDowns=dropDowns,
         nodes=nodesList,
         edges=edgesList,
         sankeyData=sankeyData,
-        title="sankey")
+        title="fase2")
 
 
-@home.route('/fase2')
-def fase2():
+@home.route('/fase3')
+def fase3():
     """
-    Render the fase2 template on the / route
+    Render the fase3 template on the / route
     """
 
     pagesClassIDs = {
-        "fase2": {
+        "fase3": {
             "bannertitle": [],
             "subtitle": [],
             "firstText": [],
@@ -217,11 +217,11 @@ def fase2():
             "thirdText": []
         }
     }
-    for key in pagesClassIDs["fase2"].keys():
-        pagesClassIDs["fase2"][key].append(
+    for key in pagesClassIDs["fase3"].keys():
+        pagesClassIDs["fase3"][key].append(
             str(
                 pageTexts.query.filter_by(pageID=key,
-                                          htmlName="fase2").first()))
+                                          htmlName="fase3").first()))
 
     # shapes = [
     #     "triangle", "square", "diamond", "triangle", "square", "diamond",
@@ -345,13 +345,13 @@ def fase2():
                               "physics":False})
 
     return render_template(
-        'home/fase2.html',
+        'home/fase3.html',
         pageDicts=pagesClassIDs,
         dropDowns=dropDowns,
         causalData=data,
         # op_dict=op_dict,
         # cl_dict=cl_dict,
-        title="fase2")
+        title="fase3")
 
 
 @home.route('/_add_numbers')

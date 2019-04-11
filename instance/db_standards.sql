@@ -130,15 +130,15 @@ VALUES
         <p>Welcome to the first fase of our information gathering</p>", "firstText", "fase1"),
     ("<h1>Thank you for your cooperation</h1>", "secondText", "fase1"),
 
-    ("Relations between factors", "bannertitle", "sankey"),
-    ("Making connections in symptoms", "subtitle", "sankey"),
+    ("Relations between factors", "bannertitle", "fase2"),
+    ("Making connections in symptoms", "subtitle", "fase2"),
     ("<h1>Thinking about relations</h1>
-        <p>Now is the time to think about how the factors interact among one another. Underneath we see a table on the left side and a circular Sankey graph depicting the flow of interactions.</p>", "firstText", "sankey"),
-    ("<h1>Thank you!</h1>", "secondText", "sankey"),
+        <p>Now is the time to think about how the factors interact among one another. Underneath we see a table on the left side and a circular Sankey graph depicting the flow of interactions.</p>", "firstText", "fase2"),
+    ("<h1>Thank you!</h1>", "secondText", "fase2"),
 
-    ("Creating the Network", "bannertitle", "fase2"),
-    ("Collaborating to create a CLD", "subtitle", "fase2"),
+    ("Creating the Network", "bannertitle", "fase3"),
+    ("Collaborating to create a CLD", "subtitle", "fase3"),
     ("<h1>Introduction to the CLD software</h1>
-        <p>Welcome to the second fase of our information gathering. Here we tend to create the relations between causal factors of our research topic!</p>", "firstText", "fase2"),
-    ("<h2>Here! Look at a simulation that we're not going to use!</h2>", "secondText", "fase2"),
-    ("<h1>Thank you for your cooperation</h1>", "thirdText", "fase2");
+        <p>Welcome to the second fase of our information gathering. Here we tend to create the relations between causal factors of our research topic!</p>", "firstText", "fase3"),
+    ("<h2>Here! Look at a simulation that we're not going to use!</h2>", "secondText", "fase3"),
+    ("<h1>Thank you for your cooperation</h1>", "thirdText", "fase3");

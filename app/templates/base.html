@@ -55,14 +55,14 @@
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('home.homepage') }}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('home.fase1') }}">Phase 1</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('home.fase2') }}">Phase 2</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('home.sankey') }}">Phase 1.5</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('home.fase3') }}">Phase 3</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('home.admin_dashboard') }}">Dashboard</a></li>
                 <li class="nav-item"><a class="nav-link" target="_blank" href="{{ url_for('home.admin_presentation') }}">Presentation</a></li>
               {% else %}
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('home.homepage') }}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('home.fase1') }}">Fase1</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('home.fase2') }}">Fase 2</a></li>
-                <!-- <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.list_factors') }}">Factors</a></li> -->
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('home.fase1') }}">Phase 1</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('home.fase2') }}">Phase 2</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('home.fase3') }}">Phase 3</a></li>
               {% endif %}
               <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a></li>
               <li class="nav-item"><a><i class="fa fa-user"></i>  Hi, {{ current_user.username }}!</a></li>
