@@ -164,6 +164,7 @@ def sankey():
                                           htmlName="sankey").first()))
 
     nodes = Node.query.all()
+    nodesList2 = {node.__dict__["id"] : node.__dict__ for node in nodes}
     nodesList = [node.__dict__ for node in nodes]
     for nd in nodesList:
         del nd['_sa_instance_state']
@@ -175,7 +176,7 @@ def sankey():
         del ed['_sa_instance_state']
 
     sankeyData = {}
-    sankeyData["links"] = [{"source":nodesList[edge["factor_A"]]["factor"], "target":nodesList[edge["factor_B"]]["factor"], "value":edge["con_strength_id"]*10,"optimal":"yes"} for edge in edgesList]
+    sankeyData["links"] = [{"source":nodesList2[edge["factor_A"]]["factor"], "target":nodesList2[edge["factor_B"]]["factor"], "value":edge["con_strength_id"]*10,"optimal":"yes"} for edge in edgesList]
 
     nodeSet = set()
     for link in sankeyData["links"]:
@@ -539,12 +540,10 @@ def submitcausalmap():
 
 
 @home.route('/submitNewNodes', methods=['GET', 'POST'])
-def submitNewNodesp():
+def submitNewNodes():
     data = request.json
     errors = ""
     post = ""
-    print("&&&&&&&&&&&&&&&&& DEBUGGING ^^^^^^^^^^^^^^^")
-    print(data)
     for i, key in enumerate(data):
         try:
             nodePost = Node(
@@ -553,6 +552,33 @@ def submitNewNodesp():
                 spat_aspect_id=data[key]["spat_aspect"],
                 temp_aspect_id=data[key]["temp_aspect"])
             db.session.add(nodePost)
+            db.session.commit()
+            post = "It worked!"
+        except Exception as e:
+            errors += " (" + str(i) + " " + str(e) + ")"
+            post = "Something went wrong with adding nodes: "
+
+    if errors == "":
+        return jsonify(post)
+    else:
+        return jsonify(post + errors)
+
+@home.route('/submitNewEdges', methods=['GET', 'POST'])
+def submitNewEdges():
+    data = request.json
+    errors = ""
+    post = ""
+    print("&&&&&&&&&&&&&&&&& DEBUGGING ^^^^^^^^^^^^^^^")
+    print(data)
+    for i, edge in enumerate(data):
+        try:
+            edgePost = Edge(
+                factor_A=edge["source"],
+                factor_B=edge["target"],
+                con_strength_id=edge["value"],
+                temp_aspect_id=edge["temp_aspect"],
+                expert_id=current_user.get_id())
+            db.session.add(edgePost)
             db.session.commit()
             post = "It worked!"
         except Exception as e:

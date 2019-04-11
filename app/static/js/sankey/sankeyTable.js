@@ -31,17 +31,30 @@ function getData(fieldTitle) {
 }
 
 function createRel() {
+    if (newFrom == newTo) {alert("Self enforcing relations can't be defined at this stage. In the next stage this is possible."); return }
     var con_strength = document.getElementById("edge-con_strength").value;
     var temp_aspect = document.getElementById("edge-temp_aspect_id").value;
     console.log(data);
-    data.push({ "source":newFrom, "target":newTo, "value":con_strength, "temp_aspect":temp_aspect});
-    newData.push({ "source":newFrom, "target":newTo, "value":con_strength, "temp_aspect":temp_aspect});
+    dataSankey["links"].push({ "source":newFrom, "target":newTo, "value":con_strength*10, "temp_aspect":temp_aspect});
+
+    var sankeyNodes = [];
+    dataSankey["nodes"].forEach(function(d){ sankeyNodes.push(d.name) })
+    if (!sankeyNodes.includes(newFrom)) { console.log(sankeyNodes, newFrom); dataSankey["nodes"].push({"name":newFrom})};
+    if (!sankeyNodes.includes(newTo)) { console.log(sankeyNodes, newTo); dataSankey["nodes"].push({"name":newTo})};
+
+    newData.push({ "source":factorIDDict[newFrom], "target":factorIDDict[newTo], "value":con_strength, "temp_aspect":temp_aspect});
+
+    drawSankey();
 }
 
 var init = 0; 
 var fromData = getData("From");
 var toData = getData("To");
 var tableData = {"From":{"data":fromData[0], "columns":fromData[1]}, "To":{"data":toData[0], "columns":toData[1]}}
+var factorIDDict = nodes.reduce(function(obj, x) {
+    obj[x["factor"]]= x["id"]; 
+    return obj;
+ }, {});
 init += 1;
 
 for (var key in tableData) {
@@ -67,4 +80,28 @@ for (var key in tableData) {
 
         return table
     }
+}
+
+function saveData() {
+    console.log(newData);
+    var posting = JSON.stringify(newData);
+    newData = []
+    $.ajax({
+      url: '/submitNewEdges',
+      contentType: "application/json; charset=utf-8",
+      data: posting,
+      type: 'POST',
+      success: function(response ,jqxhr, settings) {
+        newData = {}
+        console.log(response);
+        console.log(jqxhr);
+        console.log(settings);
+      },
+      error: function(error, jqxhr, settings) {
+        console.log(error);
+        console.log(jqxhr);
+        console.log(settings);
+        alert("Something has gone wrong with submitting your data to the database. Please contact the server administrator.")
+      }
+    });
 }
