@@ -17,15 +17,42 @@ function clickFunction(e, cell) {
 
 function getData(fieldTitle) {
     var data_table = [{title: fieldTitle,
-                        field: fieldTitle, sorter:"string", 
+                        field: fieldTitle, sorter:"string",
+                        formatter:function(cell, formatterParams){
+                            var value = cell.getValue();
+                            return "<span font-weight:bold;'>" + value + "</span>";
+                        },
+                        headerFilter:"input", 
+                        validator:"required",
+                        cellClick:function(e, cell){clickFunction(e, cell);}
+                        },
+                        {title: "Spatial",
+                        field: "Spatial", sorter:"string", 
+                        formatter:function(cell, formatterParams){
+                            var value = cell.getValue();
+                            return "<span style='color:steelblue; font-weight:bold;'>" + value + "</span>";
+                        },
+                        headerFilter:"input", 
+                        validator:"required",
+                        cellClick:function(e, cell){clickFunction(e, cell);}
+                        },
+                        {title: "Temporal",
+                        field: "Temporal", sorter:"string", 
+                        formatter:function(cell, formatterParams){
+                            var value = cell.getValue();
+                            return "<span style='color:steelblue; font-weight:bold;'>" + value + "</span>";
+                        },
                         headerFilter:"input", 
                         validator:"required",
                         cellClick:function(e, cell){clickFunction(e, cell);}
                         }];
 
     var tableData = []
+    console.log(dropDowns);
     for (let i = 0; i < nodes.length; i++) {
-        tableData.push({[fieldTitle] : nodes[i].factor})
+        tableData.push({[fieldTitle] : nodes[i].factor,
+                        "Spatial": dropDowns["spat_aspects"][nodes[i].spat_aspect_id-1],
+                        "Temporal":dropDowns["temp_aspects"][nodes[i].temp_aspect_id-1]})
     }
     return [tableData, data_table]
 }
@@ -47,7 +74,7 @@ function createRel() {
     drawSankey();
 }
 
-var init = 0; 
+var init = 0;
 var fromData = getData("From");
 var toData = getData("To");
 var tableData = {"From":{"data":fromData[0], "columns":fromData[1]}, "To":{"data":toData[0], "columns":toData[1]}}

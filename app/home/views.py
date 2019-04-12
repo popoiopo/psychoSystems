@@ -186,9 +186,13 @@ def fase2():
 
     con_strengths = Con_strength.query.all()
     temp_aspects = Temp_aspect.query.all()
+    spat_aspects = Spat_aspect.query.all()
+
+    print(temp_aspects)
 
     dropDowns = {
         "temp_aspects": [str(x) for x in temp_aspects],
+        "spat_aspects": [str(x) for x in spat_aspects],
         "con_strengths": [str(x) for x in con_strengths]
     }
 
