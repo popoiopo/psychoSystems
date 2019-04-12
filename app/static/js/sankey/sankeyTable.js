@@ -1,20 +1,3 @@
-function clickFunction(e, cell) {
-    if (cell._cell.column.field == "To") { 
-        if (prevTo) {
-            prevTo.originalTarget.style.backgroundColor = "white";
-        }
-        newTo = cell._cell.value; 
-        prevTo = e; }
-    else if (cell._cell.column.field =="From") { 
-        if (prevFrom) {
-            prevFrom.originalTarget.style.backgroundColor = "white";
-        }
-        newFrom = cell._cell.value; 
-        prevFrom = e;};
-    e.originalTarget.style.backgroundColor = "steelblue";
-    console.log(newFrom, newTo);
-}
-
 function getData(fieldTitle) {
     var data_table = [{title: fieldTitle,
                         field: fieldTitle, sorter:"string",
@@ -24,7 +7,6 @@ function getData(fieldTitle) {
                         },
                         headerFilter:"input", 
                         validator:"required",
-                        cellClick:function(e, cell){clickFunction(e, cell);}
                         },
                         {title: "Spatial",
                         field: "Spatial", sorter:"string", 
@@ -34,7 +16,6 @@ function getData(fieldTitle) {
                         },
                         headerFilter:"input", 
                         validator:"required",
-                        cellClick:function(e, cell){clickFunction(e, cell);}
                         },
                         {title: "Temporal",
                         field: "Temporal", sorter:"string", 
@@ -44,11 +25,9 @@ function getData(fieldTitle) {
                         },
                         headerFilter:"input", 
                         validator:"required",
-                        cellClick:function(e, cell){clickFunction(e, cell);}
                         }];
 
     var tableData = []
-    console.log(dropDowns);
     for (let i = 0; i < nodes.length; i++) {
         tableData.push({[fieldTitle] : nodes[i].factor,
                         "Spatial": dropDowns["spat_aspects"][nodes[i].spat_aspect_id-1],
@@ -61,7 +40,6 @@ function createRel() {
     if (newFrom == newTo) {alert("Self enforcing relations can't be defined at this stage. In the next stage this is possible."); return }
     var con_strength = document.getElementById("edge-con_strength").value;
     var temp_aspect = document.getElementById("edge-temp_aspect_id").value;
-    console.log(data);
     dataSankey["links"].push({ "source":newFrom, "target":newTo, "value":con_strength*10, "temp_aspect":temp_aspect});
 
     var sankeyNodes = [];
@@ -94,14 +72,15 @@ for (var key in tableData) {
             pagination:"local",
             paginationSize:8,
             movableColumns:true,
+            selectable:1,
             layout:"fitColumns", //fit columns to width of table (optional)
             columns: tableData[key]["columns"],
             clipboard:true,
-            tooltips:function(cell){
-                //cell - cell component
-
-                //function should return a string for the tooltip of false to hide the tooltip
-                return  cell.getColumn().getField() + " - " + cell.getValue(); //return cells "field - value";
+            rowClick:function(e, row){
+                if (Object.keys(row._row.data)[0] == "To") { 
+                    newTo = row._row.data.To; }
+                else if (Object.keys(row._row.data)[0] =="From") { 
+                    newFrom = row._row.data.From };
             },
         });
 
