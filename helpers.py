@@ -122,8 +122,11 @@ def pkl_exp(data):
     filenames = ["app/static/data/weightParameters.txt", "app/static/data/thresholdParameters.txt"]
     G = nx.DiGraph()
     data = convert(data)
-    G.add_nodes_from([(data["nodes"][node]["id"], {"threshold": data["nodes"][node]["sensitivity"]}) for node in data["nodes"]])
-    edges = [(int(data["edges"][node]["from"]), int(data["edges"][node]["to"]), {"weight":data["edges"][node]["relation_weight"]}) if data["edges"][node]["relation_weight"] != "None" else (int(data["edges"][node]["from"]), int(data["edges"][node]["to"]), {"weight":1}) for node in data["edges"]]
+    print(data["edges"][data["edges"].keys()[0]].keys())
+    legendNodes = [node for node in data["nodes"].keys() if int(node) > 999]
+    for node in legendNodes: del data["nodes"][node]
+    G.add_nodes_from([(data["nodes"][node]["id"], {"threshold": data["nodes"][node]["sensitivity_id"]}) for node in data["nodes"]])
+    edges = [(int(data["edges"][node]["from"]), int(data["edges"][node]["to"]), {"weight":data["edges"][node]["con_strength"]}) if data["edges"][node]["con_strength"] != "None" else (int(data["edges"][node]["from"]), int(data["edges"][node]["to"]), {"weight":1}) for node in data["edges"]]
     G.add_edges_from(edges)
     graphData = adjacencyData(G)
     
@@ -172,9 +175,11 @@ def csv_exp(data):
         filename = 'app/static/data/depression_network_' + sheet + '.csv'
         reformat = {}
         for entry in data[sheet]:
-            for key in data[sheet][entry]:
-                reformat.setdefault(key, []).append(data[sheet][entry][key])
-        print(reformat)
+            if sheet == "nodes" and int(entry) > 999:
+                continue
+            else:
+                for key in data[sheet][entry]:
+                    reformat.setdefault(key, []).append(data[sheet][entry][key])
         pd.DataFrame.from_dict(reformat).to_csv(filename, sep=',')
         filenames.append(filename)
     return filenames, "text/csv"
@@ -190,76 +195,6 @@ def export_network_data(data):
     elif data["format"] == "xlsx":
         filenames, contentType = xlsx_exp(data)
     return filenames, contentType
-
-
-def simulation_1(W, b, I, c, select = np.ones(14, np.bool)):
-    I = int(I)
-    c = float(c)
-    b_ = b.copy()
-    b_[~select] = 100
-
-    X = np.zeros((I, b.shape[0]), np.bool)
-    P = np.zeros((I, b.shape[0]), np.float32)
-    D = np.zeros((I), np.uint8)
-
-    for i in range(1, I):
-        A = np.sum(c * W * X[i-1], axis=1)
-        P[i] = 1 / (1 + np.exp(b_ - A))
-        X[i] = P[i] > np.random.uniform(0, 1, b.shape)
-        D[i] = np.sum(X[i])
-    return X, P, D
-
-
-def simulation_2(W, b, I, c, select = np.ones(14, np.bool)):
-    I = int(I)
-    c = float(c)
-    I2 = I//2
-
-    b_ = b.copy()
-    b_[~select] = 100
-
-    X = np.zeros((I, b.shape[0]), np.bool)
-    P = np.zeros((I, b.shape[0]), np.float32)
-    D = np.zeros((I), np.uint8)
-    S = np.concatenate((np.linspace(-10, 5, I2), np.linspace(5, -10, I2)))
-
-    for i in range(1, I):
-        A = np.sum(c * W * X[i-1] + S[i], axis=1)
-        P[i] = 1 / (1 + np.exp(b_ - A))
-        X[i] = P[i] > np.random.uniform(0, 1, b.shape)
-        D[i] = np.sum(X[i])
-    return S[:I2].tolist(), [X[:I2].tolist(), P[:I2].tolist(), D[:I2].tolist()], [X[I2:][::-1].tolist(), P[I2:][::-1].tolist(), D[I2:][::-1].tolist()]
-
-def sim_div(message):
-    parameters = json.loads(message)
-    gData = get_G(parameters["data"])
-    W = np.asarray(gData.adjacencyMatrix)
-    b = np.abs(np.asarray([k[k.keys()[0]] for k in gData.thresholdIndex]))
-    simulation, I, c = parameters['simulation'], int(parameters['I']), float(parameters['c'])
-
-    t0 = time()
-    if simulation == 1:
-        if 'select' in parameters:
-            select = np.array(parameters['select'], np.bool)
-            X, P, D = simulation_1(W, b, I, c, select)
-        else:
-            X, P, D = simulation_1(W, b, I, c)
-        data = json.dumps({"simulation": 1, "X": X.tolist(), "P": P.tolist(), "D": D.tolist()})
-        return data
-
-    if simulation == 2:
-        if 'select' in parameters:
-            select = np.array(parameters['select'], np.bool)
-            S, (UP_X, UP_P, UP_D), (DOWN_X, DOWN_P, DOWN_D) = simulation_2(W, b, I, c, select)
-        else:
-            S, (UP_X, UP_P, UP_D), (DOWN_X, DOWN_P, DOWN_D) = simulation_2(W, b, I, c)
-
-        data = json.dumps({
-            "simulation": 2,
-            "S": S,
-            "UP": {"X": UP_X, "P": UP_P, "D": UP_D},
-            "DOWN": {"X": DOWN_X, "P": DOWN_P, "D": DOWN_D}})
-        return data
 
 
 def give_arrows(value):
@@ -278,7 +213,6 @@ def give_strength(value):
         return 2
     elif value == 3:
         return 0.5
-
 
 def give_dashes():
     randy = np.random.uniform(0,1)

@@ -279,6 +279,18 @@ function cancelEdgeEdit(callback) {
   callback(null);
 }
 
+function give_strength(value) {
+    if (value == 1 || value == 5) { return 3 }
+    else if (value == 2 || value == 4) { return 2 }
+    else if (value == 3) { return 0.5 }
+}
+
+function give_arrows(value) {
+    if (value < 3) { return { "to": { "enabled": true, "type": 'bar' }} }
+    else if (value > 3) { return "to" }
+    else if (value == 3) { return { "to": { "enabled": true, "type": 'circle' }} }
+}
+
 function saveEdgeData(data, callback, edit, type) {
   
   if (type != "opNode") {
@@ -297,11 +309,12 @@ function saveEdgeData(data, callback, edit, type) {
                                     timeZoneName: "short"})
     data.operator_id = document.getElementById('edge-operator_id').value;
     data.con_strength = document.getElementById('edge-con_strength').value;
+    data.value = give_strength(document.getElementById('edge-con_strength').value);
     data.temp_imp_id = document.getElementById('edge-temp_imp_id').value;
     data.temp_aspect_id = document.getElementById('edge-temp_aspect_id').value;
     data.notes_relation = document.getElementById('edge-notes_relation').value;
     data.sup_lit = document.getElementById('edge-sup_lit').value;
-    data.arrows = "to"
+    data.arrows = give_arrows(document.getElementById('edge-con_strength').value);
 
     if (!checkForm(data, "edge")) { return };
 

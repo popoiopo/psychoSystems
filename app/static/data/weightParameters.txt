@@ -1,17 +1,33 @@
-Stress1	Negative_attributional_style2	Neuroticism3	Dysfunctional_attitudes4	Dysfunctional_believes5	Residual_depressive_symptoms6	Negative_emotionality7	Response_style8	Age9	Sex10	Baseline_depression_symptoms11	Latent_dysfunctional_cognition12	Immunology_markers13	Cortisol14	C_reactive_protein15	Genetic_disposition16
-0.0	1.0	1.0	1.0	1.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+<b>Stress</b>	<b>Negative</b>
+<b>attributional</b>
+<b>style</b>	<b>Neuroticism</b>	<b>Dysfunctional</b>
+<b>attitudes</b>	<b>Dysfunctional</b>
+<b>believes</b>	<b>Residual</b>
+<b>depressive</b>
+<b>symptoms</b>	<b>Negative</b>
+<b>emotionality</b>	<b>Response</b>
+<b>style</b>	<b>Age</b>	<b>Sex</b>	<b>Baseline</b>
+<b>depression</b>
+<b>symptoms</b>	<b>Latent</b>
+<b>dysfunctional</b>
+<b>cognition</b>	<b>Immunology</b>
+<b>markers</b>	<b>Cortisol</b>	<b>C</b>
+<b>reactive</b>
+<b>protein</b>	<b>Genetic</b>
+<b>disposition</b>
+0.0	1.0	2.0	3.0	4.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
 0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
 0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
 0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
 0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
 0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
-0.0	0.0	1.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+0.0	0.0	5.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
 0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
 0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
 0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	1.0	0.0	0.0	0.0	0.0	0.0
 0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
 0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
 0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
-0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	1.0	0.0	0.0	0.0
 0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
 0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0

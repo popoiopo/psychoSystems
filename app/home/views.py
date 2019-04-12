@@ -3,7 +3,7 @@
 from flask import abort, render_template, request, jsonify, send_from_directory, make_response, send_file, Response
 from ..models import Expert, Factor, Operator, Node, Edge, Temp_imp, Spat_aspect, Temp_aspect, pageTexts, Sensitivity, Con_strength
 from flask_login import current_user, login_required
-from helpers import createJSON, export_network_data, convert, simulation_1, simulation_2, sim_div, give_arrows, give_dashes, give_strength
+from helpers import createJSON, export_network_data, convert, give_arrows, give_dashes, give_strength
 from requests_toolbelt import MultipartEncoder
 from forms import NodeForm
 from . import home
@@ -316,6 +316,7 @@ def fase3():
             "value": give_strength(edge.con_strength_id),
             "temp_imp_id": str(edge.temp_imp_id),
             "temp_aspect_id": str(edge.temp_aspect_id),
+            "con_strength":int(edge.con_strength_id),
             "operator_id": str(edge.operator_id),
             "notes_relation": str(edge.notes_relation),
             "sup_lit": str(edge.sup_lit),
@@ -335,7 +336,7 @@ def fase3():
                                       "color": 'black',
                                       "bold": True}, 
                               "notes":"This is just a Legend Node",
-                              "notes_factor":"LegendNode",
+                              "notes_factor":"LegendNode999",
                               "sup_lit":None,
                               "created_date":None,
                               "label": group, 

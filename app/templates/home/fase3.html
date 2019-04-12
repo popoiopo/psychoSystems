@@ -26,7 +26,9 @@
 
 <!-- Load python data -->
 <script type="text/javascript"> 
-  var data = {{ causalData|tojson }}; 
+  var data = {{ causalData|tojson }};
+  var op_dict = {{ op_dict|tojson }};
+  var cl_dict = {{ cl_dict|tojson }};
 
   var newData = {"nodes":[], "edges":[]}; 
 
