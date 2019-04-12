@@ -599,6 +599,8 @@ def submitNewEdges():
 
 @home.route('/export_data', methods=['GET', 'POST'])
 def export_data():
+    filepath = os.path.dirname(os.path.realpath(__file__))[:-4] + "static/data/"
+    print(filepath)
     data = request.json["data"]
     if not data:
         return "No file"
@@ -619,7 +621,7 @@ def export_data():
             })
         return Response(m.to_string(), mimetype=m.content_type)
     return send_file(
-        "static/data/" + filename,
+        filepath + filename,
         mimetype=contentType,
         attachment_filename=filename,
         as_attachment=True)
