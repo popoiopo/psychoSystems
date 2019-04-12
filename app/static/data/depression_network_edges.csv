@@ -1,8 +1,8 @@
-,arrows,created_date,dashes,from,id,notes_relation,operator_id,smooth,sup_lit,temp_aspect_id,temp_imp_id,to,value
-0,"{'to': {'enabled': True, 'type': 'bar'}}",None,True,1,1,None,1,"{'roundness': 0.4, 'forceDirection': 'vertical', 'type': 'curvedCW'}",None,None,None,2,3.0
-1,"{'to': {'enabled': True, 'type': 'circle'}}",None,True,1,3,None,1,"{'roundness': 0.4, 'forceDirection': 'vertical', 'type': 'curvedCW'}",None,None,None,4,0.5
-2,"{'to': {'enabled': True, 'type': 'bar'}}",None,True,1,2,None,1,"{'roundness': 0.4, 'forceDirection': 'vertical', 'type': 'curvedCW'}",None,None,None,3,2.0
-3,to,None,True,7,5,None,1,"{'roundness': 0.4, 'forceDirection': 'vertical', 'type': 'curvedCW'}",None,None,None,3,3.0
-4,to,None,True,1,4,None,1,"{'roundness': 0.4, 'forceDirection': 'vertical', 'type': 'curvedCW'}",None,None,None,5,2.0
-5,"{'to': {'enabled': True, 'type': 'bar'}}",2019-04-12 11:00:56,True,14,7,,1,"{'roundness': 0.4, 'forceDirection': 'vertical', 'type': 'curvedCW'}",,1,None,13,3.0
-6,"{'to': {'enabled': True, 'type': 'bar'}}",None,True,10,6,None,1,"{'roundness': 0.4, 'forceDirection': 'vertical', 'type': 'curvedCW'}",None,None,None,11,3.0
+,arrows,con_strength,created_date,dashes,from,id,notes_relation,operator_id,smooth,sup_lit,temp_aspect_id,temp_imp_id,to,value
+0,"{'to': {'enabled': True, 'type': 'bar'}}",1,None,True,1,1,None,1,"{'roundness': 0.4, 'forceDirection': 'vertical', 'type': 'curvedCW'}",None,None,None,2,3.0
+1,"{'to': {'enabled': True, 'type': 'circle'}}",3,None,True,1,3,None,1,"{'roundness': 0.4, 'forceDirection': 'vertical', 'type': 'curvedCW'}",None,None,None,4,0.5
+2,"{'to': {'enabled': True, 'type': 'bar'}}",2,None,True,1,2,None,1,"{'roundness': 0.4, 'forceDirection': 'vertical', 'type': 'curvedCW'}",None,None,None,3,2.0
+3,to,5,None,True,7,5,None,1,"{'roundness': 0.4, 'forceDirection': 'vertical', 'type': 'curvedCW'}",None,None,None,3,3.0
+4,to,4,None,True,1,4,None,1,"{'roundness': 0.4, 'forceDirection': 'vertical', 'type': 'curvedCW'}",None,None,None,5,2.0
+5,"{'to': {'enabled': True, 'type': 'bar'}}",1,2019-04-12 11:00:56,True,14,7,,1,"{'roundness': 0.4, 'forceDirection': 'vertical', 'type': 'curvedCW'}",,1,None,13,3.0
+6,"{'to': {'enabled': True, 'type': 'bar'}}",1,None,True,10,6,None,1,"{'roundness': 0.4, 'forceDirection': 'vertical', 'type': 'curvedCW'}",None,None,None,11,3.0

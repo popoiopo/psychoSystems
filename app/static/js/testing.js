@@ -414,6 +414,10 @@ function parseFiles(response) {
 
 function export_data() {
   format = document.getElementById('export').value;
+  var downData = data.nodes._data;
+  Object.keys(data.nodes._data).forEach(function(i, d) {
+    downData[i].label = data.nodes._data[i].label.replace(/(\r\n|\n|\r)/gm,"").replaceAll("</b><b>", " ").replace("<b>", "").replace("</b>", ""); 
+  })
   exp_data = { "data": {"format" : format, "nodes" : data.nodes._data, "edges" : data.edges._data} };
   posting = JSON.stringify(exp_data);
   $.ajax({
@@ -456,6 +460,7 @@ function export_data() {
   });
 }
 
+
 document.getElementById('import').onclick = function() {
   var nodesFileData = document.getElementById('selectFiles1').files;
   var edgesFileData = document.getElementById('selectFiles2').files;
@@ -488,7 +493,7 @@ document.getElementById('import').onclick = function() {
             EdgeReader.onload = () => {
               nodeData = [];
               edgeData = [];
-              dataNodes = $.csv.toArrays(NodeReader.result);
+              dataNodes = Papa.parse(NodeReader.result).data;
               for (var i = 1; i < dataNodes.length-1; i++) {
                 nodeTemp = {}
                 for (var j = 1; j < dataNodes[i].length; j++) {
@@ -500,14 +505,23 @@ document.getElementById('import').onclick = function() {
                       nodeTemp[dataNodes[0][j]] = null;
                     }
                     else {
-                      nodeTemp[dataNodes[0][j]] = dataNodes[i][j]
+                      console.log(nodeTemp[dataNodes[0][j]], dataNodes[0][j])
+                      if (dataNodes[0][j] == "font") {
+                        nodeTemp[dataNodes[0][j]] = JSON5.parse(dataNodes[i][j].replace("True", 'true'))
+                      }
+                      else if (dataNodes[0][j] == "label") {
+                        nodeTemp[dataNodes[0][j]] = "<b>" + dataNodes[i][j].replaceAll(" ", "</b>\n<b>") + "</b>"
+                      }
+                      else{
+                        nodeTemp[dataNodes[0][j]] = dataNodes[i][j]
+                      }
                     }
                   }
                 }
                 nodeData.push(nodeTemp)
               }
 
-              dataEdges = $.csv.toArrays(EdgeReader.result);
+              dataEdges = Papa.parse(EdgeReader.result).data;
               for (var i = 1; i < dataEdges.length-1; i++) {
                 edgeTemp = {}
                 for (var j = 1; j < dataEdges[i].length; j++) {
@@ -526,6 +540,8 @@ document.getElementById('import').onclick = function() {
                 edgeData.push(edgeTemp)
               }
 
+              console.log(nodeData);
+              console.log(edgeData);
               nodes.clear();
               edges.clear();
               nodes.add(nodeData);
