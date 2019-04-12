@@ -207,6 +207,7 @@ def fase2():
 
 
 @home.route('/fase3')
+@login_required
 def fase3():
     """
     Render the fase3 template on the / route
@@ -359,14 +360,6 @@ def fase3():
         title="fase3")
 
 
-@home.route('/_add_numbers')
-def add_numbers():
-    a = request.args.get('a', "", type=str)
-    data = sim_div(a)
-    print(data)
-    return jsonify(data)
-
-
 @home.route('/admin/dashboard')
 @login_required
 def admin_dashboard():
@@ -492,6 +485,7 @@ def admin_presentation():
 
 
 @home.route('/submitcausalmap', methods=['GET', 'POST'])
+@login_required
 def submitcausalmap():
     data = request.json
     errors = ""
@@ -545,6 +539,7 @@ def submitcausalmap():
 
 
 @home.route('/submitNewNodes', methods=['GET', 'POST'])
+@login_required
 def submitNewNodes():
     data = request.json
     errors = ""
@@ -569,6 +564,7 @@ def submitNewNodes():
         return jsonify(post + errors)
 
 @home.route('/submitNewEdges', methods=['GET', 'POST'])
+@login_required
 def submitNewEdges():
     data = request.json
     errors = ""
@@ -598,6 +594,7 @@ def submitNewEdges():
 
 
 @home.route('/export_data', methods=['GET', 'POST'])
+@login_required
 def export_data():
     filepath = os.path.dirname(os.path.realpath(__file__))[:-4] + "static/data/"
     print(filepath)

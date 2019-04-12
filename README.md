@@ -316,6 +316,14 @@ You can save the file by pressing "ctrl-x" followed by `y` and an "enter". Now t
 apt-get install libapache2-mod-wsgi
 systemctl restart apache2
 ```
+
+Finally we need to set permissions for the datafiles to be downloaded by entering the following in the terminal:
+
+```
+cd /var/www/html/psychSystems/app/static/data
+chmod -R 777 .
+```
+
 And we are open for business! Please open the website at **"http://your_ip_address"** and enjoy the website! If you'd like a more professional look and have the URL be like a normal website instead of an IP address, you could go to [godaddy.com](https://sso.godaddy.com/login?realm=idp&app=dcc&path=%2fdefault.aspx%3fisc%3dgdbb2228f%26utm_source%3dgdocp%26utm_medium%3demail%26utm_campaign%3dnl-NL_other_email-nonrevenue_base_gd&ISC=gdbb2228f) and buy a domain name. If you have one and are logged in, you can click on your domain name followed by "Manage DNS" and configure it as follows:
 
 ![Domain Settings](readmeIMG/domain_name.PNG)
