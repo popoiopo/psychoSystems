@@ -227,14 +227,14 @@ def fase3():
                 pageTexts.query.filter_by(pageID=key,
                                           htmlName="fase3").first()))
 
-    # shapes = [
-    #     "triangle", "square", "diamond", "triangle", "square", "diamond",
-    #     "triangle", "square", "diamond"
-    # ]
-    # colors = [
-    #     '#d53e4f', '#f46d43', '#fdae61', '#fee08b', '#e6f598', '#abdda4',
-    #     '#66c2a5', '#3288bd', '#ffffbf'
-    # ]
+    shapes = [
+        "triangle", "square", "diamond", "triangle", "square", "diamond",
+        "triangle", "square", "diamond"
+    ]
+    colors = [
+        '#d53e4f', '#f46d43', '#fdae61', '#fee08b', '#e6f598', '#abdda4',
+        '#66c2a5', '#3288bd', '#ffffbf'
+    ]
 
     nodes = Node.query.all()
     edges = Edge.query.all()
@@ -250,11 +250,11 @@ def fase3():
         expert.id for expert in experts if str(expert.accepted) == "Yes"
     ]
     dist_ops = Operator.query.distinct(Operator.name)
-    # op_dict = {str(x): shapes[i] for i, x in enumerate(dist_ops)}
-    # cl_dict = {str(x): colors[i] for i, x in enumerate(dist_ops)}
+    op_dict = {str(x): shapes[i] for i, x in enumerate(dist_ops)}
+    cl_dict = {str(x): colors[i] for i, x in enumerate(dist_ops)}
 
     dropDowns = {
-        # "type": op_dict.keys(),
+        "type": op_dict.keys(),
         "temp_imps": [str(x) for x in temp_imps],
         "spat_aspects": [str(x) for x in spat_aspects],
         "temp_aspects": [str(x) for x in temp_aspects],
@@ -263,8 +263,8 @@ def fase3():
         "operators": [str(x) for x in operators]
     }
 
-    # randicon = ["onset", "maintenance", "relapse"]
-    randicon = ["stock", "cloud", "unknown", "onset", "maintenance", "relapse"]
+    randicon = ["onset", "maintenance", "relapse"]
+    # randicon = ["stock", "cloud", "unknown", "onset", "maintenance", "relapse"]
     # randicon = ["variable", "stock", "cloud", "unknown"]
 
     data = {"nodes": [], "edges": []}
@@ -353,8 +353,8 @@ def fase3():
         pageDicts=pagesClassIDs,
         dropDowns=dropDowns,
         causalData=data,
-        # op_dict=op_dict,
-        # cl_dict=cl_dict,
+        op_dict=op_dict,
+        cl_dict=cl_dict,
         title="fase3")
 
 
