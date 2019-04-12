@@ -605,7 +605,7 @@ def export_data():
     if not data:
         return "No file"
     data = convert(data)
-    filename, contentType = export_network_data(data)
+    filename, contentType = export_network_data(data, filepath)
     if data["format"] == "csv":
         m = MultipartEncoder(
             fields={

@@ -118,8 +118,8 @@ def get_G(data):
     return adjaData
 
 
-def pkl_exp(data):
-    filenames = ["app/static/data/weightParameters.txt", "app/static/data/thresholdParameters.txt"]
+def pkl_exp(data, filepath):
+    filenames = [filepath + "weightParameters.txt", filepath + "thresholdParameters.txt"]
     G = nx.DiGraph()
     data = convert(data)
     print(data["edges"][data["edges"].keys()[0]].keys())
@@ -130,10 +130,10 @@ def pkl_exp(data):
     G.add_edges_from(edges)
     graphData = adjacencyData(G)
     
-    nx.write_gpickle(graphData.graphData, 'app/static/data/depression_network.pkl')
+    nx.write_gpickle(graphData.graphData, filepath + 'depression_network.pkl')
 
     weightStr = ""
-    file = open("app/static/data/weightParameters.txt", "w")
+    file = open(filepath + "weightParameters.txt", "w")
     weightStr += "\t".join([data["nodes"][str(d)]["label"] for d in graphData.var]) + "\n"
     for row in graphData.adjacencyMatrix.tolist():
         weightStr += "\t".join(['{:.1f}'.format(x) for x in row])+"\n"
@@ -141,7 +141,7 @@ def pkl_exp(data):
     file.close()
 
     threshStr = ""
-    file = open("app/static/data/thresholdParameters.txt", "w")
+    file = open(filepath + "thresholdParameters.txt", "w")
     threshStr += "var,threshold\n"
     for k in graphData.thresholdIndex:
         threshStr += str(k.keys()[0]) + ", " + str(k[k.keys()[0]]) + "\n"
@@ -149,8 +149,8 @@ def pkl_exp(data):
     file.close()
     return filenames, "text"
         
-def json_exp(data):
-    with open('app/static/data/depression_network.json', 'wb') as fp:
+def json_exp(data, filepath):
+    with open(filepath + 'depression_network.json', 'wb') as fp:
         json.dump(data, fp)
     return "depression_network.json", "text/json"
         
@@ -168,11 +168,11 @@ def json_exp(data):
 #     return "depression_network.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     
 
-def csv_exp(data):
+def csv_exp(data, filepath):
     sheets = ["edges", "nodes"]
     filenames = []
     for sheet in sheets:
-        filename = 'app/static/data/depression_network_' + sheet + '.csv'
+        filename = filepath + 'depression_network_' + sheet + '.csv'
         reformat = {}
         for entry in data[sheet]:
             if sheet == "nodes" and int(entry) > 999:
@@ -185,15 +185,15 @@ def csv_exp(data):
     return filenames, "text/csv"
 
         
-def export_network_data(data):
+def export_network_data(data, filepath):
     if data["format"] == "pkl":
-        filenames, contentType = pkl_exp(data)
+        filenames, contentType = pkl_exp(data, filepath)
     elif data["format"] == "json":
-        filenames, contentType = json_exp(data)
+        filenames, contentType = json_exp(data, filepath)
     elif data["format"] == "csv":
-        filenames, contentType = csv_exp(data)
+        filenames, contentType = csv_exp(data, filepath)
     elif data["format"] == "xlsx":
-        filenames, contentType = xlsx_exp(data)
+        filenames, contentType = xlsx_exp(data, filepath)
     return filenames, contentType
 
 
