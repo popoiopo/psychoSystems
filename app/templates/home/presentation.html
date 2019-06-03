@@ -4,9 +4,9 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Reveal.js template</title>
+		<title>IAS presentation</title>
 
-		<meta name="description" content="Simple Reveal.js slidedeck template. Source files loaded from jsDelivr.">
+		<meta name="description" content="Reveal.js presentation.">
 		<meta name="author" content="">
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -87,10 +87,10 @@
     <!-- Nested sections produce vertically connected slides -->
     <section id="title">
       <section>
-        <h3>Complex systems approach to Depression research</h3>
+         <h3>Complex systems approach to Depression research</h3>
         <p class="fragment fade-up">Creating a causal mapping of <span style="color:#ffa100;">Major depression</span></p>
-        <div class="fragment fade-up"><h2 class="fragment shrink">By interviewing experts</h2></div>  
-        <p class="bottom_r" style="font-size:10px">Bas Ch&acirc;tel, Julia Anten, Ria Hoekstra, Sacha Epskamp, Denny Borsboom, Claudi Bockting</p>
+        <div class="fragment fade-up"><h3 class="fragment shrink">By interviewing experts</h3></div>  
+        <p class="bottom_r" style="font-size:10px">Bas Ch&acirc;tel, Julia Anten, Ria Hoekstra, Sacha Epskamp, Denny Borsboom, Claudi Bockting, Rick Quax</p>
       </section>
       <section>
         <h3>350 Million people worldwide suffer from depression</h3>
@@ -122,39 +122,53 @@
         <ul>
           <li>&#177;140.000 articles</li>
           <li>121 eligable articles</li>
-          <li>16 viable causal factors</li>
+          <li>Just a few viable causal factors</li>
         </ul>
         <aside class="notes">
           140.000 articles were reviewed to find predictive markers. Of these 121 articles were found with prospective evidence. 
         </aside>
       </section>
       <section>
-        <h3>Our plan</h3>
+        <h3>The plan</h3>
         <ul class="fragment fade-up">
           <li>Begin with available literature</li>
-          <li>Expand knowledge beyond scope of literature</li>
-          <ul class="fragment fade-up">
+          <li>Expand knowledge beyond scope of literature by using expert interviews</li>
+          <ul>
             <li>Interview experts (20+)</li>
             <li>Value intuition</li>
           </ul>
-          <li class="fragment fade-up">Approach system as network</li>
+          <li>Create Causal Diagram with these experts</li>
+          <li>Model small piece of the network</li>
+        </ul>
+        <p class="fragment fade-up" style="color: #fc5555">No clear methodology on how to actually do this</p>
+      </section>
+      <section>
+        <h3>Thesis split in 4 parts</h3>
+        <p class="fragment fade-up"><b>Part One:</b> Methodology</p>      
+        <p class="fragment fade-up"><b>Part Two:</b> Expert/Literature-based Causal Diagram</p>
+        <p class="fragment fade-up"><b>Part Three:</b> Creating and Analyzing a SDM</p>
+        <p class="fragment fade-up"><b>Part Four/Future work:</b> Website proposal</p>
+      </section>
+    </section>
+
+    <section>
+      <section>
+        <h3>Part One: Methodology</h3>
+        <ul>
+          <li class="fragment fade-up">Properly distill Expert knowledge</li>
+          <li class="fragment fade-up">Shortcomings in existing literature</li>
+          <li class="fragment fade-up">Conversion from CLD to SDM</li>
+          <li class="fragment fade-up">Fit dynamics of the model to data</li>
+          <li class="fragment fade-up">Check for consistency within the SD model</li>
+          <li class="fragment fade-up">Quantify the system</li>
         </ul>
       </section>
+
       <section>
         <h3>Experts to fill in the gaps</h3>
         <p>Researchers, Patients, Providers, Stakeholders, Policy-makers, Politicians</p>
         <center><div style="margin-top: 20px;"><svg width="500" height="500" id="circlePacking"></svg></div></center>
       </section>
-      <section>
-        <h3>Research Questions</h3>
-        <ul>
-          <li>Could <span style="color:#ffa100;">depression</span> be a good candidate for <span style="color:#ffa100;">Complex Systems</span> Simulations?</li>
-          <li>How to unite Micro, Meso and Macro thinking?</li>
-          <li>How can we <span style="color:#ffa100;">link</span> empirical data to expert/patient interview?</li>
-          <li>What kind of <span style="color:#ffa100;">data</span> would be suitable for <span style="color:#ffa100;">validating</span> causal mapping/system dynamics models?</li>
-        </ul>
-      </section>
-    </section>
 
     <section id="show-a-link">
       <h1>Information flow</h1>
@@ -167,7 +181,6 @@
       </small>
     </section>
 
-    <section>
       <section>
         <h1>Interview</h1>
         <ul>
@@ -229,23 +242,21 @@
         <h2>Expert-specific Questions</h2>
         <img data-src="{{ url_for('static', filename='img/stalking.jpg') }}">
       </section>
-    </section>
 
-    <section>
       <section>
         <h3>Filtering and Compressing</h3>
         <div class="container">
 
             <div class="col">
-              <img data-src="{{ url_for('static', filename='img/filtering.jpg') }}">
+	      <img data-src="{{ url_for('static', filename='img/filtering.jpg') }}">
             </div>
 
             <div class="col">
-              <img data-src="{{ url_for('static', filename='img/compression.png') }}">
+              <img style="margin-top:15%;" data-src="{{ url_for('static', filename='img/compression.png') }}">
             </div>
-
         </div>
       </section>
+
       <section>
         <h3>Filtering</h3>
         <ul>
@@ -254,131 +265,155 @@
           <li>Results compared and corrected</li>
         </ul>
       </section>
+
       <section>
         <h3>Compression</h3>
         <p>Filtered Excel files turned into CSV</p>
         <p>CSV &#8594; Easy to use format for later on</p>
       </section>
     </section>
-    <section>
-      <section>
-        <h3>Create Application for Feedback</h3>
-        <ul>
-          <li>Create website <span style="color:green;">&#10003;</span></li>
-          <ul>
-            <li>Create tool for processing network information <span style="color:green;">&#10003;</span></li>
-          </ul>
-          <li>Create causal mapping from compressed interview data</li>
-          <li>Ask for feedback regarding result</li>
-        </ul>
-      </section>
-
-      <section>
-       <div class="row col-sm-8">
-          <h3>Interactively explore the network</h3>
-          <div class="fragment fade-up"><h5 class="fragment shrink">And remove/add nodes and edges</h5></div>  
-          <div id="mynetwork" style="border-style:none;"></div>
-          
-        </div>
-      </section>
-    </section>
 
     <section>
       <section>
-        <h3>Analysis of system/modelling</h3>
-        <ul>
-          <li>Dynamics Systems Model, based on Cramer et al. (2016)</li>
-          <li>Causal loop diagram &#8594; System dynamics model</li>
-          <li>Stock- and- flow model</li>
-        </ul>
-      </section>
+        <h3>Part Two: Expert/Literature-based CLD</h3>
+        <div class="container">
 
-      <section>
-        <h3>Simple on the spot analysis</h3>
-        <div class="switch-toggle switch-3 switch-candy">
-          <input id="on" name="state-d" type="radio" checked="" />
-          <label for="on" onclick='request(1)'>Simulation-1</label>
-          <input id="off" name="state-d" type="radio" />
-          <label for="off" onclick='request(2)'>Simulation-2</label>
-          <a></a>
-        </div>
-        <div style="background-color:#fff8dc;">
-          <div class="container centerIt">
             <div class="col">
-              <div class="row align-items-center">
-                  <div id="slider1_sim3" class="svg-container"></div>
-                  <p id="value1_sim3" class="valueSlider"></p>
-              </div>
+              <img data-src="{{ url_for('static', filename='img/network.png') }}">
             </div>
-            <div class="col col-sm-6">
-              <div class="row align-items-center">
-                  <div id="slider2_sim3" class="svg-container"></div>
-                  <p id="value2_sim3" class="valueSlider"></p>
-              </div>
-            </div>
-          </div>
-          <div class="container">
-            <div class="col col-sm-6">
-              <div id="graph_nw_lines" class="svg-container"></div>
-              <input type="range" min="0" max="0.999" step="0.001" value="0.999" class="slider" id="myRange">
-              <button onclick="request();">Update</button>
-            </div>
-            <div class="col col-sm-6">
-              <div id="graph_network" class="svg-container"></div>
-            </div>
-          </div>
-        </div>  
-      </section>
 
-      <section>
-        <h3>Simulation 3</h3>
-        <ul>
-          <li><strong>Check robustness of simulation 1</strong></li>
-          <li>Run simulation 1, N times</li>
-          <li>Take statistics amount of symptoms</li>
-          <ul>
-            <li>General mean</li>
-            <li>Mean of means</li>
-            <li>Standard dev of means/general</li>
-            <li>Etc.</li>
-          </ul>
-          <li>Analyse for differing C-values</li>
-        </ul>
+            <div class="col">
+              <img data-src="{{ url_for('static', filename='img/networkAll.png') }}">
+            </div>
+        </div>
       </section>
-
-      <section>
-        <h3>Turn Causal Loop diagrams (CLD) into Stock-and-Flow diagrams (SFD)</h3>
-        
-        <table>
-          <tr>
-            <th>Difficulties</th>
-            <th>Benefits</th>
-          </tr>
-          <tr>
-            <td>Hard choices &#8594; variables (stock/flows etc)</td>
-            <td>Voting system &#8594; expert opinions</td>
-          </tr>
-          <tr>
-            <td>Equations must maintain dimensional consistency</td>
-            <td>Possible automation CLD &#8594; SFD</td>
-          </tr>
-          <tr>
-            <td>Unit Checks bring difficulty</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Quantification of SFD</td>
-            <td></td>
-          </tr>
-        </table>
-      </section>
-
     </section>
 
     <section>
       <section>
-        <h1>The End</h1>
-        <p>Any Questions?</p>	
+        <h3>Part Three: Creating and Analyzing small network</h3>
+        <div class="col">
+            <img data-src="{{ url_for('static', filename='img/netwerkje.PNG') }}">
+          </div>
+      </section>
+      <section>
+        <h3>Simple System of ODE's</h3>
+        <div class="container">
+
+            <div class="col" style="margin-top: 10%">
+                \[
+                dSdt = \beta G - \alpha A \\
+                dAdt = \gamma S \\
+                dGdt = -\delta A
+                \]
+            </div>
+
+            <div class="col">
+              <img data-src="{{ url_for('static', filename='img/netwerkje.PNG') }}">
+            </div>
+        </div>
+      </section>
+      <section>
+        <h3>With simple ODE's comes great Dynamics</h3>
+        
+        <div class="col">
+            <img data-src="{{ url_for('static', filename='img/simpleDynamics.PNG') }}">
+          </div>
+      </section>
+
+      <section>
+        <h3>Nice and all, but what about data?</h3>
+        <ul>
+          <li class="fragment fade-up">Nested optimization algorithm</li>
+          <ul>
+            <li class="fragment fade-up">One for finding the optimal <span style="color: #ff9000">ODE</span>
+            <br> 
+            <ul>
+                <li>Find optimal parameter set for fitting of the data</li>
+              </ul>
+            </li>
+            <li class="fragment fade-up">One for finding the optimal <span style="color: #fc5555">parameter values</span>
+              <br> 
+              <ul>
+                  <li>Find optimal parameter values for fitting of the data</li>
+                </ul>
+              </li>
+          </ul>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Slight hiccup though</h3>
+        <div class="container">
+
+            <div class="col" style="margin-top: 10%">
+                <p>The data has 45% missing values </p>
+            </div>
+
+            <div class="col">
+              <img data-src="{{ url_for('static', filename='img/monkey.jpg') }}">
+            </div>
+        </div>
+      </section>
+
+      <section>
+        <h3>Kalman Filter (maybe?) to the rescue?!</h3>
+        <div class="container">
+
+            <div class="col">
+                <img data-src="{{ url_for('static', filename='img/rocket.jpg') }}">
+            </div>
+
+            <div class="col" style="margin-top: 10%">
+              <img data-src="{{ url_for('static', filename='img/kalman.jpg') }}">
+            </div>
+        </div>
+      </section>
+
+      <section>
+	<h3>Compare "Expert" network to random Erdos-Renyi</h3>
+	<img data-src="{{ url_for('static', filename='img/erdos.png') }}">
+      </section>
+
+      <section>
+        <h3>Add Latent variables</h3>
+        <ul>
+          <li>Can we add variables of which we have no data?</li>
+          <ul>           
+            <li class="fragment fade-up">If so, how many can we put in there until it breaks?</li>
+            <li class="fragment fade-up">Will the system still be as (or more) predictive?</li>
+          </ul>
+        </ul>
+      </section>
+
+    </section>
+
+    <section> 
+        <section>
+          <h3>Part Four: Future work - Web proposal</h3>
+          <ul>
+            <li>Create website <span style="color:green;">&#10003;</span></li>
+            <ul>
+              <li>Create tool for obtaining network information <span style="color:green;">&#10003;</span></li>
+              <ul>
+                <li>No need for downloading Vensim</li>
+                <li>Readily available for your Experts</li>
+              </ul>
+              <li>Make application smart</li>
+              <ul>
+                <li>Auto-check redundancy and inconsistency</li>
+                <li>Platform to collaborate</li>
+                <li>Etc..</li>
+              </ul>
+            </ul>
+          </ul>
+        </section>
+      </section>
+
+    <section>
+      <section>
+        <h2>The End, any Questions?</h2>
+        <img data-src="{{ url_for('static', filename='img/questions.jpg') }}">
       </section>
       <section>
         <h3>References</h3>
@@ -393,8 +428,7 @@
           </ul>
         </small>
       </section>
-    </section>
-  </div>
+    </section>  </div>
 </div>
 
 		<script src="https://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/head.min.js"></script>
@@ -412,8 +446,10 @@
 				progress: true,
 				history: true,
 				center: true,
+				showNotes: true,
 
 				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
 
 				// Optional reveal.js plugins, loaded from jsDelivr
 				dependencies: [
@@ -422,7 +458,8 @@
 					{ src: srcUrlPrefix + 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 					{ src: srcUrlPrefix + 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
 					{ src: srcUrlPrefix + 'plugin/zoom-js/zoom.js', async: true },
-					{ src: srcUrlPrefix + 'plugin/notes/notes.js', async: true }
+					{ src: srcUrlPrefix + 'plugin/notes/notes.js', async: true },
+      					{ src: srcUrlPrefix + 'plugin/math/math.js', async: true }
 				]
 			});
 
